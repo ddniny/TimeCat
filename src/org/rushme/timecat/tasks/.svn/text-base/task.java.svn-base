@@ -7,14 +7,14 @@ public class task {
 	public State getState;
 	public enum Importance {LOW, MODERATE, IMPORTANT, CRUCIAL};
 	public Importance getImportance;
-	public int priority;
+	public float priority;
 	public String[] tags;
 
 	public task(){
 
 	}
 
-	public task(String id, String details, String startTime, String endTime, String description, String state, String importance, int priority, String tags, String addTime){
+	public task(String id, String details, String startTime, String endTime, String description, String state, String importance, float priority, String tags, String addTime){
 		this.id = id;
 		this.details = details;
 		this.startTime = startTime;

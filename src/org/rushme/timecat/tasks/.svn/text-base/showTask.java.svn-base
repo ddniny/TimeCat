@@ -276,17 +276,17 @@ public class showTask extends taskEdit implements View.OnClickListener {
 		RadioButton checkedImportance = (RadioButton)findViewById(importanceGroup.getCheckedRadioButtonId());
 		importance = checkedImportance.getText().toString();
 		String priority_string = wPriority.getText().toString();
-		priority = Integer.parseInt(priority_string);
+		priority = Float.parseFloat(priority_string);
 		tags = wTags.getText().toString();
 		checkedTask = new task(null, details, startTime, endTime, description, state, importance, priority, tags, null);
 		if (table.toString().equals("tasktable")&&state.equals("COMPLETED")){
-			MainActivity.mgr.deleteOneTask(oldName, table);
+			MainActivity.mgr.deleteOneTask(id, table);
 			List<task> list = new ArrayList<task>();
 			list.add(checkedTask);
 			MainActivity.mgr.add(list, "completedTasktable");
 			table = "completedTasktable";
 		}else if (table.toString().equals("completedTasktable")&&(state.equals("ACTIVE")||state.equals("EXPIRED"))){
-			MainActivity.mgr.deleteOneTask(oldName, table);
+			MainActivity.mgr.deleteOneTask(id, table);
 			List<task> list = new ArrayList<task>();
 			list.add(checkedTask);
 			MainActivity.mgr.add(list, "tasktable");

@@ -2,141 +2,140 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   name=""
    repos="https://bolt.math.cmu.edu/svn/timecat"
-   revision="38"
+   name=""
+   revision="47"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/res/layout"
-   committed-rev="38"
+   committed-rev="47"
    kind="dir"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="activity_main.xml"
-   checksum="49a5ee251e5c1429991efd772d309489"
+   checksum="a31e60438cc5a67e9349f080e6c79667"
    last-author="danni"
-   committed-rev="38"
-   text-time="2013-10-23T18:16:09.000000Z"
+   text-time="2014-01-02T09:17:54.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="completed_list.xml"
-   checksum="f8ed8084d1c6c3e7741e444136b7c189"
+   checksum="16564ef83ec83253d23e1d30aa4c7a25"
    last-author="danni"
-   committed-rev="38"
-   text-time="2013-10-23T18:16:16.000000Z"
+   text-time="2014-01-02T13:05:43.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="expired_list.xml"
    checksum="3d77b2ec1979088de5b11405f3a35891"
    last-author="danni"
-   committed-rev="38"
    text-time="2013-10-23T18:16:24.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="item_active.xml"
-   checksum="a1043a14f36343e13a150f78522634f2"
+   checksum="5dc643a8b6338644b9afdc72d855e417"
    last-author="danni"
-   committed-rev="38"
-   text-time="2013-12-13T16:02:51.000000Z"
+   text-time="2014-01-02T07:14:56.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="item_completed.xml"
-   checksum="a1043a14f36343e13a150f78522634f2"
+   checksum="ab0087487886be905d5081be1ac43107"
    last-author="danni"
-   committed-rev="38"
-   text-time="2013-12-13T16:08:45.000000Z"
+   text-time="2014-01-02T13:37:01.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="item_expired.xml"
    checksum="a1043a14f36343e13a150f78522634f2"
    last-author="danni"
-   committed-rev="38"
    text-time="2013-12-13T16:08:39.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="menu_active_task.xml"
    checksum="67596973fe5c658c1ce2a6ec7b9bbba0"
    last-author="danni"
-   committed-rev="38"
    text-time="2013-10-23T18:16:45.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="menu_completed_list.xml"
    checksum="445c123cbc467730e182c88b7ee5313d"
    last-author="danni"
-   committed-rev="38"
    text-time="2013-10-23T18:16:50.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="menu_expired_list.xml"
    checksum="cc2d10b5ffe9e67cd4d18f8d8f67ac38"
    last-author="danni"
-   committed-rev="38"
    text-time="2013-10-23T18:16:55.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="menu_settings.xml"
    checksum="d97d86b5aa3ce942e96dc40a17e62ebc"
    last-author="danni"
-   committed-rev="38"
    text-time="2013-10-23T18:17:00.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="menu_statistics.xml"
    checksum="b5e6b31c83d26ad081db0cee933d4a54"
    last-author="danni"
-   committed-rev="38"
    text-time="2013-10-23T18:17:05.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="menu_task_edit.xml"
    checksum="1414552dfb3a5bf77cefb4b7f0ffe684"
    last-author="danni"
-   committed-rev="38"
    text-time="2013-10-23T18:17:10.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="popup_active.xml"
    checksum="4f7e6384c244efcf03573a7af014dbdb"
    last-author="danni"
-   committed-rev="38"
    text-time="2013-10-23T18:17:15.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="settings.xml"
    checksum="384cff148419136b3a37206f78321546"
    last-author="danni"
-   committed-rev="38"
    text-time="2013-10-23T18:17:21.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="statistics.xml"
    checksum="f2cba58171bd0de8415715fad435a6cc"
    last-author="danni"
-   committed-rev="38"
    text-time="2013-11-08T18:43:10.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="task_edit.xml"
-   revision="42"
    checksum="d6784a60df52623d58f5b341b4cbf5ad"
    last-author="danni"
-   committed-rev="42"
    text-time="2013-12-26T08:26:38.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-26T14:43:28.698000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 </wc-entries>

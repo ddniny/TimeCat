@@ -2,30 +2,28 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   name=""
    repos="https://bolt.math.cmu.edu/svn/timecat"
-   revision="38"
+   name=""
+   revision="47"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/src/org/rushme/timecat/data"
-   committed-rev="38"
+   committed-rev="47"
    kind="dir"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="DBHelper.java"
-   revision="42"
    checksum="762497e62c01eb9e668a6cc92398c201"
    last-author="danni"
-   committed-rev="42"
    text-time="2013-12-26T13:32:20.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-26T14:43:28.698000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="DBManager.java"
-   revision="42"
-   checksum="3d70b8a8b8d00afe6e8fd28bf9984ccd"
+   checksum="832d948fdf23ba1c363a33133d451668"
    last-author="danni"
-   committed-rev="42"
-   text-time="2013-12-26T08:21:14.000000Z"
+   text-time="2013-12-31T03:52:01.000000Z"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-26T14:43:28.698000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 </wc-entries>

@@ -4,19 +4,19 @@
 <entry
    name=""
    repos="https://bolt.math.cmu.edu/svn/timecat"
-   revision="38"
+   revision="47"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/res/drawable-xxhdpi"
-   committed-rev="38"
+   committed-rev="47"
    kind="dir"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="ic_launcher.png"
    checksum="026e2b8340c9b5d82a9581737bf6f25a"
    last-author="danni"
    text-time="2013-12-13T18:13:14.000000Z"
-   committed-rev="38"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"
-   prop-time="2013-12-15T22:32:35.000000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:13:08.000000Z"/>
 </wc-entries>

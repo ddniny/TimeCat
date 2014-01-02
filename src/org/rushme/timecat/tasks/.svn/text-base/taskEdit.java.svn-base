@@ -44,7 +44,7 @@ public class taskEdit extends Activity implements View.OnClickListener{
     SeekBar sb;
 	private TextView sbResult;
 	String details, startTime, endTime, description, state, importance, tags;
-	int priority;
+	float priority;
 	Date today = new Date();
 	Intent intent = new Intent();
 	private String table;
@@ -63,6 +63,12 @@ public class taskEdit extends Activity implements View.OnClickListener{
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
 		setContentView(R.layout.task_edit);
+		
+		Intent intent = getIntent();
+		float newScore = -1;
+		if (intent.getStringExtra("newScore") != null){
+			newScore = Float.parseFloat(intent.getStringExtra("newScore"));
+		}
 		menu = (Button)findViewById(R.id.menu);
 		menu.setOnClickListener(this);
 
@@ -84,6 +90,10 @@ public class taskEdit extends Activity implements View.OnClickListener{
 		rDate = (EditText)findViewById(R.id.rDate);
 		rTime = (EditText)findViewById(R.id.rTime);
 		wPriority = (EditText)findViewById(R.id.wPriority);
+		if (newScore>0){
+			System.out.println(newScore + "newScore!!!!!!!!!!!!!!!");
+			wPriority.setText(String.valueOf(newScore));
+		}
 		wTags = (EditText)findViewById(R.id.wTags);
 		sb =(SeekBar)findViewById(R.id.sb);
 		sbResult=(TextView)findViewById(R.id.sbresult);
@@ -377,14 +387,13 @@ public class taskEdit extends Activity implements View.OnClickListener{
 		if (priority_string.equals("")){
 			priority = 1000;
 		}else{
-			priority = Integer.parseInt(priority_string);
+			priority = Float.parseFloat(priority_string);
 		}
 		tags = wTags.getText().toString();
 
 
 		task task1 = new task(null, details, startTime, endTime, description, state, importance, priority, tags, null);
 		
-		System.out.println(task1.details + "adding task!!!!!" + state.toString());
 		tasks.add(task1);
 		if (state.equals("COMPLETED")){
 			MainActivity.mgr.add(tasks, "completedTasktable");

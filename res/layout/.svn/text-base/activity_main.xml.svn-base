@@ -43,14 +43,14 @@
         android:layout_alignParentTop="true"
         android:text="NOW" />
 
-    <ListView
+     <org.rushme.timecat.tasks.SlideDelListview
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/menu"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/now" >
-    </ListView>
+        android:layout_below="@+id/now" />
+    
 
     <Button
         android:id="@+id/menu"

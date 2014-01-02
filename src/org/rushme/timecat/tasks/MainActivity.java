@@ -18,8 +18,11 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -56,6 +59,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
+import org.rushme.timecat.tasks.SlideDelListview.SlideDeleteListener;
 import org.rushme.timecat.R;
 import org.rushme.timecat.R.array;
 import org.rushme.timecat.R.drawable;
@@ -68,7 +72,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 	private TextView date;
 	private TextView time;
 	private Button now, menuBtn, backBtn;
-	private ListView activeListView;
+	private SlideDelListview activeListView;
 	private String[] mFrom;
 	private int[] mTo;
 	private Date d = new Date();
@@ -76,11 +80,15 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 	private SimpleDateFormat sdfDate = new SimpleDateFormat("MM/dd/yyyy");
 	private SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
 	private SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	private List<Map<String,Object>> activeTasks;
+	private static List<Map<String,Object>> activeTasks;
 	public static MainActivity ma;
 	private String[] mLocations;
+	private int pointX, pointY, endX,endY;
+	private int position,newpos;
+	private Button curDel_btn;
 	MyExit myExit;
 	public static final int priority_max = 2000;
+	public static boolean longClick = false;
 
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,6 +119,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 	public void onCreate(Bundle icicle){
 		setTheme(SampleList.THEME); //Used for theme switching in samples
 		super.onCreate(icicle);
+		longClick = false;
 		myExit = (MyExit) getApplication();
 		myExit.setExit(false);
 		setContentView(R.layout.activity_main); 
@@ -147,7 +156,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		getSupportActionBar().setListNavigationCallbacks(list, this);
 
-		activeListView = (ListView) findViewById(android.R.id.list);
+		activeListView = (SlideDelListview) findViewById(android.R.id.list);
 		mFrom = new String[]{"details","Description","time"};
 		mTo = new int[]{R.id.details,R.id.description,R.id.time};
 
@@ -156,39 +165,103 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 		final SelfAdapter mSelfAdapter = new SelfAdapter(this, getData(), R.layout.item_active, mFrom, mTo);
 
 		activeListView.setAdapter(mSelfAdapter);
-		activeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				//get the data included in the item pressed
-				@SuppressWarnings("unchecked")
-				HashMap<String,Object> map = (HashMap<String, Object>) parent.getItemAtPosition(position);
-				Intent intent = new Intent();
-				intent.setClass(MainActivity.this, showTask.class);
-				Bundle bundle=new Bundle();  
-				bundle.putString("id", map.get("id").toString()); 
-				if (map.get("table") != null){
-					bundle.putString("table", "completedTasktable");
-				}else{
-					bundle.putString("table", "tasktable");
-				}
-				intent.putExtras(bundle); 
-				startActivity(intent);
-			}
-		});
+		//		activeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		//			@Override
+		//			public void onItemClick(AdapterView<?> parent, View view, int position,
+		//					long id) {
+		//				//get the data included in the item pressed
+		//				@SuppressWarnings("unchecked")
+		//				HashMap<String,Object> map = (HashMap<String, Object>) parent.getItemAtPosition(position);
+		//				Intent intent = new Intent();
+		//				intent.setClass(MainActivity.this, showTask.class);
+		//				Bundle bundle=new Bundle();  
+		//				bundle.putString("id", map.get("id").toString()); 
+		//				if (map.get("table") != null){
+		//					bundle.putString("table", "completedTasktable");
+		//				}else{
+		//					bundle.putString("table", "tasktable");
+		//				}
+		//				intent.putExtras(bundle); 
+		//				startActivity(intent);
+		//			}
+		//		});
 
 		activeListView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() { 
 			@Override
 			public void onCreateContextMenu(ContextMenu menu, View v, 
 					ContextMenuInfo menuInfo) { 
+				longClick = true;
 				menu.add(0, 0, 0, "Mark as Completed"); 
 				menu.add(0, 1, 0, "New Task Higher"); 
 				menu.add(0, 2, 0, "Delete"); 
-
 			}
 		});
 
+		activeListView.setFlipperDeleteListener(new SlideDeleteListener() {
 
+			public void filpperOnclick(float xPosition, float yPosition) {
+				if (longClick) {
+					longClick = false;
+					return;
+				}
+				if (activeListView.getChildCount() == 0)
+					return;
+				// get the position of the item according to the coordinates
+				final int position = activeListView.pointToPosition((int) xPosition, (int) yPosition);
+				final String selectedId = activeTasks.get(position).get("id").toString();
+				final String selectedTable;
+				if (!activeTasks.get(position).containsKey("table")){
+					selectedTable = "tasktable";
+				}else{
+					selectedTable = "completedTasktable";
+				}
+				task selectedTask = mgr.queryById(selectedId, selectedTable);
+				Intent intent = new Intent();
+				intent.setClass(MainActivity.this, showTask.class);
+				Bundle bundle=new Bundle();  
+				bundle.putString("id", selectedId); 
+				bundle.putString("table", selectedTable);
+				intent.putExtras(bundle); 
+				startActivity(intent);
+			}
+
+			public void filpperDelete(float xPosition, float yPosition) {
+				if (activeListView.getChildCount() == 0)
+					return;
+				final int index = activeListView.pointToPosition((int) xPosition, (int) yPosition);
+				// 一下两步是获得该条目在屏幕显示中的相对位置，直接根据index删除会空指針异常。因为listview中的child只有当前在屏幕中显示的才不会为空
+				int firstVisiblePostion = activeListView.getFirstVisiblePosition();
+				View view = activeListView.getChildAt(index - firstVisiblePostion);
+				if (curDel_btn!=null) {
+					curDel_btn.setVisibility(View.GONE);
+					curDel_btn = null;
+				}else{
+
+					curDel_btn = (Button)view.findViewById(R.id.del);
+					curDel_btn.setVisibility(View.VISIBLE);
+					curDel_btn.setOnClickListener(new OnClickListener(){
+
+						@Override
+						public void onClick(View v) {
+							final String selectedId = activeTasks.get(index).get("id").toString();
+							final String selectedTable;
+							if (!activeTasks.get(index).containsKey("table")){
+								selectedTable = "tasktable";
+							}else{
+								selectedTable = "completedTasktable";
+							}
+							MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
+							activeListView.setAdapter(new SelfAdapter(MainActivity.this, getData(), R.layout.item_active, mFrom, mTo));
+
+						}
+
+					});
+
+				}
+
+
+			}
+		});
 
 		ma = this;
 	}
@@ -206,7 +279,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 		}
 		task selectedTask = mgr.queryById(selectedId, selectedTable);
 		String oldState = selectedTask.getState.toString();
-
+		longClick = false;
 		switch (item.getItemId()) { 
 		case 0: 
 			// Mark as Completed
@@ -229,7 +302,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 			task priorTask = null;
 			if (position == 0){
 				newScore = score + 1;
-				
+
 			}else {
 				priorId = activeTasks.get(position-1).get("id").toString();
 				if (!activeTasks.get(position-1).containsKey("table")){
@@ -239,7 +312,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 				}
 				priorTask = mgr.queryById(priorId, priorTable);
 				float priorScore = getScore(priorTask);
-			    newScore = (score + priorScore)/2;
+				newScore = (score + priorScore)/2;
 			}
 			Intent intent = new Intent();
 			intent.setClass(this, taskEdit.class);
@@ -251,21 +324,21 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 
 		case 2: 
 			// Delete 
-				new AlertDialog.Builder(this)
-				.setTitle("Delete a Task!")
-				.setMessage("Are you sure you want to delete this task?")
-				.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) { 
-						MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
-						activeListView.setAdapter(new SelfAdapter(MainActivity.this, getData(), R.layout.item_active, mFrom, mTo));
-					}
-				})
-				.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) { 
-						
-					}
-				})
-				.show();
+			new AlertDialog.Builder(this)
+			.setTitle("Delete a Task!")
+			.setMessage("Are you sure you want to delete this task?")
+			.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
+					MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
+					activeListView.setAdapter(new SelfAdapter(MainActivity.this, getData(), R.layout.item_active, mFrom, mTo));
+				}
+			})
+			.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
+
+				}
+			})
+			.show();
 			break; 
 
 		default: 
@@ -277,6 +350,8 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 		return super.onContextItemSelected(item);
 
 	} 
+
+
 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {

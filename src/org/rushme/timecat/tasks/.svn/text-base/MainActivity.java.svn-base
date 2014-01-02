@@ -3,11 +3,13 @@ package org.rushme.timecat.tasks;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.Editable;
@@ -16,8 +18,11 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -47,12 +52,14 @@ import java.util.Map;
 import org.rushme.timecat.data.DBManager;
 import org.rushme.timecat.helper.SampleList;
 import org.rushme.timecat.menu.menu_ActiveTask;
+import org.rushme.timecat.menu.menu_taskEdit;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
+import org.rushme.timecat.tasks.SlideDelListview.SlideDeleteListener;
 import org.rushme.timecat.R;
 import org.rushme.timecat.R.array;
 import org.rushme.timecat.R.drawable;
@@ -65,7 +72,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 	private TextView date;
 	private TextView time;
 	private Button now, menuBtn, backBtn;
-	private ListView activeListView;
+	private SlideDelListview activeListView;
 	private String[] mFrom;
 	private int[] mTo;
 	private Date d = new Date();
@@ -73,11 +80,15 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 	private SimpleDateFormat sdfDate = new SimpleDateFormat("MM/dd/yyyy");
 	private SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
 	private SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	private List<Map<String,Object>> activeTasks;
+	private static List<Map<String,Object>> activeTasks;
 	public static MainActivity ma;
 	private String[] mLocations;
+	private int pointX, pointY, endX,endY;
+	private int position,newpos;
+	private Button curDel_btn;
 	MyExit myExit;
 	public static final int priority_max = 2000;
+	public static boolean longClick = false;
 
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,6 +119,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 	public void onCreate(Bundle icicle){
 		setTheme(SampleList.THEME); //Used for theme switching in samples
 		super.onCreate(icicle);
+		longClick = false;
 		myExit = (MyExit) getApplication();
 		myExit.setExit(false);
 		setContentView(R.layout.activity_main); 
@@ -144,79 +156,202 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		getSupportActionBar().setListNavigationCallbacks(list, this);
 
-		activeListView = (ListView) findViewById(android.R.id.list);
+		activeListView = (SlideDelListview) findViewById(android.R.id.list);
 		mFrom = new String[]{"details","Description","time"};
 		mTo = new int[]{R.id.details,R.id.description,R.id.time};
 
 		//own defined Adapter using to associate the items with the ListView
+		activeTasks = getData();
 		final SelfAdapter mSelfAdapter = new SelfAdapter(this, getData(), R.layout.item_active, mFrom, mTo);
 
 		activeListView.setAdapter(mSelfAdapter);
-		activeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		//		activeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		//			@Override
+		//			public void onItemClick(AdapterView<?> parent, View view, int position,
+		//					long id) {
+		//				//get the data included in the item pressed
+		//				@SuppressWarnings("unchecked")
+		//				HashMap<String,Object> map = (HashMap<String, Object>) parent.getItemAtPosition(position);
+		//				Intent intent = new Intent();
+		//				intent.setClass(MainActivity.this, showTask.class);
+		//				Bundle bundle=new Bundle();  
+		//				bundle.putString("id", map.get("id").toString()); 
+		//				if (map.get("table") != null){
+		//					bundle.putString("table", "completedTasktable");
+		//				}else{
+		//					bundle.putString("table", "tasktable");
+		//				}
+		//				intent.putExtras(bundle); 
+		//				startActivity(intent);
+		//			}
+		//		});
+
+		activeListView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() { 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				//get the data included in the item pressed
-				@SuppressWarnings("unchecked")
-				HashMap<String,Object> map = (HashMap<String, Object>) parent.getItemAtPosition(position);
+			public void onCreateContextMenu(ContextMenu menu, View v, 
+					ContextMenuInfo menuInfo) { 
+				longClick = true;
+				menu.add(0, 0, 0, "Mark as Completed"); 
+				menu.add(0, 1, 0, "New Task Higher"); 
+				menu.add(0, 2, 0, "Delete"); 
+			}
+		});
+
+		activeListView.setFlipperDeleteListener(new SlideDeleteListener() {
+
+			public void filpperOnclick(float xPosition, float yPosition) {
+				if (longClick) {
+					longClick = false;
+					return;
+				}
+				if (activeListView.getChildCount() == 0)
+					return;
+				// get the position of the item according to the coordinates
+				final int position = activeListView.pointToPosition((int) xPosition, (int) yPosition);
+				final String selectedId = activeTasks.get(position).get("id").toString();
+				final String selectedTable;
+				if (!activeTasks.get(position).containsKey("table")){
+					selectedTable = "tasktable";
+				}else{
+					selectedTable = "completedTasktable";
+				}
+				task selectedTask = mgr.queryById(selectedId, selectedTable);
 				Intent intent = new Intent();
 				intent.setClass(MainActivity.this, showTask.class);
 				Bundle bundle=new Bundle();  
-				bundle.putString("id", map.get("id").toString()); 
-				if (map.get("table") != null){
-					bundle.putString("table", "completedTasktable");
-				}else{
-					bundle.putString("table", "tasktable");
-				}
+				bundle.putString("id", selectedId); 
+				bundle.putString("table", selectedTable);
 				intent.putExtras(bundle); 
 				startActivity(intent);
 			}
-		});
-		
-		activeListView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() { 
-			@Override
-            public void onCreateContextMenu(ContextMenu menu, View v, 
-                            ContextMenuInfo menuInfo) { 
-                    menu.add(0, 0, 0, "Mark as Completed"); 
-                    menu.add(0, 1, 0, "New Task Higher"); 
-                    menu.add(0, 2, 0, "Delete"); 
 
-            }
-    });
-		
-		
+			public void filpperDelete(float xPosition, float yPosition) {
+				if (activeListView.getChildCount() == 0)
+					return;
+				final int index = activeListView.pointToPosition((int) xPosition, (int) yPosition);
+				// ‰∏Ä‰∏ã‰∏§Ê≠•ÊòØËé∑ÂæóËØ•Êù°ÁõÆÂú®Â±èÂπïÊòæÁ§∫‰∏≠ÁöÑÁõ∏ÂØπ‰ΩçÁΩÆÔºåÁõ¥Êé•Ê†πÊçÆindexÂà†Èô§‰ºöÁ©∫ÊåáÈáùÂºÇÂ∏∏„ÄÇÂõ†‰∏∫listview‰∏≠ÁöÑchildÂè™ÊúâÂΩìÂâçÂú®Â±èÂπï‰∏≠ÊòæÁ§∫ÁöÑÊâç‰∏ç‰ºö‰∏∫Á©∫
+				int firstVisiblePostion = activeListView.getFirstVisiblePosition();
+				View view = activeListView.getChildAt(index - firstVisiblePostion);
+				if (curDel_btn!=null) {
+					curDel_btn.setVisibility(View.GONE);
+					curDel_btn = null;
+				}else{
+
+					curDel_btn = (Button)view.findViewById(R.id.del);
+					curDel_btn.setVisibility(View.VISIBLE);
+					curDel_btn.setOnClickListener(new OnClickListener(){
+
+						@Override
+						public void onClick(View v) {
+							final String selectedId = activeTasks.get(index).get("id").toString();
+							final String selectedTable;
+							if (!activeTasks.get(index).containsKey("table")){
+								selectedTable = "tasktable";
+							}else{
+								selectedTable = "completedTasktable";
+							}
+							MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
+							activeListView.setAdapter(new SelfAdapter(MainActivity.this, getData(), R.layout.item_active, mFrom, mTo));
+
+						}
+
+					});
+
+				}
+
+
+			}
+		});
 
 		ma = this;
 	}
-	
+
 	public boolean onContextItemSelected(android.view.MenuItem item) { 
 
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo(); 
-        //MID = (int) info.id;// ’‚¿Ôµƒinfo.id∂‘”¶µƒæÕ « ˝æ›ø‚÷–_idµƒ÷µ 
-        int position = info.position;   
-        switch (item.getItemId()) { 
-        case 0: 
-                // ÃÌº”≤Ÿ◊˜ 
-                Toast.makeText(MainActivity.this,String.valueOf(info.position), Toast.LENGTH_LONG).show();
-                break; 
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo(); 
+		int position = info.position;  
+		final String selectedId = activeTasks.get(position).get("id").toString();
+		final String selectedTable;
+		if (!activeTasks.get(position).containsKey("table")){
+			selectedTable = "tasktable";
+		}else{
+			selectedTable = "completedTasktable";
+		}
+		task selectedTask = mgr.queryById(selectedId, selectedTable);
+		String oldState = selectedTask.getState.toString();
+		longClick = false;
+		switch (item.getItemId()) { 
+		case 0: 
+			// Mark as Completed
+			selectedTask.setState("COMPLETED");
+			if (selectedTable.toString().equals("tasktable")){	//mark the task to completed and move it to the completedTasktable from tasktable
+				MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
+				List<task> list = new ArrayList<task>();
+				list.add(selectedTask);
+				MainActivity.mgr.add(list, "completedTasktable");
+			}
+			break; 
 
-        case 1: 
-                // …æ≥˝≤Ÿ◊˜ 
-            Toast.makeText(MainActivity.this,String.valueOf(info.position), Toast.LENGTH_LONG).show();
-                break; 
+		case 1: 
+			// New Task Higher
+			Toast.makeText(MainActivity.this,String.valueOf(info.position), Toast.LENGTH_LONG).show();
+			String priorId;
+			String priorTable;
+			float score = getScore(selectedTask);
+			float newScore;
+			task priorTask = null;
+			if (position == 0){
+				newScore = score + 1;
 
-        case 2: 
-                // …æ≥˝ALL≤Ÿ◊˜ 
-            Toast.makeText(MainActivity.this,String.valueOf(info.position), Toast.LENGTH_LONG).show();
-                break; 
+			}else {
+				priorId = activeTasks.get(position-1).get("id").toString();
+				if (!activeTasks.get(position-1).containsKey("table")){
+					priorTable = "tasktable";
+				}else{
+					priorTable = "completedTasktable";
+				}
+				priorTask = mgr.queryById(priorId, priorTable);
+				float priorScore = getScore(priorTask);
+				newScore = (score + priorScore)/2;
+			}
+			Intent intent = new Intent();
+			intent.setClass(this, taskEdit.class);
+			Bundle bundle=new Bundle();  
+			bundle.putString("newScore", String.valueOf(newScore)); 
+			intent.putExtras(bundle); 
+			startActivity(intent);
+			break; 
 
-        default: 
-                break; 
-        } 
+		case 2: 
+			// Delete 
+			new AlertDialog.Builder(this)
+			.setTitle("Delete a Task!")
+			.setMessage("Are you sure you want to delete this task?")
+			.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
+					MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
+					activeListView.setAdapter(new SelfAdapter(MainActivity.this, getData(), R.layout.item_active, mFrom, mTo));
+				}
+			})
+			.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
 
-        return super.onContextItemSelected(item);
+				}
+			})
+			.show();
+			break; 
 
-} 
+		default: 
+			break; 		
+		} 
+		activeListView.setAdapter(new SelfAdapter(MainActivity.this, getData(), R.layout.item_active, mFrom, mTo));
+
+
+		return super.onContextItemSelected(item);
+
+	} 
+
+
 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
@@ -271,47 +406,13 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 
 			public int compare(task task1, task task2) {
 				Date now = new Date();
-				long score1, score2;
-				try {
-					if (!task1.getState.equals("EXPIRED")){
-						long endTime1 = sdf.parse(task1.endTime).getTime();
-						long startTime1 = sdf.parse(task1.startTime).getTime();
-						long priority1 = task1.priority;
-						long nowTime = sdf.parse(sdf.format(now)).getTime();
-						if (endTime1 != startTime1){
-							score1 = priority1 + (priority_max - priority1) * (nowTime - startTime1)/(endTime1 - startTime1);
-							//System.out.println(nowTime + " " + startTime1 + " " + endTime1);
-						}else{
-							score1 = priority1;
-						}
-					}else{
-						score1 = task1.priority;
-					}
+				float score1, score2;
+				score1 = getScore(task1);
+				score2 = getScore(task2);
+				System.out.println("score1:"+score1+ task1.details+" score2:"+score2 +task2.details+"!!!!!!!!!!!");
 
-					if (!task2.getState.equals("EXPIRED")){
-						long endTime2= sdf.parse(task2.endTime).getTime();
-						long startTime2 = sdf.parse(task2.startTime).getTime();
-						long priority2 = task2.priority;
-						long nowTime = sdf.parse(sdf.format(now)).getTime();
-						if (endTime2 != startTime2){
-							score2 = priority2 + (priority_max - priority2) * (nowTime - startTime2)/(endTime2 - startTime2);
-							//System.out.println(nowTime + " " + startTime2 + " " + endTime2);
-						}else{
-							score2 = priority2;
-						}
-					}else{
-						score2 = task2.priority;
-					}
-					//System.out.println("score1:"+score1+ task1.details+" score2:"+score2 +task2.details+"!!!!!!!!!!!");
-
-					if (score1 > score2) return -1;
-					else return 1;
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				return 0;
+				if (score1 > score2) return -1;
+				else return 1;
 			}	
 
 		});
@@ -493,6 +594,32 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 			break;
 		}
 		return dialog;
+	}
+
+	public float getScore(task task){
+		float score = task.priority;
+		Date now = new Date();
+		try {
+			if (task.getState.toString().equals("ACTIVE")){
+				long endTime;
+				endTime = sdf.parse(task.endTime).getTime();
+				long startTime = sdf.parse(task.startTime).getTime();
+				float priority = task.priority;
+				long nowTime = sdf.parse(sdf.format(now)).getTime();
+				if (endTime != startTime){
+					score = priority + (priority_max - priority) * (float)(nowTime - startTime)/(float)(endTime - startTime);
+					//System.out.println(nowTime + " " + startTime + " " + endTime + "!!!!!!!!!!!!getscore");
+				}else{
+					score = priority;
+				}
+			}else{
+				score = task.priority;
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return score;
 	}
 
 }

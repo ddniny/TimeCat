@@ -6,17 +6,16 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp" >
 
-    <Button
+   <!--  <Button
         android:id="@+id/edit"
         android:layout_width="60dp"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:focusable="false" />
+        android:focusable="false" /> -->
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_toRightOf="@id/edit"
         android:orientation="vertical"
         android:paddingLeft="8dp" >
 
@@ -42,12 +41,27 @@
             android:textSize="12dp" />
     </LinearLayout>
 
-    <CheckBox
+    <!-- <CheckBox
         android:id="@+id/checked"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
         android:checked="false"
-        android:focusable="false" />
+        android:focusable="false" /> -->
+        <Button  
+        android:id="@+id/del"  
+        android:layout_width="wrap_content"  
+        android:singleLine="true"  
+        android:layout_height="wrap_content"         
+        android:gravity="center_vertical"  
+        android:layout_gravity="center_vertical"  
+        android:layout_alignParentRight="true"  
+        android:paddingLeft="8dip"  
+        android:paddingRight="8dip"         
+        android:textColor="#ffffff"    
+        android:text="Delete"  
+        android:layout_margin="8dip"  
+        android:visibility="gone"  
+         />  
 
 </RelativeLayout>

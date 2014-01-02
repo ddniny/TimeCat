@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.rushme.timecat.helper.SampleList;
 import org.rushme.timecat.menu.menu_completedList;
+import org.rushme.timecat.tasks.SlideDelListview.SlideDeleteListener;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -29,6 +30,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,79 +41,142 @@ import android.widget.Toast;
 public class completedList extends SherlockActivity implements View.OnClickListener, ActionBar.OnNavigationListener{
 	Button back, menu;
 	private String[] mLocations;
-    MyExit myExit;
-    private ListView activeListView;
+	MyExit myExit;
+	private SlideDelListview activeListView;
 	private String[] mFrom;
 	private int[] mTo;
-	
+	private static boolean longClick = false;
+	private Button curDel_btn;
+	private List<Map<String,Object>> activeTasks;
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-        //Used to put dark icons on light action bar
-        boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
+		//Used to put dark icons on light action bar
+		boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
 
-//        menu.add("Save")
-//            .setIcon(isLight ? R.drawable.ic_compose_inverse : R.drawable.ic_compose)
-//            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		//        menu.add("Save")
+		//            .setIcon(isLight ? R.drawable.ic_compose_inverse : R.drawable.ic_compose)
+		//            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-//        menu.add("Search")
-//            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		//        menu.add("Search")
+		//            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
-        menu.add("Refresh")
-            .setIcon(isLight ? R.drawable.ic_refresh_inverse : R.drawable.ic_refresh)
-            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		menu.add("Refresh")
+		.setIcon(isLight ? R.drawable.ic_refresh_inverse : R.drawable.ic_refresh)
+		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
-        return true;
-    }
-	
+		return true;
+	}
+
 	@Override
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
 		setContentView(R.layout.completed_list);
 		setTheme(SampleList.THEME); //Used for theme switching in samples
-		
+
 		myExit = (MyExit) getApplication();
 		myExit.setExit(false);
 		/*menu button*/
-        mLocations = getResources().getStringArray(R.array.locations);
+		mLocations = getResources().getStringArray(R.array.locations);
 		Context context = getSupportActionBar().getThemedContext();
-        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
-        list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
+		list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
 
-        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        getSupportActionBar().setListNavigationCallbacks(list, this);
-		
-		activeListView = (ListView) findViewById(android.R.id.list);
+		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		getSupportActionBar().setListNavigationCallbacks(list, this);
+
+		activeListView = (SlideDelListview) findViewById(android.R.id.list);
 		mFrom = new String[]{"details","Description","time"};
 		mTo = new int[]{R.id.details,R.id.description,R.id.time};
+		activeTasks = getData();
 		//own-defined Adapter
 		final SelfAdapter mSelfAdapter = new SelfAdapter(this, getData(), R.layout.item_completed, mFrom, mTo);
 		activeListView.setAdapter(mSelfAdapter);
-		activeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		//		activeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		//
+		//			@Override
+		//			public void onItemClick(AdapterView<?> parent, View view, int position,
+		//					long id) {
+		//				//get the data included in the item pressed 
+		//				@SuppressWarnings("unchecked")
+		//				HashMap<String,Object> map = (HashMap<String, Object>) parent.getItemAtPosition(position);
+		//				Intent intent = new Intent();
+		//				intent.setClass(completedList.this, showTask.class);
+		//				Bundle bundle=new Bundle();  
+		//				bundle.putString("id", map.get("id").toString());
+		//				bundle.putString("table", "completedTasktable");
+		//				intent.putExtras(bundle); 
+		//				startActivity(intent);
+		//			}
+		//		});
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				//get the data included in the item pressed 
-				@SuppressWarnings("unchecked")
-				HashMap<String,Object> map = (HashMap<String, Object>) parent.getItemAtPosition(position);
-				Intent intent = new Intent();
-				intent.setClass(completedList.this, showTask.class);
-				Bundle bundle=new Bundle();  
-				bundle.putString("id", map.get("id").toString());
-				bundle.putString("table", "completedTasktable");
-				intent.putExtras(bundle); 
-				startActivity(intent);
-			}
-		});
-		
 		activeListView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() { 
 			@Override
 			public void onCreateContextMenu(ContextMenu menu, View v, 
 					ContextMenuInfo menuInfo) { 
+				longClick = true;
 				menu.add(0, 0, 0, "Mark as Uncompleted"); 
 				menu.add(0, 1, 0, "Duplicate"); 
 				menu.add(0, 2, 0, "Delete"); 
 
+			}
+		});
+
+		activeListView.setFlipperDeleteListener(new SlideDeleteListener() {
+
+			public void filpperOnclick(float xPosition, float yPosition) {
+				if (longClick) {
+					longClick = false;
+					return;
+				}
+				if (activeListView.getChildCount() == 0)
+					return;
+				final int position = activeListView.pointToPosition((int) xPosition,
+						(int) yPosition);
+				final String selectedId = activeTasks.get(position).get("id").toString();
+				final String selectedTable;
+				selectedTable = "completedTasktable";
+
+				task selectedTask = MainActivity.mgr.queryById(selectedId, selectedTable);
+				Intent intent = new Intent();
+				intent.setClass(completedList.this, showTask.class);
+				Bundle bundle=new Bundle();  
+				bundle.putString("id", selectedId); 
+				bundle.putString("table", selectedTable);
+				intent.putExtras(bundle); 
+				startActivity(intent);
+			}
+
+			public void filpperDelete(float xPosition, float yPosition) {
+				if (activeListView.getChildCount() == 0)
+					return;
+				final int index = activeListView.pointToPosition((int) xPosition,
+						(int) yPosition);
+				// 一下两步是获得该条目在屏幕显示中的相对位置，直接根据index删除会空指針异常。因为listview中的child只有当前在屏幕中显示的才不会为空
+				int firstVisiblePostion = activeListView.getFirstVisiblePosition();
+				View view = activeListView.getChildAt(index - firstVisiblePostion);
+				if (curDel_btn!=null) {
+					curDel_btn.setVisibility(View.GONE);
+					curDel_btn = null;
+				}else{
+
+					curDel_btn = (Button)view.findViewById(R.id.del);
+					curDel_btn.setVisibility(View.VISIBLE);
+					curDel_btn.setOnClickListener(new OnClickListener(){
+
+						@Override
+						public void onClick(View v) {
+							final String selectedId = activeTasks.get(index).get("id").toString();
+							final String selectedTable;
+							selectedTable = "completedTasktable";
+							MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
+							activeListView.setAdapter(new SelfAdapter(completedList.this, getData(), R.layout.item_active, mFrom, mTo));
+
+						}
+
+					});
+
+				}
 			}
 		});
 
@@ -122,7 +187,7 @@ public class completedList extends SherlockActivity implements View.OnClickListe
 		menu = (Button)findViewById(R.id.menu);
 		menu.setOnClickListener(this);
 	}
-	
+
 	public boolean onContextItemSelected(android.view.MenuItem item) { 
 
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo(); 
@@ -146,26 +211,26 @@ public class completedList extends SherlockActivity implements View.OnClickListe
 		case 1: 
 			// New Task Higher
 			Toast.makeText(this,String.valueOf(info.position), Toast.LENGTH_LONG).show();
-			
+
 			break; 
 
 		case 2: 
 			// Delete 
-				new AlertDialog.Builder(this)
-				.setTitle("Delete a Task!")
-				.setMessage("Are you sure you want to delete this task?")
-				.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) { 
-						MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
-						activeListView.setAdapter(new SelfAdapter(completedList.this, getData(), R.layout.item_active, mFrom, mTo));
-					}
-				})
-				.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) { 
-						
-					}
-				})
-				.show();
+			new AlertDialog.Builder(this)
+			.setTitle("Delete a Task!")
+			.setMessage("Are you sure you want to delete this task?")
+			.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
+					MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
+					activeListView.setAdapter(new SelfAdapter(completedList.this, getData(), R.layout.item_active, mFrom, mTo));
+				}
+			})
+			.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
+
+				}
+			})
+			.show();
 			break; 
 
 		default: 
@@ -177,7 +242,7 @@ public class completedList extends SherlockActivity implements View.OnClickListe
 		return super.onContextItemSelected(item);
 
 	} 
-	
+
 	protected void onStart(){
 		super.onStart();
 		MyExit myExit = (MyExit)getApplication();
@@ -219,7 +284,7 @@ public class completedList extends SherlockActivity implements View.OnClickListe
 	}
 
 	@Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		String mode = mLocations[itemPosition];
 		Intent intent = new Intent();
 		if (mode.equals("Active Tasks")){
@@ -238,16 +303,16 @@ public class completedList extends SherlockActivity implements View.OnClickListe
 		}else if (mode.equals("Settings")){
 			intent.setClass(this, settings.class);
 		}else if (mode.equals("Help")){
-			
+
 		}else if (mode.equals("Exit")){
 			myExit.setExit(true);
 			finish();
 			return true;
 		}
-			
+
 		startActivity(intent);
 
 		return true;
-    }
+	}
 
 }

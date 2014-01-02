@@ -3,9 +3,11 @@ package org.rushme.timecat.tasks;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.rushme.timecat.R;
 import org.rushme.timecat.R.id;
 import org.rushme.timecat.R.layout;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -59,7 +61,7 @@ public class SelfAdapter extends BaseAdapter {
 
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		if (convertView == null){
 			convertView = mLayoutInflater.inflate(mResource, null);
 		}
@@ -70,10 +72,31 @@ public class SelfAdapter extends BaseAdapter {
 			View v = convertView.findViewById(to[i]);
 			bindView(v, item, from[i]);
 		}
-//		Button setBtn = (Button)convertView.findViewById(R.id.edit);
+		Button delBtn = (Button)convertView.findViewById(R.id.del);
 //		setBtn.setTag(position);
 		convertView.setTag(position);
 //		addListener(convertView); //?????
+//		delBtn.setOnClickListener(new OnClickListener() {
+//			 
+//            public void onClick(View v) {
+////                   if (delBtn != null) 
+////                            delBtn.setVisibility(View.GONE);
+//                   // arrays.remove(position);
+//                    System.out.println(position + "deleteButton!!!!");
+//                    final String selectedId = activeTasks.get(position).get("id").toString();
+//            		final String selectedTable;
+//            		if (!activeTasks.get(position).containsKey("table")){
+//            			selectedTable = "tasktable";
+//            		}else{
+//            			selectedTable = "completedTasktable";
+//            		}
+//            		task selectedTask = mgr.queryById(selectedId, selectedTable);
+//					MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
+//					activeListView.setAdapter(new SelfAdapter(MainActivity.this, getData(), R.layout.item_active, mFrom, mTo));
+//                    notifyDataSetChanged();
+//
+//            }
+//    });
 		return convertView;
 	}
 

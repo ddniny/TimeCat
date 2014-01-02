@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   repos="https://bolt.math.cmu.edu/svn/timecat"
+   name=""
+   revision="47"
+   last-author="danni"
+   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/bin/res"
+   committed-rev="47"
+   kind="dir"
+   committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name="drawable-hdpi"
+   kind="dir"/>
+<entry
+   name="drawable-mdpi"
+   kind="dir"/>
+<entry
+   name="drawable-xhdpi"
+   kind="dir"/>
+<entry
+   name="drawable-xxhdpi"
+   kind="dir"/>
+</wc-entries>

@@ -4,55 +4,55 @@
 <entry
    name=""
    repos="https://bolt.math.cmu.edu/svn/timecat"
-   revision="38"
+   revision="47"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/res/drawable-xhdpi"
-   committed-rev="38"
+   committed-rev="47"
    kind="dir"
-   committed-date="2013-12-15T22:33:01.078000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="bg_striped_img.png"
    checksum="2efb6c044c168dbf0166bcf1830c2c1f"
    last-author="danni"
    text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="38"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"
-   prop-time="2013-12-15T22:32:39.000000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:13:00.000000Z"/>
 <entry
    name="bg_striped_split_img.png"
    checksum="bd4a47d750bfc84a925b51651db781a4"
    last-author="danni"
    text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="38"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"
-   prop-time="2013-12-15T22:32:38.000000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:13:05.000000Z"/>
 <entry
    name="ic_launcher.png"
    checksum="d480d3bbd7252c5d845e1bd11dd9a9a5"
    last-author="danni"
    text-time="2013-12-13T18:13:14.000000Z"
-   committed-rev="38"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"
-   prop-time="2013-12-15T22:32:42.000000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:13:07.000000Z"/>
 <entry
    name="ic_launcher_settings.png"
    checksum="f6f563af42540e7d270299a916361220"
    last-author="danni"
    text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="38"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"
-   prop-time="2013-12-15T22:32:42.000000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:13:07.000000Z"/>
 <entry
    name="icon.png"
    checksum="67eb7de5ad28f765a9b3b0fda0499198"
    last-author="danni"
    text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="38"
+   committed-rev="47"
    kind="file"
-   committed-date="2013-12-15T22:33:01.078000Z"
-   prop-time="2013-12-15T22:32:36.000000Z"/>
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:13:00.000000Z"/>
 </wc-entries>

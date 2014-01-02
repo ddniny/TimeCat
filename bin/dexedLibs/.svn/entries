@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   name=""
+   repos="https://bolt.math.cmu.edu/svn/timecat"
+   revision="47"
+   last-author="danni"
+   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/bin/dexedLibs"
+   committed-rev="47"
+   kind="dir"
+   committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name="actionbarsherlock-226db47d6fbe0fc15421de51bd374772.jar"
+   checksum="d78691c41f9eca9f622d7baf7eaa756e"
+   last-author="danni"
+   text-time="2013-12-16T15:17:23.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:13:03.000000Z"/>
+<entry
+   name="actionbarsherlock-729c3f0bdf358bc1fe303ac3b241a5a6.jar"
+   checksum="ce755f463b4f9fdc80202bcbd3bece90"
+   last-author="danni"
+   text-time="2014-01-02T07:22:57.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:12:59.000000Z"/>
+<entry
+   name="android-support-v4-5676b735150b4952c65129e6e820227b.jar"
+   checksum="29a30530ad0d6dc1e47a71ae3cb7ab08"
+   last-author="danni"
+   text-time="2013-11-09T15:21:46.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:13:00.000000Z"/>
+</wc-entries>

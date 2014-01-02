@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   name=""
+   repos="https://bolt.math.cmu.edu/svn/timecat"
+   revision="47"
+   last-author="danni"
+   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/bin"
+   committed-rev="47"
+   kind="dir"
+   committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name="AndroidManifest.xml"
+   checksum="04b6205457d4ca2600149062e1c74952"
+   last-author="danni"
+   text-time="2013-12-25T02:35:23.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name="R.txt"
+   checksum="abadce55a8fd292c9013938ff070df04"
+   last-author="danni"
+   text-time="2014-01-02T13:37:02.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name="TimeCat.apk"
+   checksum="c6777bcdbc9b278622944309e215f739"
+   last-author="danni"
+   text-time="2014-01-02T13:38:42.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:12:59.000000Z"/>
+<entry
+   name="classes"
+   kind="dir"/>
+<entry
+   name="classes.dex"
+   checksum="e70386049b976e8a14fe92519c62df0d"
+   last-author="danni"
+   text-time="2014-01-02T13:38:42.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:13:06.000000Z"/>
+<entry
+   name="dexedLibs"
+   kind="dir"/>
+<entry
+   name="jarlist.cache"
+   checksum="e71f7d8369ca2e6c3ac360be72df1d50"
+   last-author="danni"
+   text-time="2013-12-25T02:35:23.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name="res"
+   kind="dir"/>
+<entry
+   name="resources.ap_"
+   checksum="0e3805aab6fc6cf120311ffe949cf2bc"
+   last-author="danni"
+   text-time="2014-01-02T13:37:15.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:13:06.000000Z"/>
+</wc-entries>

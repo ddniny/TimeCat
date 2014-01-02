@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   name=""
+   repos="https://bolt.math.cmu.edu/svn/timecat"
+   revision="46"
+   last-author="danni"
+   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat"
+   uuid="444107f4-3bea-11e3-8b32-8913b0738693"
+   committed-rev="46"
+   kind="dir"
+   committed-date="2014-01-02T14:11:26.066101Z"/>
+<entry
+   name=".classpath"
+   revision="47"
+   checksum="cb7c57782d294e770fb619092dd86fd1"
+   last-author="danni"
+   text-time="2013-12-14T23:26:28.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name=".project"
+   revision="47"
+   checksum="c4e1d14c2c6a5af756855ef791266669"
+   last-author="danni"
+   text-time="2013-09-18T22:22:12.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name=".settings"
+   kind="dir"/>
+<entry
+   name="AndroidManifest.xml"
+   revision="47"
+   checksum="04b6205457d4ca2600149062e1c74952"
+   last-author="danni"
+   text-time="2013-12-15T22:17:56.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name="assets"
+   kind="dir"/>
+<entry
+   name="bin"
+   kind="dir"/>
+<entry
+   name="gen"
+   kind="dir"/>
+<entry
+   name="ic_launcher-web.png"
+   revision="47"
+   checksum="23b37558aeea3f5d517f68e557497497"
+   last-author="danni"
+   text-time="2013-12-13T18:13:14.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"
+   prop-time="2014-01-02T14:13:04.000000Z"/>
+<entry
+   name="libs"
+   kind="dir"/>
+<entry
+   name="lint.xml"
+   revision="47"
+   checksum="1ce274a186a2afb9f76542702f6ecc4d"
+   last-author="danni"
+   text-time="2013-11-19T21:46:13.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name="proguard-project.txt"
+   revision="47"
+   checksum="18bfe77c342b4698f1cef19cf8d918e2"
+   last-author="danni"
+   text-time="2013-09-18T22:22:13.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name="project.properties"
+   revision="47"
+   checksum="a9f4f516440026426c3c59d7fb738ab1"
+   last-author="danni"
+   text-time="2013-12-25T02:35:23.000000Z"
+   committed-rev="47"
+   kind="file"
+   committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name="res"
+   kind="dir"/>
+<entry
+   name="src"
+   kind="dir"/>
+</wc-entries>

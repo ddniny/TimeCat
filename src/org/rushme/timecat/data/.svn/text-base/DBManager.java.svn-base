@@ -71,8 +71,8 @@ public class DBManager {
 		db.update(table, cv, "_id = ?", new String[]{id});
 	}
 
-	
-	
+
+
 	/**
 	 * delete expired task
 	 */
@@ -230,7 +230,7 @@ public class DBManager {
 
 
 	}
-	
+
 	public task queryById(String needId, String table){
 		String details, startTime, endTime, description, state, importance, tags, id, addTime;
 		int priority;
@@ -312,9 +312,9 @@ public class DBManager {
 		return c;
 	}
 
-		public void deleteOneTask(String details, String table){
-			db.delete(table, "details == ?", new String[]{details});
-		}
+	public void deleteOneTask(String id, String table){
+		db.delete(table, "_id == ?", new String[]{id});
+	}
 
 	/**
 	 * close database
