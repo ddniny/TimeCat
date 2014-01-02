@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   name=""
+   repos="https://bolt.math.cmu.edu/svn/timecat"
+   revision="38"
+   last-author="danni"
+   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/res/values-sw600dp"
+   committed-rev="38"
+   kind="dir"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+<entry
+   name="dimens.xml"
+   checksum="49ce4f2b2f409d419e30241fa89aa543"
+   last-author="danni"
+   text-time="2013-09-18T22:22:14.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+</wc-entries>

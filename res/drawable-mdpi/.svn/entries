@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   repos="https://bolt.math.cmu.edu/svn/timecat"
+   name=""
+   revision="38"
+   last-author="danni"
+   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/res/drawable-mdpi"
+   committed-rev="38"
+   kind="dir"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+<entry
+   name="bg_striped_img.png"
+   checksum="fc08e350ec4f7ef5abab83125212dac9"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:40.000000Z"/>
+<entry
+   name="bg_striped_split_img.png"
+   checksum="805577ecdf0092ec699618fd139cfbb2"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:37.000000Z"/>
+<entry
+   name="ic_compose.png"
+   checksum="8e4aa1132436151e1e47582c6ccb6d27"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:36.000000Z"/>
+<entry
+   name="ic_compose_inverse.png"
+   checksum="59b95d7464975517dc29e41323b6253c"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:41.000000Z"/>
+<entry
+   name="ic_launcher.png"
+   checksum="c7d262351a193053f2576bb13a2f1323"
+   last-author="danni"
+   text-time="2013-12-13T18:13:14.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:37.000000Z"/>
+<entry
+   name="ic_launcher_settings.png"
+   checksum="b8106acc621d29fd92f13cc25beca541"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:41.000000Z"/>
+<entry
+   name="ic_magnifying_glass.png"
+   checksum="106d5d026a70f8056cd1ee43d3e376ca"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:40.000000Z"/>
+<entry
+   name="ic_refresh.png"
+   checksum="d9ed80dcf4388c137c06af5c5d7236bb"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:38.000000Z"/>
+<entry
+   name="ic_refresh_inverse.png"
+   checksum="386a5bd19ecbd2b7ae556ccff73841ef"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:42.000000Z"/>
+<entry
+   name="ic_search.png"
+   checksum="8d0f42b40236b12f3901b703d4b9d27e"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:36.000000Z"/>
+<entry
+   name="ic_search_inverse.png"
+   checksum="5048ca8b6894b43a0d3238dc99374cbb"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:40.000000Z"/>
+<entry
+   name="icon.png"
+   checksum="cb708ee3aacbea7e74756067a05c84d0"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:37.000000Z"/>
+</wc-entries>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   name=""
+   repos="https://bolt.math.cmu.edu/svn/timecat"
+   revision="38"
+   last-author="danni"
+   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/res/values-v14"
+   committed-rev="38"
+   kind="dir"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+<entry
+   name="styles.xml"
+   checksum="30140eace93f8c182455139acbb5168e"
+   last-author="danni"
+   text-time="2013-09-18T22:22:13.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+</wc-entries>

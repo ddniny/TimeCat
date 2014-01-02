@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     <ViewFlipper 
+    android:id="@+id/viewFlipper"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layMenu"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/moveUp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Move Up" />
+
+    <Button
+        android:id="@+id/moveDown"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Move Down" />
+
+    <Button
+        android:id="@+id/markCompleted"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Mark as Completed" />
+
+    <Button
+        android:id="@+id/editAndView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit/View" />
+
+    <Button
+        android:id="@+id/newTaskHigher"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="New Task Higher" />
+
+    <Button
+        android:id="@+id/markExpired"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Mark as Expired" />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete" />
+
+</LinearLayout><!-- </ViewFlipper> -->

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   name=""
+   repos="https://bolt.math.cmu.edu/svn/timecat"
+   revision="38"
+   last-author="danni"
+   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/res/drawable-hdpi"
+   committed-rev="38"
+   kind="dir"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+<entry
+   name="bg_striped_img.png"
+   checksum="d97f9263695c294f46084d4cc665f6cb"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:37.000000Z"/>
+<entry
+   name="bg_striped_split_img.png"
+   checksum="a56a1c1da4e027e3bb3ff499caa68ca9"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:39.000000Z"/>
+<entry
+   name="ic_compose.png"
+   checksum="9d0117c53eb893319c48ac3e726fcdc2"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:39.000000Z"/>
+<entry
+   name="ic_compose_inverse.png"
+   checksum="e65a27c4f8514faa9d804b2129daa8a7"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:41.000000Z"/>
+<entry
+   name="ic_launcher.png"
+   checksum="ab9b8e0517fa843c349f90eddfbec4b3"
+   last-author="danni"
+   text-time="2013-12-13T18:13:14.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:36.000000Z"/>
+<entry
+   name="ic_launcher_settings.png"
+   checksum="d5dff6da5e27f117b6b4f12ef8634c53"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:40.000000Z"/>
+<entry
+   name="ic_magnifying_glass.png"
+   checksum="c04e0e8b31eb754f5660d3fc96fc82c9"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:36.000000Z"/>
+<entry
+   name="ic_refresh.png"
+   checksum="c53afefd8d9bf86033488dc47e1c660d"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:40.000000Z"/>
+<entry
+   name="ic_refresh_inverse.png"
+   checksum="ad5bd7f3a72056aebcbc01d3d0c50868"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:43.000000Z"/>
+<entry
+   name="ic_search.png"
+   checksum="46a8c6270209736b4831814adf46dff7"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:37.000000Z"/>
+<entry
+   name="ic_search_inverse.png"
+   checksum="a1c976ef1b6a7fac80bf93fb1822725a"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:38.000000Z"/>
+<entry
+   name="ic_title_share_default.png"
+   checksum="ab24dfe6b4442b363755d7d148590e34"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:40.000000Z"/>
+<entry
+   name="icon.png"
+   checksum="203889c9bfd10c7cd765550fe6f42c8a"
+   last-author="danni"
+   text-time="2013-11-19T23:57:02.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:39.000000Z"/>
+</wc-entries>

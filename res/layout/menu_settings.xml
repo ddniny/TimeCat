@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/activeTasks"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:paddingRight="4dp"
+        android:text="Active Tasks" />
+
+    <Button
+        android:id="@+id/statistics"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingRight="4dp"
+        android:text="Statistics" />
+
+    <Button
+        android:id="@+id/expiredList"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingRight="4dp"
+        android:text="Expired List" />
+
+    <Button
+        android:id="@+id/completedList"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingRight="4dp"
+        android:text="Completed List" />
+
+    <Button
+        android:id="@+id/help"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingRight="4dp"
+        android:text="Help" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:paddingRight="4dp"
+        android:text="Exit" />
+
+</LinearLayout>
