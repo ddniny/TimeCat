@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   repos="https://bolt.math.cmu.edu/svn/timecat"
+   name=""
+   revision="38"
+   last-author="danni"
+   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/src/org/rushme/timecat/helper"
+   committed-rev="38"
+   kind="dir"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+<entry
+   name="SampleList.java"
+   checksum="f614529e52b201c9b6706d6cd525623f"
+   last-author="danni"
+   text-time="2013-12-15T22:14:15.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"
+   prop-time="2013-12-15T22:32:37.000000Z"/>
+<entry
+   name="ViewBase.java"
+   checksum="5a4368f17fad957c9dc5d1f7a06ac4f1"
+   last-author="danni"
+   text-time="2013-12-15T21:45:42.000000Z"
+   committed-rev="38"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+</wc-entries>

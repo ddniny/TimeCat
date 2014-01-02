@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   name=""
+   repos="https://bolt.math.cmu.edu/svn/timecat"
+   revision="38"
+   last-author="danni"
+   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/src/org/rushme/timecat/tasks"
+   committed-rev="38"
+   kind="dir"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+<entry
+   name="MainActivity.java"
+   revision="43"
+   checksum="d81f0151d1b7866afaa60ddeee677820"
+   last-author="danni"
+   committed-rev="43"
+   text-time="2013-12-29T16:56:51.000000Z"
+   kind="file"
+   committed-date="2013-12-29T17:03:01.818000Z"/>
+<entry
+   name="MyExit.java"
+   checksum="8e547846f245ed423833f7bc10360471"
+   last-author="danni"
+   committed-rev="38"
+   text-time="2013-12-15T21:45:19.000000Z"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+<entry
+   name="PieView.java"
+   checksum="8eb33c2b7552711f4a9404e7a9b8d215"
+   last-author="danni"
+   committed-rev="38"
+   text-time="2013-12-15T21:45:42.000000Z"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+<entry
+   name="SelfAdapter.java"
+   revision="43"
+   checksum="49e7be7e6a01364a8bda544cca5ba4b3"
+   last-author="danni"
+   committed-rev="43"
+   text-time="2013-12-29T15:23:42.000000Z"
+   kind="file"
+   committed-date="2013-12-29T17:03:01.818000Z"/>
+<entry
+   name="completedList.java"
+   checksum="36e58a8cd572a41808be82a158066325"
+   last-author="danni"
+   committed-rev="38"
+   text-time="2013-12-15T22:17:10.000000Z"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+<entry
+   name="expiredList.java"
+   checksum="d36d60771bc52660760e10bd428ed248"
+   last-author="danni"
+   committed-rev="38"
+   text-time="2013-12-15T22:17:08.000000Z"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+<entry
+   name="popWindow.java"
+   revision="43"
+   checksum="d88fba528408d812c1fc14888a61cfbc"
+   last-author="danni"
+   committed-rev="43"
+   text-time="2013-12-29T14:57:13.000000Z"
+   kind="file"
+   committed-date="2013-12-29T17:03:01.818000Z"/>
+<entry
+   name="settings.java"
+   checksum="9a09306dbf2a0e3ca30f4043c78db6ac"
+   last-author="danni"
+   committed-rev="38"
+   text-time="2013-12-15T22:16:59.000000Z"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+<entry
+   name="showTask.java"
+   revision="42"
+   checksum="3cec6524e5e805eb4ca403c077d8b1be"
+   last-author="danni"
+   committed-rev="42"
+   text-time="2013-12-26T08:29:08.000000Z"
+   kind="file"
+   committed-date="2013-12-26T14:43:28.698000Z"/>
+<entry
+   name="statistics.java"
+   checksum="5706d5f56c5550952bc4d1d12c1f49d7"
+   last-author="danni"
+   committed-rev="38"
+   text-time="2013-12-15T22:16:55.000000Z"
+   kind="file"
+   committed-date="2013-12-15T22:33:01.078000Z"/>
+<entry
+   name="task.java"
+   revision="42"
+   checksum="5979154a833e78288712bf9737a154a5"
+   last-author="danni"
+   committed-rev="42"
+   text-time="2013-12-26T08:13:30.000000Z"
+   kind="file"
+   committed-date="2013-12-26T14:43:28.698000Z"/>
+<entry
+   name="taskEdit.java"
+   revision="42"
+   checksum="4da6673fbfb1a668b8cce8f4ba70e326"
+   last-author="danni"
+   committed-rev="42"
+   text-time="2013-12-26T08:24:33.000000Z"
+   kind="file"
+   committed-date="2013-12-26T14:43:28.698000Z"/>
+</wc-entries>
