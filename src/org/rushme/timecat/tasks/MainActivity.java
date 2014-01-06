@@ -2,27 +2,40 @@ package org.rushme.timecat.tasks;
 
 
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.ListFragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -49,25 +62,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.rushme.timecat.data.DBManager;
-import org.rushme.timecat.helper.SampleList;
-import org.rushme.timecat.menu.menu_ActiveTask;
-import org.rushme.timecat.menu.menu_taskEdit;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-
-import org.rushme.timecat.tasks.SlideDelListview.SlideDeleteListener;
 import org.rushme.timecat.R;
-import org.rushme.timecat.R.array;
-import org.rushme.timecat.R.drawable;
 import org.rushme.timecat.R.id;
 import org.rushme.timecat.R.layout;
-import org.rushme.timecat.R.style;
+import org.rushme.timecat.data.DBManager;
+import org.rushme.timecat.menu.menu_ActiveTask;
+import org.rushme.timecat.menu.menu_taskEdit;
+import org.rushme.timecat.tasks.SlideDelListview.SlideDeleteListener;
 
-public class MainActivity extends SherlockActivity implements View.OnClickListener, ActionBar.OnNavigationListener{
+
+
+public class MainActivity extends Fragment{// implements View.OnClickListener{
 	public static DBManager mgr;
 	private TextView date;
 	private TextView time;
@@ -89,80 +94,55 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 	MyExit myExit;
 	public static final int priority_max = 2000;
 	public static boolean longClick = false;
+	public static final String ARG_MODE_NUMBER = "mode_number";
 
 
-	public boolean onCreateOptionsMenu(Menu menu) {
-		//Used to put dark icons on light action bar
-		boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
-
-		//        menu.add("Save")
-		//            .setIcon(isLight ? R.drawable.ic_compose_inverse : R.drawable.ic_compose)
-		//            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-		//        menu.add("Search")
-		//            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-
-		menu.add("Refresh")
-		.setIcon(isLight ? R.drawable.ic_refresh_inverse : R.drawable.ic_refresh)
-		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-
-		return true;
-	}
-
-
-
-	//    protected void setContent(TextView view) {
-	//        view.setText(R.string.action_items_content);
-	//    }
-
+	public MainActivity() {
+        // Empty constructor required for fragment subclasses
+    } 
+	
 	@Override
-	public void onCreate(Bundle icicle){
-		setTheme(SampleList.THEME); //Used for theme switching in samples
-		super.onCreate(icicle);
+	//public void onCreate(Bundle icicle){
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_activelist, container, false);
+		int i = getArguments().getInt(ARG_MODE_NUMBER);
+        String planet = getResources().getStringArray(R.array.Mode_array)[i];
+        getActivity().setTitle(planet);
+		//super.onCreate(icicle);
 		longClick = false;
-		myExit = (MyExit) getApplication();
+		myExit = (MyExit) getActivity().getApplication();
 		myExit.setExit(false);
-		setContentView(R.layout.activity_main); 
-		mgr = new DBManager(this);				//initialize the database
+		//setContentView(R.layout.activity_main); 
+		mgr = new DBManager(getActivity());				//initialize the database
+		
 
-		// setContentView(R.layout.text);
-		// setContent((TextView)findViewById(R.id.text));
-
-		menuBtn = (Button) findViewById(R.id.menu);
-		menuBtn.setOnClickListener(this);
-
-		backBtn = (Button)findViewById(R.id.back);
-		backBtn.setOnClickListener(this);
-
-		now = (Button)findViewById(R.id.now);
-		now.setOnClickListener(this);
+//		menuBtn = (Button) rootView.findViewById(R.id.menu);
+//		menuBtn.setOnClickListener(getActivity());
+//
+//		backBtn = (Button)findViewById(R.id.back);
+//		backBtn.setOnClickListener(getActivity());
+//
+//		now = (Button)findViewById(R.id.now);
+//		now.setOnClickListener(getActivity());
 
 
 
-		date = (TextView)findViewById(R.id.date);
-		date.setText(sdfDate.format(d));
-		date.setOnClickListener(this);
+//		date = (TextView)findViewById(R.id.date);
+//		date.setText(sdfDate.format(d));
+//		date.setOnClickListener(getActivity());
+//
+//		time = (TextView)findViewById(R.id.time);
+//		time.setText(sdfTime.format(d));
+//		time.setOnClickListener(getActivity());
 
-		time = (TextView)findViewById(R.id.time);
-		time.setText(sdfTime.format(d));
-		time.setOnClickListener(this);
-
-		/*menu button*/
-		mLocations = getResources().getStringArray(R.array.locations);
-		Context context = getSupportActionBar().getThemedContext();
-		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
-		list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
-
-		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		getSupportActionBar().setListNavigationCallbacks(list, this);
-
-		activeListView = (SlideDelListview) findViewById(android.R.id.list);
+		activeListView = (SlideDelListview)rootView.findViewById(android.R.id.list);
 		mFrom = new String[]{"details","Description","time"};
 		mTo = new int[]{R.id.details,R.id.description,R.id.time};
 
 		//own defined Adapter using to associate the items with the ListView
 		activeTasks = getData();
-		final SelfAdapter mSelfAdapter = new SelfAdapter(this, getData(), R.layout.item_active, mFrom, mTo);
+		final SelfAdapter mSelfAdapter = new SelfAdapter(getActivity(), getData(), R.layout.item_active, mFrom, mTo);
 
 		activeListView.setAdapter(mSelfAdapter);
 		//		activeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -217,7 +197,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 				}
 				task selectedTask = mgr.queryById(selectedId, selectedTable);
 				Intent intent = new Intent();
-				intent.setClass(MainActivity.this, showTask.class);
+				intent.setClass(MainActivity.this.getActivity(), showTask.class);
 				Bundle bundle=new Bundle();  
 				bundle.putString("id", selectedId); 
 				bundle.putString("table", selectedTable);
@@ -251,7 +231,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 								selectedTable = "completedTasktable";
 							}
 							MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
-							activeListView.setAdapter(new SelfAdapter(MainActivity.this, getData(), R.layout.item_active, mFrom, mTo));
+							activeListView.setAdapter(new SelfAdapter(MainActivity.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
 
 						}
 
@@ -262,10 +242,14 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 
 			}
 		});
-
+        
 		ma = this;
+		return rootView;
+		
 	}
 
+
+    
 	public boolean onContextItemSelected(android.view.MenuItem item) { 
 
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo(); 
@@ -294,7 +278,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 
 		case 1: 
 			// New Task Higher
-			Toast.makeText(MainActivity.this,String.valueOf(info.position), Toast.LENGTH_LONG).show();
+			//Toast.makeText(MainActivity.this,String.valueOf(info.position), Toast.LENGTH_LONG).show();
 			String priorId;
 			String priorTable;
 			float score = getScore(selectedTask);
@@ -315,7 +299,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 				newScore = (score + priorScore)/2;
 			}
 			Intent intent = new Intent();
-			intent.setClass(this, taskEdit.class);
+			intent.setClass(MainActivity.this.getActivity(), taskEdit.class);
 			Bundle bundle=new Bundle();  
 			bundle.putString("newScore", String.valueOf(newScore)); 
 			intent.putExtras(bundle); 
@@ -324,13 +308,13 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 
 		case 2: 
 			// Delete 
-			new AlertDialog.Builder(this)
+			new AlertDialog.Builder(MainActivity.this.getActivity())
 			.setTitle("Delete a Task!")
 			.setMessage("Are you sure you want to delete this task?")
 			.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) { 
 					MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
-					activeListView.setAdapter(new SelfAdapter(MainActivity.this, getData(), R.layout.item_active, mFrom, mTo));
+					activeListView.setAdapter(new SelfAdapter(MainActivity.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
 				}
 			})
 			.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -344,7 +328,7 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 		default: 
 			break; 		
 		} 
-		activeListView.setAdapter(new SelfAdapter(MainActivity.this, getData(), R.layout.item_active, mFrom, mTo));
+		activeListView.setAdapter(new SelfAdapter(MainActivity.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
 
 
 		return super.onContextItemSelected(item);
@@ -352,45 +336,6 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 	} 
 
 
-
-	@Override
-	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		String mode = mLocations[itemPosition];
-		Intent intent = new Intent();
-		if (mode.equals("Active Tasks")){
-			return true;
-		}else if (mode.equals("New Task")){
-			intent.setClass(this, taskEdit.class);
-		}else if (mode.equals("Sync")){
-			return true;
-		}else if (mode.equals("Statistics")){
-			intent.setClass(this, statistics.class);
-		}else if (mode.equals("Completed List")){
-			intent.setClass(this, completedList.class);
-		}else if (mode.equals("Expired List")){
-			intent.setClass(this, expiredList.class);
-		}else if (mode.equals("Settings")){
-			intent.setClass(this, settings.class);
-		}else if (mode.equals("Help")){
-
-		}else if (mode.equals("Exit")){
-			myExit.setExit(true);
-			finish();
-			return true;
-		}
-
-		startActivity(intent);
-
-		return true;
-	}
-
-	protected void onStart(){
-		super.onStart();
-		MyExit myExit = (MyExit)getApplication();
-		if (myExit.isExit()){
-			finish();
-		}
-	}
 
 	@SuppressWarnings("unchecked")
 	private List<Map<String, Object>> getData(){
@@ -428,43 +373,36 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 		return mList;
 	}
 
-	@Override
-	protected void onDestroy(){
-		super.onDestroy();
-		//when close the last Activity, release DB 
-		mgr.closeDB();
-	}
 
-	@Override
-	public void onClick(View v) {
-		switch(v.getId()){
-		case R.id.menu:
-			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, menu_ActiveTask.class);
-			startActivity(intent);
-			break;
-		case R.id.now:
-			System.out.println(d.getTime());
-			d = new Date();
-			date.setText(sdfDate.format(d));
-			time.setText(sdfTime.format(d));
-			activeListView.setAdapter(new SelfAdapter(MainActivity.this, getData(), R.layout.item_active, mFrom, mTo));
-			break;
-		case R.id.back:
-			finish();
-			break;
-		case R.id.date:
-			showDialog(taskEdit.DATE_DIALOG);
-
-			break;
-		case R.id.time:
-			showDialog(taskEdit.TIME_DIALOG);
-			break;
-		default:
-			break;
-		}    
-
-	}
+//	@Override
+//	public void onClick(View v) {
+//		switch(v.getId()){
+//		case R.id.menu:
+//			Intent intent = new Intent();
+//			intent.setClass(MainActivity.getActivity(), menu_ActiveTask.class);
+//			startActivity(intent);
+//			break;
+//		case R.id.now:
+//			d = new Date();
+//			date.setText(sdfDate.format(d));
+//			time.setText(sdfTime.format(d));
+//			activeListView.setAdapter(new SelfAdapter(MainActivity.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
+//			break;
+//		case R.id.back:
+//			finish();
+//			break;
+//		case R.id.date:
+//			showDialog(taskEdit.DATE_DIALOG);
+//
+//			break;
+//		case R.id.time:
+//			showDialog(taskEdit.TIME_DIALOG);
+//			break;
+//		default:
+//			break;
+//		}    
+//
+//	}
 
 
 	public String getRemaining(task everyTask){
@@ -535,11 +473,11 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 						}
 
 					}
-					activeListView.setAdapter(new SelfAdapter(MainActivity.this, activeTasks, R.layout.item_active, mFrom, mTo));
+					activeListView.setAdapter(new SelfAdapter(MainActivity.this.getActivity(), activeTasks, R.layout.item_active, mFrom, mTo));
 
 				}
 			};
-			dialog = new DatePickerDialog(this, dateListener, calendar.get(Calendar.YEAR),
+			dialog = new DatePickerDialog(MainActivity.this.getActivity(), dateListener, calendar.get(Calendar.YEAR),
 					calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 			break;
 		case taskEdit.TIME_DIALOG:
@@ -581,12 +519,12 @@ public class MainActivity extends SherlockActivity implements View.OnClickListen
 						}
 
 					}
-					activeListView.setAdapter(new SelfAdapter(MainActivity.this, activeTasks, R.layout.item_active, mFrom, mTo));
+					activeListView.setAdapter(new SelfAdapter(MainActivity.this.getActivity(), activeTasks, R.layout.item_active, mFrom, mTo));
 
 
 				}
 			};
-			dialog = new TimePickerDialog(this, timeListener, 
+			dialog = new TimePickerDialog(MainActivity.this.getActivity(), timeListener, 
 					calendar.get(Calendar.HOUR_OF_DAY), 
 					calendar.get(Calendar.MINUTE), true); //whether is twenty-four-hour clock
 			break;

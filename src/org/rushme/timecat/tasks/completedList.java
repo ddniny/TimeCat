@@ -5,14 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.rushme.timecat.helper.SampleList;
 import org.rushme.timecat.menu.menu_completedList;
 import org.rushme.timecat.tasks.SlideDelListview.SlideDeleteListener;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+
 
 import org.rushme.timecat.R;
 import org.rushme.timecat.R.array;
@@ -23,12 +19,16 @@ import org.rushme.timecat.R.style;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
@@ -38,7 +38,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class completedList extends SherlockActivity implements View.OnClickListener, ActionBar.OnNavigationListener{
+public class completedList extends Fragment{ //extends ActionBarActivity implements View.OnClickListener{
 	Button back, menu;
 	private String[] mLocations;
 	MyExit myExit;
@@ -48,49 +48,41 @@ public class completedList extends SherlockActivity implements View.OnClickListe
 	private static boolean longClick = false;
 	private Button curDel_btn;
 	private List<Map<String,Object>> activeTasks;
+	public static final String ARG_MODE_NUMBER = "mode_number";
+	
+	public completedList() {
+        // Empty constructor required for fragment subclasses
+    } 
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		//Used to put dark icons on light action bar
-		boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
+//	@Override
+//	public void onCreate(Bundle icicle){
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.completed_list, container, false);
+		int i = getArguments().getInt(ARG_MODE_NUMBER);
+        String planet = getResources().getStringArray(R.array.Mode_array)[i];
+        getActivity().setTitle(planet);
+//		super.onCreate(icicle);
+//		setContentView(R.layout.completed_list);
+		//setTheme(SampleList.THEME); //Used for theme switching in samples
 
-		//        menu.add("Save")
-		//            .setIcon(isLight ? R.drawable.ic_compose_inverse : R.drawable.ic_compose)
-		//            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-		//        menu.add("Search")
-		//            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-
-		menu.add("Refresh")
-		.setIcon(isLight ? R.drawable.ic_refresh_inverse : R.drawable.ic_refresh)
-		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-
-		return true;
-	}
-
-	@Override
-	public void onCreate(Bundle icicle){
-		super.onCreate(icicle);
-		setContentView(R.layout.completed_list);
-		setTheme(SampleList.THEME); //Used for theme switching in samples
-
-		myExit = (MyExit) getApplication();
+		myExit = (MyExit) getActivity().getApplication();
 		myExit.setExit(false);
 		/*menu button*/
-		mLocations = getResources().getStringArray(R.array.locations);
-		Context context = getSupportActionBar().getThemedContext();
-		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
-		list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+//		mLocations = getResources().getStringArray(R.array.locations);
+//		Context context = getSupportActionBar().getThemedContext();
+//		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
+//		list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+//
+//		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+//		getSupportActionBar().setListNavigationCallbacks(list, this);
 
-		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		getSupportActionBar().setListNavigationCallbacks(list, this);
-
-		activeListView = (SlideDelListview) findViewById(android.R.id.list);
+		activeListView = (SlideDelListview) rootView.findViewById(android.R.id.list);
 		mFrom = new String[]{"details","Description","time"};
 		mTo = new int[]{R.id.details,R.id.description,R.id.time};
 		activeTasks = getData();
 		//own-defined Adapter
-		final SelfAdapter mSelfAdapter = new SelfAdapter(this, getData(), R.layout.item_completed, mFrom, mTo);
+		final SelfAdapter mSelfAdapter = new SelfAdapter(getActivity(), getData(), R.layout.item_completed, mFrom, mTo);
 		activeListView.setAdapter(mSelfAdapter);
 		//		activeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 		//
@@ -139,7 +131,7 @@ public class completedList extends SherlockActivity implements View.OnClickListe
 
 				task selectedTask = MainActivity.mgr.queryById(selectedId, selectedTable);
 				Intent intent = new Intent();
-				intent.setClass(completedList.this, showTask.class);
+				intent.setClass(completedList.this.getActivity(), showTask.class);
 				Bundle bundle=new Bundle();  
 				bundle.putString("id", selectedId); 
 				bundle.putString("table", selectedTable);
@@ -170,7 +162,7 @@ public class completedList extends SherlockActivity implements View.OnClickListe
 							final String selectedTable;
 							selectedTable = "completedTasktable";
 							MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
-							activeListView.setAdapter(new SelfAdapter(completedList.this, getData(), R.layout.item_active, mFrom, mTo));
+							activeListView.setAdapter(new SelfAdapter(completedList.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
 
 						}
 
@@ -181,11 +173,12 @@ public class completedList extends SherlockActivity implements View.OnClickListe
 		});
 
 
-		back = (Button)findViewById(R.id.back);
-		back.setOnClickListener(this);
-
-		menu = (Button)findViewById(R.id.menu);
-		menu.setOnClickListener(this);
+//		back = (Button)findViewById(R.id.back);
+//		back.setOnClickListener(this);
+//
+//		menu = (Button)findViewById(R.id.menu);
+//		menu.setOnClickListener(this);
+		return rootView;
 	}
 
 	public boolean onContextItemSelected(android.view.MenuItem item) { 
@@ -210,19 +203,19 @@ public class completedList extends SherlockActivity implements View.OnClickListe
 
 		case 1: 
 			// New Task Higher
-			Toast.makeText(this,String.valueOf(info.position), Toast.LENGTH_LONG).show();
+			Toast.makeText(getActivity(),String.valueOf(info.position), Toast.LENGTH_LONG).show();
 
 			break; 
 
 		case 2: 
 			// Delete 
-			new AlertDialog.Builder(this)
+			new AlertDialog.Builder(getActivity())
 			.setTitle("Delete a Task!")
 			.setMessage("Are you sure you want to delete this task?")
 			.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) { 
 					MainActivity.mgr.deleteOneTask(selectedId, selectedTable);
-					activeListView.setAdapter(new SelfAdapter(completedList.this, getData(), R.layout.item_active, mFrom, mTo));
+					activeListView.setAdapter(new SelfAdapter(completedList.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
 				}
 			})
 			.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -236,20 +229,13 @@ public class completedList extends SherlockActivity implements View.OnClickListe
 		default: 
 			break; 		
 		} 
-		activeListView.setAdapter(new SelfAdapter(completedList.this, getData(), R.layout.item_active, mFrom, mTo));
+		activeListView.setAdapter(new SelfAdapter(completedList.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
 
 
 		return super.onContextItemSelected(item);
 
 	} 
 
-	protected void onStart(){
-		super.onStart();
-		MyExit myExit = (MyExit)getApplication();
-		if (myExit.isExit()){
-			finish();
-		}
-	}
 
 	private List<Map<String, Object>> getData(){
 		/*
@@ -269,50 +255,19 @@ public class completedList extends SherlockActivity implements View.OnClickListe
 		return mList;
 	}
 
-	@Override
-	public void onClick(View v) {
-		switch(v.getId()){
-		case R.id.back:
-			finish();
-			break;
-		case R.id.menu:
-			Intent intent = new Intent(this, menu_completedList.class);
-			startActivity(intent);
-			break;
-		}
+//	@Override
+//	public void onClick(View v) {
+//		switch(v.getId()){
+//		case R.id.back:
+//			finish();
+//			break;
+//		case R.id.menu:
+//			Intent intent = new Intent(this, menu_completedList.class);
+//			startActivity(intent);
+//			break;
+//		}
+//
+//	}
 
-	}
-
-	@Override
-	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		String mode = mLocations[itemPosition];
-		Intent intent = new Intent();
-		if (mode.equals("Active Tasks")){
-			intent.setClass(this, MainActivity.class);
-			return true;
-		}else if (mode.equals("New Task")){
-			intent.setClass(this, taskEdit.class);
-		}else if (mode.equals("Sync")){
-			return true;
-		}else if (mode.equals("Statistics")){
-			intent.setClass(this, statistics.class);
-		}else if (mode.equals("Completed List")){
-			intent.setClass(this, completedList.class);
-		}else if (mode.equals("Expired List")){
-			intent.setClass(this, expiredList.class);
-		}else if (mode.equals("Settings")){
-			intent.setClass(this, settings.class);
-		}else if (mode.equals("Help")){
-
-		}else if (mode.equals("Exit")){
-			myExit.setExit(true);
-			finish();
-			return true;
-		}
-
-		startActivity(intent);
-
-		return true;
-	}
 
 }

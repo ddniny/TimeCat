@@ -2,8 +2,8 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   name=""
    repos="https://bolt.math.cmu.edu/svn/timecat"
+   name=""
    revision="47"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/bin/res/drawable-xhdpi"
@@ -14,8 +14,8 @@
    name="bg_striped_img.png"
    checksum="af5727455578a067727aae6945963bf6"
    last-author="danni"
-   text-time="2013-12-15T00:31:29.000000Z"
    committed-rev="47"
+   text-time="2013-12-15T00:31:29.000000Z"
    kind="file"
    committed-date="2014-01-02T14:17:59.103000Z"
    prop-time="2014-01-02T14:13:08.000000Z"/>
@@ -23,17 +23,57 @@
    name="bg_striped_split_img.png"
    checksum="0ac87e3701094c7a886117d845fe583d"
    last-author="danni"
-   text-time="2013-12-15T00:31:29.000000Z"
    committed-rev="47"
+   text-time="2013-12-15T00:31:29.000000Z"
    kind="file"
    committed-date="2014-01-02T14:17:59.103000Z"
    prop-time="2014-01-02T14:13:08.000000Z"/>
 <entry
+   name="drawer_shadow.9.png"
+   revision="48"
+   checksum="07875065a2dbf2d26dfbddb26c41ce07"
+   last-author="danni"
+   text-time="2014-01-04T13:36:39.000000Z"
+   committed-rev="48"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:10.000000Z"/>
+<entry
+   name="ic_action_overflow.png"
+   revision="48"
+   checksum="e2992109467644cb40502547840a6d6c"
+   last-author="danni"
+   text-time="2014-01-04T08:48:45.000000Z"
+   committed-rev="48"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:11.000000Z"/>
+<entry
+   name="ic_action_refresh.png"
+   revision="48"
+   checksum="a815550cb7f58dbbd56ca3b8a0416600"
+   last-author="danni"
+   text-time="2014-01-04T08:54:04.000000Z"
+   committed-rev="48"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:11.000000Z"/>
+<entry
+   name="ic_drawer.png"
+   revision="48"
+   checksum="80ddd4e66e7d032373b231b938c1f82b"
+   last-author="danni"
+   text-time="2014-01-04T13:36:39.000000Z"
+   committed-rev="48"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:10.000000Z"/>
+<entry
    name="ic_launcher.png"
    checksum="5d59b0e66c85747c67a1698df354f00c"
    last-author="danni"
-   text-time="2013-12-15T00:31:29.000000Z"
    committed-rev="47"
+   text-time="2013-12-15T00:31:29.000000Z"
    kind="file"
    committed-date="2014-01-02T14:17:59.103000Z"
    prop-time="2014-01-02T14:13:00.000000Z"/>
@@ -41,8 +81,8 @@
    name="ic_launcher_settings.png"
    checksum="5f2f3ec521382cc90d7f9a928934d6d9"
    last-author="danni"
-   text-time="2013-12-15T00:31:29.000000Z"
    committed-rev="47"
+   text-time="2013-12-15T00:31:29.000000Z"
    kind="file"
    committed-date="2014-01-02T14:17:59.103000Z"
    prop-time="2014-01-02T14:12:59.000000Z"/>
@@ -50,8 +90,8 @@
    name="icon.png"
    checksum="8c576fde37a57b5823f0688c494ff6c8"
    last-author="danni"
-   text-time="2013-12-15T00:31:29.000000Z"
    committed-rev="47"
+   text-time="2013-12-15T00:31:29.000000Z"
    kind="file"
    committed-date="2014-01-02T14:17:59.103000Z"
    prop-time="2014-01-02T14:13:05.000000Z"/>

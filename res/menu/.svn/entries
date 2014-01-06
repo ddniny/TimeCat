@@ -12,10 +12,11 @@
    committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="main.xml"
-   checksum="eb878fc14c62d5f665dcf161ef0c3854"
+   revision="50"
+   checksum="b1e62f0ccbb984c57c35dc8b7fb437dd"
    last-author="danni"
-   text-time="2013-09-18T22:22:14.000000Z"
-   committed-rev="47"
+   text-time="2014-01-06T08:05:44.000000Z"
+   committed-rev="50"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"/>
+   committed-date="2014-01-06T14:45:43.920000Z"/>
 </wc-entries>

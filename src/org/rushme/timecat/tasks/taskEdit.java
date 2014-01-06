@@ -19,8 +19,11 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
@@ -36,7 +39,7 @@ import android.widget.TimePicker;
 /*
  * can improve: time restriction; calendar, clock;
  */
-public class taskEdit extends Activity implements View.OnClickListener{
+public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 	Button save, back, menu;
 	EditText wDescription, filename, dDate, dTime, sDate, sTime, rDate, rTime, wPriority, wTags;
 	RadioGroup stateGroup, importanceGroup;
@@ -64,6 +67,7 @@ public class taskEdit extends Activity implements View.OnClickListener{
 		super.onCreate(icicle);
 		setContentView(R.layout.task_edit);
 		
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		Intent intent = getIntent();
 		float newScore = -1;
 		if (intent.getStringExtra("newScore") != null){
@@ -193,6 +197,17 @@ public class taskEdit extends Activity implements View.OnClickListener{
 			});
 
 
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    // Respond to the action bar's Up/Home button
+	    case android.R.id.home:
+	        NavUtils.navigateUpFromSameTask(this);
+	        return true;
+	    }
+	    return super.onOptionsItemSelected(item);
 	}
 
 	protected Dialog onCreateDialog(int id){

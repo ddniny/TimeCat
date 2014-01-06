@@ -29,6 +29,36 @@
    committed-date="2014-01-02T14:17:59.103000Z"
    prop-time="2014-01-02T14:12:59.000000Z"/>
 <entry
+   name="drawer_shadow.9.png"
+   revision="48"
+   checksum="3f099f8e2065a789e87b726ed553778a"
+   last-author="danni"
+   committed-rev="48"
+   text-time="2014-01-04T13:36:39.000000Z"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:10.000000Z"/>
+<entry
+   name="ic_action_overflow.png"
+   revision="48"
+   checksum="69a64ac12f69e708c3e7e1c3b949f66a"
+   last-author="danni"
+   committed-rev="48"
+   text-time="2014-01-04T08:48:45.000000Z"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:10.000000Z"/>
+<entry
+   name="ic_action_refresh.png"
+   revision="48"
+   checksum="9afcf0027cf0850effb546866e384c37"
+   last-author="danni"
+   committed-rev="48"
+   text-time="2014-01-04T08:54:04.000000Z"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:10.000000Z"/>
+<entry
    name="ic_compose.png"
    checksum="1eeef4daf933138ccd48ea359572769a"
    last-author="danni"
@@ -46,6 +76,16 @@
    kind="file"
    committed-date="2014-01-02T14:17:59.103000Z"
    prop-time="2014-01-02T14:13:04.000000Z"/>
+<entry
+   name="ic_drawer.png"
+   revision="48"
+   checksum="109a6a1248e75e4e766bf3608cccebb2"
+   last-author="danni"
+   committed-rev="48"
+   text-time="2014-01-04T13:36:39.000000Z"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:10.000000Z"/>
 <entry
    name="ic_launcher.png"
    checksum="77c1f0178e7e0bebc084e94724d0acb8"
@@ -75,22 +115,14 @@
    prop-time="2014-01-02T14:13:02.000000Z"/>
 <entry
    name="ic_refresh.png"
-   checksum="3f6c152461ceec8f6a5b4dcb02fab3fb"
-   last-author="danni"
-   text-time="2013-12-15T00:31:29.000000Z"
-   committed-rev="47"
+   revision="49"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:13:06.000000Z"/>
+   deleted="true"/>
 <entry
    name="ic_refresh_inverse.png"
-   checksum="20333878376ca5166e115bf15a6dc620"
-   last-author="danni"
-   text-time="2013-12-15T00:31:29.000000Z"
-   committed-rev="47"
+   revision="49"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:13:03.000000Z"/>
+   deleted="true"/>
 <entry
    name="ic_search.png"
    checksum="69e1652e4b35d6b024dc0cc9f953b2a6"

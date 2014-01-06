@@ -12,13 +12,9 @@
    committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="arrays.xml"
-   checksum="a83c7fa957f26ae12378711d8a89a8d6"
-   last-author="danni"
-   text-time="2013-11-19T23:53:33.000000Z"
-   committed-rev="47"
+   revision="49"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:13:08.000000Z"/>
+   deleted="true"/>
 <entry
    name="dimens.xml"
    checksum="10f10d7c54078e618e5febc31d0e1caf"
@@ -29,12 +25,13 @@
    committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="strings.xml"
-   checksum="83b27515dad298fdf759a2348702bd6a"
+   revision="48"
+   checksum="8fe49799213a5d98698e75edd47f28a9"
    last-author="danni"
-   text-time="2013-09-18T22:22:14.000000Z"
-   committed-rev="47"
+   text-time="2014-01-04T12:54:22.000000Z"
+   committed-rev="48"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"/>
+   committed-date="2014-01-04T17:30:52.258000Z"/>
 <entry
    name="styles.xml"
    checksum="e224fd930b4e7c60bbe490870d95f716"
@@ -45,11 +42,7 @@
    committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="themes.xml"
-   checksum="1ba27ba745c9a275316e8ace6bcc9fd0"
-   last-author="danni"
-   text-time="2013-07-29T14:09:06.000000Z"
-   committed-rev="47"
+   revision="49"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:13:06.000000Z"/>
+   deleted="true"/>
 </wc-entries>

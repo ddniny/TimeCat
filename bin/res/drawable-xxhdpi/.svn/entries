@@ -2,8 +2,8 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   name=""
    repos="https://bolt.math.cmu.edu/svn/timecat"
+   name=""
    revision="47"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/bin/res/drawable-xxhdpi"
@@ -11,11 +11,31 @@
    kind="dir"
    committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
+   name="ic_action_overflow.png"
+   revision="48"
+   checksum="48263db2ad8c7b9ebb57b9bcd193e501"
+   last-author="danni"
+   text-time="2014-01-04T08:48:45.000000Z"
+   committed-rev="48"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:10.000000Z"/>
+<entry
+   name="ic_action_refresh.png"
+   revision="48"
+   checksum="3ee375a2efe5dac7364f80b58ca430d5"
+   last-author="danni"
+   text-time="2014-01-04T08:54:04.000000Z"
+   committed-rev="48"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:10.000000Z"/>
+<entry
    name="ic_launcher.png"
    checksum="d8ee25c85bbad8b663331097786c7e7a"
    last-author="danni"
-   text-time="2013-12-15T00:31:29.000000Z"
    committed-rev="47"
+   text-time="2013-12-15T00:31:29.000000Z"
    kind="file"
    committed-date="2014-01-02T14:17:59.103000Z"
    prop-time="2014-01-02T14:13:00.000000Z"/>

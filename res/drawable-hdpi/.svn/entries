@@ -12,40 +12,64 @@
    committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="bg_striped_img.png"
-   checksum="d97f9263695c294f46084d4cc665f6cb"
-   last-author="danni"
-   text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="47"
+   revision="49"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:13:07.000000Z"/>
+   deleted="true"/>
 <entry
    name="bg_striped_split_img.png"
-   checksum="a56a1c1da4e027e3bb3ff499caa68ca9"
-   last-author="danni"
-   text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="47"
+   revision="49"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:13:07.000000Z"/>
+   deleted="true"/>
+<entry
+   name="drawer_shadow.9.png"
+   revision="48"
+   checksum="32eaa826eebc0115eb2fa02a122e5d17"
+   last-author="danni"
+   committed-rev="48"
+   text-time="2013-05-10T07:32:22.000000Z"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:09.000000Z"/>
+<entry
+   name="ic_action_overflow.png"
+   revision="48"
+   checksum="6ae69b156dfd1c18eccdd37b8e82ffd0"
+   last-author="danni"
+   committed-rev="48"
+   text-time="2014-01-04T08:47:11.000000Z"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:10.000000Z"/>
+<entry
+   name="ic_action_refresh.png"
+   revision="48"
+   checksum="dbcf759e0ee72dc087f59a5a71a8bec2"
+   last-author="danni"
+   committed-rev="48"
+   text-time="2014-01-04T08:51:41.000000Z"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:10.000000Z"/>
 <entry
    name="ic_compose.png"
-   checksum="9d0117c53eb893319c48ac3e726fcdc2"
-   last-author="danni"
-   text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="47"
+   revision="49"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:13:03.000000Z"/>
+   deleted="true"/>
 <entry
    name="ic_compose_inverse.png"
-   checksum="e65a27c4f8514faa9d804b2129daa8a7"
-   last-author="danni"
-   text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="47"
+   revision="49"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:13:05.000000Z"/>
+   deleted="true"/>
+<entry
+   name="ic_drawer.png"
+   revision="48"
+   checksum="4d4a26d6409eef004d6f94fa6507ad43"
+   last-author="danni"
+   committed-rev="48"
+   text-time="2013-05-10T07:32:22.000000Z"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"
+   prop-time="2014-01-04T17:28:10.000000Z"/>
 <entry
    name="ic_launcher.png"
    checksum="ab9b8e0517fa843c349f90eddfbec4b3"
@@ -57,40 +81,24 @@
    prop-time="2014-01-02T14:13:00.000000Z"/>
 <entry
    name="ic_launcher_settings.png"
-   checksum="d5dff6da5e27f117b6b4f12ef8634c53"
-   last-author="danni"
-   text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="47"
+   revision="49"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:13:07.000000Z"/>
+   deleted="true"/>
 <entry
    name="ic_magnifying_glass.png"
-   checksum="c04e0e8b31eb754f5660d3fc96fc82c9"
-   last-author="danni"
-   text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="47"
+   revision="49"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:13:00.000000Z"/>
+   deleted="true"/>
 <entry
    name="ic_refresh.png"
-   checksum="c53afefd8d9bf86033488dc47e1c660d"
-   last-author="danni"
-   text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="47"
+   revision="49"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:12:59.000000Z"/>
+   deleted="true"/>
 <entry
    name="ic_refresh_inverse.png"
-   checksum="ad5bd7f3a72056aebcbc01d3d0c50868"
-   last-author="danni"
-   text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="47"
+   revision="49"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:13:07.000000Z"/>
+   deleted="true"/>
 <entry
    name="ic_search.png"
    checksum="46a8c6270209736b4831814adf46dff7"

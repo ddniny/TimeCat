@@ -12,12 +12,13 @@
    committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="activity_main.xml"
-   checksum="a31e60438cc5a67e9349f080e6c79667"
+   revision="51"
+   checksum="6d405ee50cf60fa6e5154b11949b8c8f"
    last-author="danni"
-   text-time="2014-01-02T09:17:54.000000Z"
-   committed-rev="47"
+   text-time="2014-01-06T05:50:30.000000Z"
+   committed-rev="51"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"/>
+   committed-date="2014-01-06T15:16:29.806000Z"/>
 <entry
    name="completed_list.xml"
    checksum="16564ef83ec83253d23e1d30aa4c7a25"
@@ -27,6 +28,15 @@
    kind="file"
    committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
+   name="drawer_list_item.xml"
+   revision="48"
+   checksum="74a9f322b1f635d895b2e4043bb6c90f"
+   last-author="danni"
+   committed-rev="48"
+   text-time="2013-05-10T07:32:22.000000Z"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"/>
+<entry
    name="expired_list.xml"
    checksum="3d77b2ec1979088de5b11405f3a35891"
    last-author="danni"
@@ -34,6 +44,15 @@
    committed-rev="47"
    kind="file"
    committed-date="2014-01-02T14:17:59.103000Z"/>
+<entry
+   name="fragment_activelist.xml"
+   revision="48"
+   checksum="9aadd1303c91f66a60bc939e42f813e9"
+   last-author="danni"
+   committed-rev="48"
+   text-time="2014-01-04T13:42:58.000000Z"
+   kind="file"
+   committed-date="2014-01-04T17:30:52.258000Z"/>
 <entry
    name="item_active.xml"
    checksum="5dc643a8b6338644b9afdc72d855e417"
