@@ -23,6 +23,8 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -60,6 +62,7 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 	Date dueDay = null;
 	Date now = null;
 	Date startDay = null;
+	Menu currentMenu;
 	//task(String details, String startTime, String endTime, String description, String state, String importance, int priority, String tags)
 
 	@Override
@@ -86,6 +89,7 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 		back.setOnClickListener(this);
 
 		wDescription = (EditText)findViewById(R.id.wDescription);
+		wDescription.requestFocus();
 		filename = (EditText)findViewById(R.id.filename);
 		dDate = (EditText)findViewById(R.id.dDate);
 		dTime = (EditText)findViewById(R.id.dTime);
@@ -200,15 +204,68 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 	}
 	
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.task_edit, menu);
+		menu.findItem(R.id.action_save).setVisible(true);
+		currentMenu = menu;
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	    // Respond to the action bar's Up/Home button
 	    case android.R.id.home:
-	        NavUtils.navigateUpFromSameTask(this);
-	        return true;
+	    	
+				new AlertDialog.Builder(this)
+				.setTitle("Have not saved!")
+				.setMessage("Are you sure you want to leave without saving?")
+				.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) { 
+						// continue without save
+						//NavUtils.navigateUpFromSameTask(taskEdit.this);
+						finish();
+					}
+				})
+				.setNegativeButton("Save", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) { 
+						if (add()!=0){
+							if (!state.equals("COMPLETED")){
+								NavUtils.navigateUpFromSameTask(taskEdit.this);
+							}else{
+								Bundle bundle = new Bundle();
+								bundle.putString("table", "COMPLETED");
+								intent.putExtras(bundle);
+								intent.setClass(taskEdit.this, Main.class);
+								startActivity(intent);
+							}
+						}
+					}
+				})
+				.show();
+			
+	    	return true;
+	    case R.id.action_save:
+			if (add()!=0){
+				if (!state.equals("COMPLETED")){
+					intent.setClass(this, Main.class);
+				}else{
+					Bundle bundle = new Bundle();
+					bundle.putString("table", "COMPLETED");
+					intent.putExtras(bundle);
+					intent.setClass(this, Main.class);
+				}
+				startActivity(intent);
+			}
+			return true;
+	    default:
+	    	break;
 	    }
 	    return super.onOptionsItemSelected(item);
 	}
+	
+
 
 	protected Dialog onCreateDialog(int id){
 		Calendar calendar = Calendar.getInstance();
@@ -275,7 +332,7 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 				.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) { 
 						// continue without save
-						intent.setClass(taskEdit.this, menu_taskEdit.class);
+						intent.setClass(taskEdit.this, Main.class);
 						startActivity(intent);
 
 					}
@@ -284,9 +341,9 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 					public void onClick(DialogInterface dialog, int which) { 
 						if (add()!=0){
 							if (!state.equals("COMPLETED")){
-								intent.setClass(taskEdit.this, MainActivity.class);
+								intent.setClass(taskEdit.this, Main.class);
 							}else{
-								intent.setClass(taskEdit.this, completedList.class);
+								intent.setClass(taskEdit.this, Main.class);
 							}
 							startActivity(intent);
 						} 
@@ -302,9 +359,12 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 		case R.id.save:
 			if (add()!=0){
 				if (!state.equals("COMPLETED")){
-					intent.setClass(this, MainActivity.class);
+					intent.setClass(this, Main.class);
 				}else{
-					intent.setClass(this, completedList.class);
+//					Bundle bundle = new Bundle();
+//					bundle.putString("table", "COMPLETED");
+//					intent.putExtras(bundle);
+					intent.setClass(this, Main.class);
 				}
 				startActivity(intent);
 			}
@@ -411,10 +471,10 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 		
 		tasks.add(task1);
 		if (state.equals("COMPLETED")){
-			MainActivity.mgr.add(tasks, "completedTasktable");
+			Main.mgr.add(tasks, "completedTasktable");
 			table = "completedTasktable";
 		}else{
-			MainActivity.mgr.add(tasks, "tasktable");
+			Main.mgr.add(tasks, "tasktable");
 			table = "tasktable";
 		}
 		return 1;

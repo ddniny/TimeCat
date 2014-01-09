@@ -19,4 +19,14 @@
    committed-rev="50"
    kind="file"
    committed-date="2014-01-06T14:45:43.920000Z"/>
+<entry
+   name="show_task.xml"
+   revision="0"
+   schedule="add"
+   kind="file"/>
+<entry
+   name="task_edit.xml"
+   revision="0"
+   schedule="add"
+   kind="file"/>
 </wc-entries>

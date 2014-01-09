@@ -39,6 +39,16 @@
    committed-date="2014-01-04T17:30:52.258000Z"
    prop-time="2014-01-04T17:28:10.000000Z"/>
 <entry
+   name="ic_action_edit.png"
+   revision="0"
+   schedule="add"
+   kind="file"/>
+<entry
+   name="ic_action_new.png"
+   revision="0"
+   schedule="add"
+   kind="file"/>
+<entry
    name="ic_action_overflow.png"
    revision="48"
    checksum="4e2acc07594be65212bff17dbf554485"
@@ -58,6 +68,11 @@
    kind="file"
    committed-date="2014-01-04T17:30:52.258000Z"
    prop-time="2014-01-04T17:28:10.000000Z"/>
+<entry
+   name="ic_action_save.png"
+   revision="0"
+   schedule="add"
+   kind="file"/>
 <entry
    name="ic_compose.png"
    checksum="8e4aa1132436151e1e47582c6ccb6d27"
@@ -113,6 +128,11 @@
    kind="file"
    committed-date="2014-01-02T14:17:59.103000Z"
    prop-time="2014-01-02T14:13:06.000000Z"/>
+<entry
+   name="ic_menu_today_no_date_holo_light.png"
+   revision="0"
+   schedule="add"
+   kind="file"/>
 <entry
    name="ic_refresh.png"
    revision="49"
