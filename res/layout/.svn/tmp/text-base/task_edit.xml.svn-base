@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <Button
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="22dp"
+        android:text="MENU" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/menu"
+        android:text="Back" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Save" />
+
+    <ScrollView
+        android:id="@+id/editTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/back"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/save" >
+
+        <TableLayout
+            android:id="@+id/tableLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description" />
+
+                <EditText
+                    android:id="@+id/wDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text">
+
+                    <requestFocus />
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Details" />
+
+                <EditText
+                    android:id="@+id/filename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text" >
+
+                    <requestFocus />
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="State" />
+
+                <RadioGroup
+                    android:id="@+id/stateGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp" >
+
+                    <RadioButton
+                        android:id="@+id/active"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="ACTIVE" />
+
+                    <RadioButton
+                        android:id="@+id/expired"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="EXPIRED" />
+
+                    <RadioButton
+                        android:id="@+id/completed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="COMPLETED" />
+                </RadioGroup>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/importance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Importance" />
+
+                <RadioGroup
+                    android:id="@+id/importanceGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp" >
+
+                    <RadioButton
+                        android:id="@+id/low"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="LOW" />
+
+                    <RadioButton
+                        android:id="@+id/moderate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="MODERATE" />
+
+                    <RadioButton
+                        android:id="@+id/important"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IMPORTANT" />
+
+                    <RadioButton
+                        android:id="@+id/crucial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CRUCIAL" />
+                </RadioGroup>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/deadline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deadline" />
+
+                <EditText
+                    android:id="@+id/dDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="MM/DD/YYYY"
+                    android:inputType="text" >
+
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/dTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="HH:MM:SS"
+                    android:inputType="text" >
+
+                    <requestFocus />
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start:" />
+
+                <EditText
+                    android:id="@+id/sDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="MM/DD/YYYY"
+                    android:inputType="text" >
+
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/sTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="HH:MM:SS"
+                    android:inputType="text" >
+
+                    <requestFocus />
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/remaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Remaining:" />
+
+                <EditText
+                    android:id="@+id/rDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="date" >
+
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/rTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time" >
+
+                    <requestFocus />
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/completed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Completed" />
+
+                <!--
+                     <EditText
+                    android:id="@+id/wCompleted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text" >
+                -->
+
+                <SeekBar
+                    android:id="@+id/sb"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:max="100"
+                    android:progress="0" />
+                <TextView
+                    android:id="@+id/sbresult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0%" />
+
+                <requestFocus />
+
+                <EditText>
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/priority"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Priority" />
+
+                <EditText
+                    android:id="@+id/wPriority"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number" >
+
+                    <requestFocus />
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tags"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tags" />
+
+                <EditText
+                    android:id="@+id/wTags"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text" >
+
+                    <requestFocus />
+                </EditText>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+</RelativeLayout>

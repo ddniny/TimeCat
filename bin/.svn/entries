@@ -2,8 +2,8 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   name=""
    repos="https://bolt.math.cmu.edu/svn/timecat"
+   name=""
    revision="47"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/bin"
@@ -15,8 +15,8 @@
    revision="50"
    checksum="4e3b9c437ba7258aae693ef0b1b2c62e"
    last-author="danni"
-   text-time="2014-01-06T06:15:18.000000Z"
    committed-rev="50"
+   text-time="2014-01-06T06:15:18.000000Z"
    kind="file"
    committed-date="2014-01-06T14:45:43.920000Z"/>
 <entry
@@ -24,8 +24,8 @@
    revision="50"
    checksum="5e027e9122f46288e0d469b1759e3df6"
    last-author="danni"
-   text-time="2014-01-06T14:42:42.000000Z"
    committed-rev="50"
+   text-time="2014-01-06T14:42:42.000000Z"
    kind="file"
    committed-date="2014-01-06T14:45:43.920000Z"/>
 <entry
@@ -33,8 +33,8 @@
    revision="50"
    checksum="d5a5c77bf668836fe5bd4b4f92542f51"
    last-author="danni"
-   text-time="2014-01-06T09:02:59.000000Z"
    committed-rev="50"
+   text-time="2014-01-06T09:02:59.000000Z"
    kind="file"
    committed-date="2014-01-06T14:45:43.920000Z"
    prop-time="2014-01-02T14:12:59.000000Z"/>
@@ -46,8 +46,8 @@
    revision="50"
    checksum="399788c82a837fbf7621b2f5b718fb23"
    last-author="danni"
-   text-time="2014-01-06T09:02:58.000000Z"
    committed-rev="50"
+   text-time="2014-01-06T09:02:58.000000Z"
    kind="file"
    committed-date="2014-01-06T14:45:43.920000Z"
    prop-time="2014-01-02T14:13:06.000000Z"/>
@@ -59,8 +59,8 @@
    revision="48"
    checksum="c1fcac184b2bd90d3425b34752469a18"
    last-author="danni"
-   text-time="2014-01-06T14:42:36.000000Z"
    committed-rev="48"
+   text-time="2014-01-09T16:50:43.000000Z"
    kind="file"
    committed-date="2014-01-04T17:30:52.258000Z"/>
 <entry
@@ -71,8 +71,8 @@
    revision="50"
    checksum="01b32dfe29f8553b662a6a4ed2eba912"
    last-author="danni"
-   text-time="2014-01-06T09:00:27.000000Z"
    committed-rev="50"
+   text-time="2014-01-06T09:00:27.000000Z"
    kind="file"
    committed-date="2014-01-06T14:45:43.920000Z"
    prop-time="2014-01-02T14:13:06.000000Z"/>
