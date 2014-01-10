@@ -2,8 +2,8 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   name=""
    repos="https://bolt.math.cmu.edu/svn/timecat"
+   name=""
    revision="47"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/res/values"
@@ -19,25 +19,25 @@
    name="dimens.xml"
    checksum="10f10d7c54078e618e5febc31d0e1caf"
    last-author="danni"
-   text-time="2013-09-18T22:22:14.000000Z"
    committed-rev="47"
+   text-time="2013-09-18T22:22:14.000000Z"
    kind="file"
    committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
    name="strings.xml"
-   revision="48"
-   checksum="8fe49799213a5d98698e75edd47f28a9"
+   revision="52"
+   checksum="52ad663f95b244c1f451450467d8c9bf"
    last-author="danni"
-   text-time="2014-01-04T12:54:22.000000Z"
-   committed-rev="48"
+   committed-rev="52"
+   text-time="2014-01-09T05:37:18.000000Z"
    kind="file"
-   committed-date="2014-01-04T17:30:52.258000Z"/>
+   committed-date="2014-01-09T17:01:24.192000Z"/>
 <entry
    name="styles.xml"
    checksum="e224fd930b4e7c60bbe490870d95f716"
    last-author="danni"
-   text-time="2013-09-18T22:22:13.000000Z"
    committed-rev="47"
+   text-time="2013-09-18T22:22:13.000000Z"
    kind="file"
    committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry

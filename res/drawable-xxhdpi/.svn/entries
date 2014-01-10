@@ -11,15 +11,30 @@
    kind="dir"
    committed-date="2014-01-02T14:17:59.103000Z"/>
 <entry
-   name="ic_action_edit.png"
+   name="ic_action_accept.png"
    revision="0"
    schedule="add"
    kind="file"/>
 <entry
+   name="ic_action_edit.png"
+   revision="52"
+   checksum="3cd9e845a11c6772ac8a9c4669f226e6"
+   last-author="danni"
+   committed-rev="52"
+   text-time="2014-01-09T03:54:08.000000Z"
+   kind="file"
+   committed-date="2014-01-09T17:01:24.192000Z"
+   prop-time="2014-01-09T16:28:39.000000Z"/>
+<entry
    name="ic_action_new.png"
-   revision="0"
-   schedule="add"
-   kind="file"/>
+   revision="52"
+   checksum="253a229f219834f1e72a8201e5616ee0"
+   last-author="danni"
+   committed-rev="52"
+   text-time="2014-01-09T03:35:46.000000Z"
+   kind="file"
+   committed-date="2014-01-09T17:01:24.192000Z"
+   prop-time="2014-01-09T16:28:37.000000Z"/>
 <entry
    name="ic_action_overflow.png"
    revision="48"
@@ -42,9 +57,14 @@
    prop-time="2014-01-04T17:28:10.000000Z"/>
 <entry
    name="ic_action_save.png"
-   revision="0"
-   schedule="add"
-   kind="file"/>
+   revision="52"
+   checksum="eac8a000da868ac953b5ddf3b58b7421"
+   last-author="danni"
+   committed-rev="52"
+   text-time="2014-01-09T03:56:51.000000Z"
+   kind="file"
+   committed-date="2014-01-09T17:01:24.192000Z"
+   prop-time="2014-01-09T16:28:37.000000Z"/>
 <entry
    name="ic_launcher.png"
    checksum="026e2b8340c9b5d82a9581737bf6f25a"

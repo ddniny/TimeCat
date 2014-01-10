@@ -78,10 +78,10 @@ public class Main extends Activity {
 	private CharSequence mTitle;
 	private String[] mModeTitles;
 
-	Fragment fragment = new MainActivity();
-	Fragment fragment1 = new completedList();
-	Fragment fragment2 = new statistics();
-	Fragment fragment3 = new settings();
+	MainActivity fragment = new MainActivity();
+	completedList fragment1 = new completedList();
+	statistics fragment2 = new statistics();
+	settings fragment3 = new settings();
 	private SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	private SimpleDateFormat sdfDate = new SimpleDateFormat("MM/dd/yyyy");
 	private SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
@@ -170,6 +170,7 @@ public class Main extends Activity {
 			menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
 			menu.findItem(R.id.action_timeChoose).setVisible(!drawerOpen);
 			menu.findItem(R.id.action_new).setVisible(!drawerOpen);
+			menu.findItem(R.id.action_accept).setVisible(!drawerOpen);
 		}
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -189,12 +190,6 @@ public class Main extends Activity {
 			//openSearch();
 			MainActivity.activeTasks = MainActivity.getData();
 			MainActivity.activeListView.setAdapter(new SelfAdapter(Main.this, MainActivity.activeTasks, R.layout.item_active, MainActivity.mFrom, MainActivity.mTo));
-			//finish();  
-//	        intent.setClass(Main.this, Main.class);  
-//	        startActivity(intent);
-//			selectItem(1);
-//			onCreate(null);
-		//	MainActivity.mSelfAdapter.notifyDataSetChanged();
 			return true;
 		case R.id.action_settings:
 			// openSettings();
@@ -207,6 +202,11 @@ public class Main extends Activity {
 		case R.id.action_new:
 			intent.setClass(this, taskEdit.class);
 			startActivity(intent);
+			return true;
+		case R.id.action_accept:
+			//statistics s = new statistics();
+			
+			fragment2.chart();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -238,6 +238,7 @@ public class Main extends Activity {
 				currentMenu.findItem(R.id.action_timeChoose).setVisible(true);
 				currentMenu.findItem(R.id.action_settings).setVisible(true);
 				currentMenu.findItem(R.id.action_new).setVisible(true);
+				currentMenu.findItem(R.id.action_accept).setVisible(false);
 			}
 			break;
 		case 1:
@@ -245,8 +246,11 @@ public class Main extends Activity {
 			fragment1.setArguments(args);
 			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment1).commit();
 			if (currentMenu != null){
+				currentMenu.findItem(R.id.action_refresh).setVisible(false);
+				currentMenu.findItem(R.id.action_timeChoose).setVisible(false);
 				currentMenu.findItem(R.id.action_settings).setVisible(true);
 				currentMenu.findItem(R.id.action_new).setVisible(true);
+				currentMenu.findItem(R.id.action_accept).setVisible(false);
 			}
 			//System.out.println(currentMenu + "currentMenu!!!!!!");
 			break;
@@ -254,15 +258,21 @@ public class Main extends Activity {
 			args.putInt(statistics.ARG_MODE_NUMBER, position);
 			fragment2.setArguments(args);
 			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment2).commit();
+			currentMenu.findItem(R.id.action_refresh).setVisible(false);
+			currentMenu.findItem(R.id.action_timeChoose).setVisible(false);
 			currentMenu.findItem(R.id.action_settings).setVisible(true);
 			currentMenu.findItem(R.id.action_new).setVisible(true);
+			currentMenu.findItem(R.id.action_accept).setVisible(true);
 			break;
 		case 3:
 			args.putInt(settings.ARG_MODE_NUMBER, position);
 			fragment3.setArguments(args);
 			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment3).commit();
+			currentMenu.findItem(R.id.action_refresh).setVisible(false);
+			currentMenu.findItem(R.id.action_timeChoose).setVisible(false);
 			currentMenu.findItem(R.id.action_settings).setVisible(true);
 			currentMenu.findItem(R.id.action_new).setVisible(true);
+			currentMenu.findItem(R.id.action_accept).setVisible(false);
 			break;    
 		case 5: //exit
 			myExit.setExit(true);

@@ -12,8 +12,22 @@
     <item 
         android:id="@+id/action_refresh"
         android:title="@string/action_refresh"
-        android:orderInCategory="1"
+        android:orderInCategory="3"
         android:icon="@drawable/ic_action_refresh"
+        android:showAsAction="ifRoom"/>
+    
+    <item 
+        android:id="@+id/action_timeChoose"
+        android:title="@string/action_timeChoose"
+        android:orderInCategory="2"
+        android:icon="@drawable/ic_menu_today_no_date_holo_light"
+        android:showAsAction="ifRoom"/>
+    
+    <item 
+        android:id="@+id/action_new"
+        android:title="@string/action_new"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_action_new"
         android:showAsAction="ifRoom"/>
 
 </menu>

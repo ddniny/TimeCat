@@ -39,15 +39,30 @@
    committed-date="2014-01-04T17:30:52.258000Z"
    prop-time="2014-01-04T17:28:11.000000Z"/>
 <entry
-   name="ic_action_edit.png"
+   name="ic_action_accept.png"
    revision="0"
    schedule="add"
    kind="file"/>
 <entry
+   name="ic_action_edit.png"
+   revision="52"
+   checksum="e5dda9d9b366263369ceae3018417b32"
+   last-author="danni"
+   committed-rev="52"
+   text-time="2014-01-09T03:53:58.000000Z"
+   kind="file"
+   committed-date="2014-01-09T17:01:24.192000Z"
+   prop-time="2014-01-09T16:28:37.000000Z"/>
+<entry
    name="ic_action_new.png"
-   revision="0"
-   schedule="add"
-   kind="file"/>
+   revision="52"
+   checksum="314f931ddb1a5d9c0301fba7f30922b3"
+   last-author="danni"
+   committed-rev="52"
+   text-time="2014-01-09T03:35:36.000000Z"
+   kind="file"
+   committed-date="2014-01-09T17:01:24.192000Z"
+   prop-time="2014-01-09T16:28:37.000000Z"/>
 <entry
    name="ic_action_overflow.png"
    revision="48"
@@ -70,9 +85,14 @@
    prop-time="2014-01-04T17:28:07.000000Z"/>
 <entry
    name="ic_action_save.png"
-   revision="0"
-   schedule="add"
-   kind="file"/>
+   revision="52"
+   checksum="57aa5c00075b6d2f8aef3b96dc021de9"
+   last-author="danni"
+   committed-rev="52"
+   text-time="2014-01-09T03:56:44.000000Z"
+   kind="file"
+   committed-date="2014-01-09T17:01:24.192000Z"
+   prop-time="2014-01-09T16:28:37.000000Z"/>
 <entry
    name="ic_drawer.png"
    revision="48"
@@ -103,9 +123,14 @@
    prop-time="2014-01-02T14:13:07.000000Z"/>
 <entry
    name="ic_menu_today_no_date_holo_light.png"
-   revision="0"
-   schedule="add"
-   kind="file"/>
+   revision="52"
+   checksum="e29e2d421384241da035727f0ba9eece"
+   last-author="danni"
+   committed-rev="52"
+   text-time="2014-01-08T04:21:53.000000Z"
+   kind="file"
+   committed-date="2014-01-09T17:01:24.192000Z"
+   prop-time="2014-01-08T16:21:33.000000Z"/>
 <entry
    name="icon.png"
    checksum="67eb7de5ad28f765a9b3b0fda0499198"

@@ -70,7 +70,7 @@ public class expiredList extends Activity implements View.OnClickListener{
 		 */
 		List<Map<String,Object>> mList = new ArrayList<Map<String,Object>>();
 		Map<String,Object> mMap = null;
-		List<task> tasks = MainActivity.mgr.queryExpired();  //only query the informations of expired tasks
+		List<task> tasks = Main.mgr.queryExpired();  //only query the informations of expired tasks
 		for (task everyTask : tasks){
 			mMap = new HashMap<String, Object>();
 			mMap.put("details", everyTask.details);

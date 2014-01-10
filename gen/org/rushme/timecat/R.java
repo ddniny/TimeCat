@@ -984,26 +984,28 @@ containing a value of this type.
         public static final int bg_striped_split=0x7f020059;
         public static final int bg_striped_split_img=0x7f02005a;
         public static final int drawer_shadow=0x7f02005b;
-        public static final int ic_action_edit=0x7f02005c;
-        public static final int ic_action_new=0x7f02005d;
-        public static final int ic_action_overflow=0x7f02005e;
-        public static final int ic_action_refresh=0x7f02005f;
-        public static final int ic_action_save=0x7f020060;
-        public static final int ic_compose=0x7f020061;
-        public static final int ic_compose_inverse=0x7f020062;
-        public static final int ic_drawer=0x7f020063;
-        public static final int ic_launcher=0x7f020064;
-        public static final int ic_launcher_settings=0x7f020065;
-        public static final int ic_magnifying_glass=0x7f020066;
-        public static final int ic_menu_today_no_date_holo_light=0x7f020067;
-        public static final int ic_search=0x7f020068;
-        public static final int ic_search_inverse=0x7f020069;
-        public static final int ic_title_share_default=0x7f02006a;
-        public static final int icon=0x7f02006b;
+        public static final int ic_action_accept=0x7f02005c;
+        public static final int ic_action_edit=0x7f02005d;
+        public static final int ic_action_new=0x7f02005e;
+        public static final int ic_action_overflow=0x7f02005f;
+        public static final int ic_action_refresh=0x7f020060;
+        public static final int ic_action_save=0x7f020061;
+        public static final int ic_compose=0x7f020062;
+        public static final int ic_compose_inverse=0x7f020063;
+        public static final int ic_drawer=0x7f020064;
+        public static final int ic_launcher=0x7f020065;
+        public static final int ic_launcher_settings=0x7f020066;
+        public static final int ic_magnifying_glass=0x7f020067;
+        public static final int ic_menu_today_no_date_holo_light=0x7f020068;
+        public static final int ic_search=0x7f020069;
+        public static final int ic_search_inverse=0x7f02006a;
+        public static final int ic_title_share_default=0x7f02006b;
+        public static final int icon=0x7f02006c;
     }
     public static final class id {
         public static final int CompletedTask=0x7f050045;
         public static final int TaskFor=0x7f050048;
+        public static final int action_accept=0x7f050097;
         public static final int action_bar=0x7f05001a;
         public static final int action_bar_activity_content=0x7f050015;
         public static final int action_bar_container=0x7f050019;
@@ -1012,7 +1014,7 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f050021;
         public static final int action_bar_title=0x7f050020;
         public static final int action_context_bar=0x7f05001b;
-        public static final int action_edit=0x7f050097;
+        public static final int action_edit=0x7f050098;
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_bar=0x7f05002f;
@@ -1020,7 +1022,7 @@ containing a value of this type.
         public static final int action_mode_close_button=0x7f050022;
         public static final int action_new=0x7f050096;
         public static final int action_refresh=0x7f050094;
-        public static final int action_save=0x7f050098;
+        public static final int action_save=0x7f050099;
         public static final int action_settings=0x7f050093;
         public static final int action_timeChoose=0x7f050095;
         public static final int active=0x7f050077;
@@ -1272,6 +1274,7 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
+        public static final int action_accept=0x7f0a0016;
         public static final int action_edit=0x7f0a0015;
         public static final int action_new=0x7f0a0013;
         public static final int action_refresh=0x7f0a0011;
@@ -1280,8 +1283,8 @@ containing a value of this type.
         public static final int action_settings=0x7f0a000e;
         public static final int action_timeChoose=0x7f0a0012;
         public static final int app_name=0x7f0a000d;
-        public static final int drawer_close=0x7f0a0017;
-        public static final int drawer_open=0x7f0a0016;
+        public static final int drawer_close=0x7f0a0018;
+        public static final int drawer_open=0x7f0a0017;
         public static final int hello_world=0x7f0a000f;
     }
     public static final class style {

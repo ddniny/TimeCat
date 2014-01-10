@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.rushme.timecat.menu.menu_taskEdit;
-
 import org.rushme.timecat.R;
 import org.rushme.timecat.R.id;
 
@@ -13,17 +12,22 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 
 public class showTask extends taskEdit implements View.OnClickListener {
 	private task checkedTask;
 	private String oldName, details, table, id;
+	private Menu currentMenu;
 
 
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
-
+		
 		wDescription.setEnabled(false);
 		filename.setEnabled(false);
 		dDate.setEnabled(false);
@@ -52,7 +56,7 @@ public class showTask extends taskEdit implements View.OnClickListener {
 		table = intent.getStringExtra("table");
 		//oldName = details;
 		//checkedTask = MainActivity.mgr.queryByName(details, table);
-		checkedTask = MainActivity.mgr.queryById(id, table);
+		checkedTask = Main.mgr.queryById(id, table);
 		//System.out.println(checkedTask.details);
 		wDescription.setText(checkedTask.description);
 		filename.setText(checkedTask.details);
@@ -85,7 +89,7 @@ public class showTask extends taskEdit implements View.OnClickListener {
 		}else if (percentage >= 100){
 			expired.setChecked(true);
 			checkedTask.setState("EXPIRED"); 
-			MainActivity.mgr.updateById(checkedTask, id, table);
+			Main.mgr.updateById(checkedTask, id, table);
 		}else if(checkedTask.getState.toString().equalsIgnoreCase("ACTIVE")){
 			active.setChecked(true);
 		}
@@ -107,6 +111,7 @@ public class showTask extends taskEdit implements View.OnClickListener {
 		}
 		
 		
+		
 	}
 
 	protected void onStart(){
@@ -116,7 +121,78 @@ public class showTask extends taskEdit implements View.OnClickListener {
 			finish();
 		}
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.show_task, menu);
+		currentMenu = menu;
+		return true;
+	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    // Respond to the action bar's Up/Home button
+	    case android.R.id.home:
+	    	if(currentMenu.findItem(R.id.action_save).isVisible()){
+				new AlertDialog.Builder(this)
+				.setTitle("Have not saved!")
+				.setMessage("Are you sure you want to leave without saving?")
+				.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) { 
+						// continue without save
+						finish();
+
+					}
+				})
+				.setNegativeButton("Save", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) { 
+						if (changeData(table) != 0){
+
+							if (!state.equals("COMPLETED")){
+								NavUtils.navigateUpFromSameTask(showTask.this);
+							}else{
+								Bundle bundle = new Bundle();
+								bundle.putString("table", "COMPLETED");
+								intent.putExtras(bundle);
+								intent.setClass(showTask.this, Main.class);
+								startActivity(intent);
+							}
+						}
+					}
+				})
+				.show();
+			}else{
+				finish();
+			}
+	        return true;
+	    case R.id.action_edit:
+	    	MenuItem item1 = (MenuItem) currentMenu.findItem(R.id.action_save);
+			item1.setVisible(true);
+	    	item.setVisible(false);
+	    	update();
+	    	return true;
+	    case R.id.action_save:
+	    	if(changeData(table) != 0){
+				if (!state.equals("COMPLETED")){
+					intent.setClass(this, Main.class);
+				}else{
+					Bundle bundle = new Bundle();
+					bundle.putString("table", "COMPLETED");
+					intent.putExtras(bundle);
+					intent.setClass(showTask.this, Main.class);
+				}
+				startActivity(intent);
+				finish();   //will not back to the edit page by pressing the back button
+			}
+			return true;
+	    default:
+	    	break;
+	    }
+	    return super.onOptionsItemSelected(item);
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
@@ -280,20 +356,20 @@ public class showTask extends taskEdit implements View.OnClickListener {
 		tags = wTags.getText().toString();
 		checkedTask = new task(null, details, startTime, endTime, description, state, importance, priority, tags, null);
 		if (table.toString().equals("tasktable")&&state.equals("COMPLETED")){
-			MainActivity.mgr.deleteOneTask(id, table);
+			Main.mgr.deleteOneTask(id, table);
 			List<task> list = new ArrayList<task>();
 			list.add(checkedTask);
-			MainActivity.mgr.add(list, "completedTasktable");
+			Main.mgr.add(list, "completedTasktable");
 			table = "completedTasktable";
 		}else if (table.toString().equals("completedTasktable")&&(state.equals("ACTIVE")||state.equals("EXPIRED"))){
-			MainActivity.mgr.deleteOneTask(id, table);
+			Main.mgr.deleteOneTask(id, table);
 			List<task> list = new ArrayList<task>();
 			list.add(checkedTask);
-			MainActivity.mgr.add(list, "tasktable");
+			Main.mgr.add(list, "tasktable");
 			table = "tasktable";
 		}
 		else {
-			MainActivity.mgr.updateById(checkedTask, id, table);
+			Main.mgr.updateById(checkedTask, id, table);
 		}
 
 		return 1;
