@@ -2,8 +2,8 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   repos="https://bolt.math.cmu.edu/svn/timecat"
    name=""
+   repos="https://bolt.math.cmu.edu/svn/timecat"
    revision="47"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/bin"
@@ -15,41 +15,41 @@
    revision="50"
    checksum="4e3b9c437ba7258aae693ef0b1b2c62e"
    last-author="danni"
-   committed-rev="50"
    text-time="2014-01-06T06:15:18.000000Z"
+   committed-rev="50"
    kind="file"
    committed-date="2014-01-06T14:45:43.920000Z"/>
 <entry
    name="R.txt"
-   revision="50"
-   checksum="5e027e9122f46288e0d469b1759e3df6"
+   revision="53"
+   checksum="3a990b97835ed849d9ea6b506b64c621"
    last-author="danni"
-   committed-rev="50"
-   text-time="2014-01-06T14:42:42.000000Z"
+   text-time="2014-01-10T04:44:44.000000Z"
+   committed-rev="53"
    kind="file"
-   committed-date="2014-01-06T14:45:43.920000Z"/>
+   committed-date="2014-01-10T05:30:50.761000Z"/>
 <entry
    name="TimeCat.apk"
-   revision="50"
-   checksum="d5a5c77bf668836fe5bd4b4f92542f51"
+   revision="53"
+   checksum="7624a81b7119771c60eae4d4be2dacde"
    last-author="danni"
-   committed-rev="50"
-   text-time="2014-01-06T09:02:59.000000Z"
+   text-time="2014-01-10T05:16:29.000000Z"
+   committed-rev="53"
    kind="file"
-   committed-date="2014-01-06T14:45:43.920000Z"
+   committed-date="2014-01-10T05:30:50.761000Z"
    prop-time="2014-01-02T14:12:59.000000Z"/>
 <entry
    name="classes"
    kind="dir"/>
 <entry
    name="classes.dex"
-   revision="50"
-   checksum="399788c82a837fbf7621b2f5b718fb23"
+   revision="53"
+   checksum="a8be85853157fb1098a3bc1b613a3329"
    last-author="danni"
-   committed-rev="50"
-   text-time="2014-01-06T09:02:58.000000Z"
+   text-time="2014-01-10T05:16:28.000000Z"
+   committed-rev="53"
    kind="file"
-   committed-date="2014-01-06T14:45:43.920000Z"
+   committed-date="2014-01-10T05:30:50.761000Z"
    prop-time="2014-01-02T14:13:06.000000Z"/>
 <entry
    name="dexedLibs"
@@ -59,8 +59,8 @@
    revision="48"
    checksum="c1fcac184b2bd90d3425b34752469a18"
    last-author="danni"
-   committed-rev="48"
    text-time="2014-01-09T16:50:43.000000Z"
+   committed-rev="48"
    kind="file"
    committed-date="2014-01-04T17:30:52.258000Z"/>
 <entry
@@ -68,12 +68,12 @@
    kind="dir"/>
 <entry
    name="resources.ap_"
-   revision="50"
-   checksum="01b32dfe29f8553b662a6a4ed2eba912"
+   revision="53"
+   checksum="89c1f4b68c01fb72bddab132a0a57e9a"
    last-author="danni"
-   committed-rev="50"
-   text-time="2014-01-06T09:00:27.000000Z"
+   text-time="2014-01-10T04:00:28.000000Z"
+   committed-rev="53"
    kind="file"
-   committed-date="2014-01-06T14:45:43.920000Z"
+   committed-date="2014-01-10T05:30:50.761000Z"
    prop-time="2014-01-02T14:13:06.000000Z"/>
 </wc-entries>
