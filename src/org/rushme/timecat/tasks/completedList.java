@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.rushme.timecat.menu.menu_completedList;
 import org.rushme.timecat.tasks.SlideDelListview.SlideDeleteListener;
 
 
@@ -47,7 +46,7 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 	static String[] mFrom;
 	static int[] mTo;
 	private static boolean longClick = false;
-	private Button curDel_btn;
+	public static Button curDel_btn;
 	private List<Map<String,Object>> activeTasks;
 	public static final String ARG_MODE_NUMBER = "mode_number";
 
@@ -56,28 +55,16 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 	} 
 
 	//	@Override
-	//	public void onCreate(Bundle icicle){
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.completed_list, container, false);
 		int i = getArguments().getInt(ARG_MODE_NUMBER);
 		String planet = getResources().getStringArray(R.array.Mode_array)[i];
 		getActivity().setTitle(planet);
-		//		super.onCreate(icicle);
-		//		setContentView(R.layout.completed_list);
-		//setTheme(SampleList.THEME); //Used for theme switching in samples
 
 		myExit = (MyExit) getActivity().getApplication();
 		myExit.setExit(false);
-		/*menu button*/
-		//		mLocations = getResources().getStringArray(R.array.locations);
-		//		Context context = getSupportActionBar().getThemedContext();
-		//		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
-		//		list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
-		//
-		//		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		//		getSupportActionBar().setListNavigationCallbacks(list, this);
-
+		
 		activeListView = (SlideDelListview) rootView.findViewById(android.R.id.list);
 		mFrom = new String[]{"details","Description","time"};
 		mTo = new int[]{R.id.details,R.id.description,R.id.time};
@@ -85,24 +72,7 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 		//own-defined Adapter
 		final SelfAdapter mSelfAdapter = new SelfAdapter(getActivity(), getData(), R.layout.item_completed, mFrom, mTo);
 		activeListView.setAdapter(mSelfAdapter);
-		//		activeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-		//
-		//			@Override
-		//			public void onItemClick(AdapterView<?> parent, View view, int position,
-		//					long id) {
-		//				//get the data included in the item pressed 
-		//				@SuppressWarnings("unchecked")
-		//				HashMap<String,Object> map = (HashMap<String, Object>) parent.getItemAtPosition(position);
-		//				Intent intent = new Intent();
-		//				intent.setClass(completedList.this, showTask.class);
-		//				Bundle bundle=new Bundle();  
-		//				bundle.putString("id", map.get("id").toString());
-		//				bundle.putString("table", "completedTasktable");
-		//				intent.putExtras(bundle); 
-		//				startActivity(intent);
-		//			}
-		//		});
-
+		
 		activeListView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() { 
 			@Override
 			public void onCreateContextMenu(ContextMenu menu, View v, 
@@ -139,12 +109,28 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 
 				task selectedTask = Main.mgr.queryById(selectedId, selectedTable);
 				Intent intent = new Intent();
-				intent.setClass(completedList.this.getActivity(), showTask.class);
+				intent.setClass(completedList.this.getActivity(), taskEdit.class);
 				Bundle bundle=new Bundle();  
 				bundle.putString("id", selectedId); 
 				bundle.putString("table", selectedTable);
 				intent.putExtras(bundle); 
 				startActivity(intent);
+			}
+			
+			public void filpperMarkAs(float xPosition, float yPosition) {
+				final int position = activeListView.pointToPosition((int) xPosition, (int) yPosition);
+				if (position == -1){
+					return;
+				}
+				final String selectedId = activeTasks.get(position).get("id").toString();
+				final String selectedTable;
+					selectedTable = "completedTasktable";
+				
+				task selectedTask = Main.mgr.queryById(selectedId, selectedTable);
+				markAsUncompleted (selectedTask, selectedId, selectedTable);
+				activeListView.setAdapter(new SelfAdapter(completedList.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
+
+				//Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();
 			}
 
 			public void filpperDelete(float xPosition, float yPosition) {
@@ -169,11 +155,24 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 
 						@Override
 						public void onClick(View v) {
-							final String selectedId = activeTasks.get(index).get("id").toString();
-							final String selectedTable;
-							selectedTable = "completedTasktable";
-							Main.mgr.deleteOneTask(selectedId, selectedTable);
-							activeListView.setAdapter(new SelfAdapter(completedList.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
+							new AlertDialog.Builder(getActivity())
+							.setTitle("Delete a Task!")
+							.setMessage("Are you sure you want to delete this task?")
+							.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) { 
+									final String selectedId = activeTasks.get(index).get("id").toString();
+									final String selectedTable;
+									selectedTable = "completedTasktable";
+									Main.mgr.deleteOneTask(selectedId, selectedTable);
+									activeListView.setAdapter(new SelfAdapter(completedList.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));								}
+							})
+							.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) { 
+
+								}
+							})
+							.show();
+							
 
 						}
 
@@ -183,12 +182,6 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 			}
 		});
 
-
-		//		back = (Button)findViewById(R.id.back);
-		//		back.setOnClickListener(this);
-		//
-		//		menu = (Button)findViewById(R.id.menu);
-		//		menu.setOnClickListener(this);
 		return rootView;
 	}
 
@@ -203,13 +196,7 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 		switch (item.getItemId()) { 
 		case 0: 
 			// Mark as Completed
-			selectedTask.setState("ACTIVE");
-			if (selectedTable.toString().equals("completedTasktable")){	//mark the task to completed and move it to the completedTasktable from tasktable
-				Main.mgr.deleteOneTask(selectedId, selectedTable);
-				List<task> list = new ArrayList<task>();
-				list.add(selectedTask);
-				Main.mgr.add(list, "tasktable");
-			}
+			markAsUncompleted (selectedTask, selectedId, selectedTable);
 			break; 
 
 		case 1: 
@@ -266,19 +253,15 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 		return mList;
 	}
 
-	//	@Override
-	//	public void onClick(View v) {
-	//		switch(v.getId()){
-	//		case R.id.back:
-	//			finish();
-	//			break;
-	//		case R.id.menu:
-	//			Intent intent = new Intent(this, menu_completedList.class);
-	//			startActivity(intent);
-	//			break;
-	//		}
-	//
-	//	}
-
+	public void markAsUncompleted (task selectedTask, String selectedId, String selectedTable){
+		if (selectedTask == null) return;
+	selectedTask.setState("ACTIVE");
+	if (selectedTable.toString().equals("completedTasktable")){	//mark the task to completed and move it to the completedTasktable from tasktable
+		Main.mgr.deleteOneTask(selectedId, selectedTable);
+		List<task> list = new ArrayList<task>();
+		list.add(selectedTask);
+		Main.mgr.add(list, "tasktable");
+	}
+	}
 
 }

@@ -4,28 +4,18 @@
 <entry
    name=""
    repos="https://bolt.math.cmu.edu/svn/timecat"
-   revision="47"
+   revision="59"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/src/org/rushme/timecat/helper"
-   committed-rev="47"
+   committed-rev="59"
    kind="dir"
-   committed-date="2014-01-02T14:17:59.103000Z"/>
-<entry
-   name="SampleList.java"
-   revision="48"
-   checksum="251bb59ed3c7c5a45e1ddeb5f1e45c46"
-   last-author="danni"
-   committed-rev="48"
-   text-time="2014-01-04T07:43:52.000000Z"
-   kind="file"
-   committed-date="2014-01-04T17:30:52.258000Z"
-   prop-time="2014-01-02T14:12:59.000000Z"/>
+   committed-date="2014-01-17T13:57:45.192000Z"/>
 <entry
    name="ViewBase.java"
    checksum="5a4368f17fad957c9dc5d1f7a06ac4f1"
    last-author="danni"
-   committed-rev="47"
-   text-time="2013-12-15T21:45:42.000000Z"
+   text-time="2014-01-17T12:52:28.000000Z"
+   committed-rev="59"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"/>
+   committed-date="2014-01-17T13:57:45.192000Z"/>
 </wc-entries>

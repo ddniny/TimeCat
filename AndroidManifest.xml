@@ -9,11 +9,11 @@
         android:targetSdkVersion="17" />
 
     <application
+        android:name="org.rushme.timecat.tasks.MyExit"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light"
-        android:name="org.rushme.timecat.tasks.MyExit" >
+        android:theme="@style/Theme.AppCompat.Light" >
         <activity
             android:name="org.rushme.timecat.tasks.Main"
             android:label="@string/app_name" >
@@ -23,36 +23,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity android:name ="org.rushme.timecat.tasks.taskEdit"
-            android:parentActivityName="org.rushme.timecat.tasks.Main">
+        <activity
+            android:name="org.rushme.timecat.tasks.taskEdit"
+            android:parentActivityName="org.rushme.timecat.tasks.Main" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.rushme.timecat.tasks.Main"/>
-        </activity>  
-        
-   		<activity android:name ="org.rushme.timecat.tasks.statistics"></activity>
-   		<activity android:name ="org.rushme.timecat.tasks.settings"></activity>  
- 
-   		<activity android:name ="org.rushme.timecat.tasks.showTask"
-            android:parentActivityName="org.rushme.timecat.tasks.Main">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.rushme.timecat.tasks.Main"/>
+                android:value="org.rushme.timecat.tasks.Main" />
         </activity>
-   		
-   		<activity android:name ="org.rushme.timecat.tasks.expiredList"></activity> 
-   		<activity android:name ="org.rushme.timecat.tasks.completedList"></activity> 
-   		        <activity android:name="org.rushme.timecat.menu.menu"></activity>
-   		<activity android:name = "org.rushme.timecat.menu.menu_completedList"></activity> 
-   		   		<activity android:name ="org.rushme.timecat.menu.menu_expiredList"></activity>
-   		<activity android:name = "org.rushme.timecat.menu.menu_statistics"></activity> 
-   		<activity android:name = "org.rushme.timecat.menu.menu_settings"></activity> 
-   		<activity android:name ="org.rushme.timecat.menu.menu_ActiveTask"></activity>  
-   		<activity android:name ="org.rushme.timecat.menu.menu_taskEdit"></activity> 
-   		
-   		
-        </application>
-  <uses-permission android:name="android.permission.INTERNET"></uses-permission>    
+       
+     
         
+        
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+
 </manifest>

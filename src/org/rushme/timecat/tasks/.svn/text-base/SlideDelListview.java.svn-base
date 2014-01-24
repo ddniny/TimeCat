@@ -9,6 +9,7 @@ public class SlideDelListview extends ListView {
 	private float myLastX = -1;
 	private float myLastY = -1;
 	private boolean delete = false;
+	private boolean markAs = false;
 	// self defined listener
 	private SlideDeleteListener slideDeleteListener;
 
@@ -30,17 +31,28 @@ public class SlideDelListview extends ListView {
 			break;
 
 		case MotionEvent.ACTION_MOVE:
-			float deltaX = Math.abs(ev.getX(ev.getPointerCount() - 1) - myLastX);
+			float deltaX = ev.getX(ev.getPointerCount() - 1) - myLastX;
 			float deltaY = Math.abs(ev.getY(ev.getPointerCount() - 1) - myLastY);
-			if (deltaX > 200.0) {
+			if (deltaX < -200.0) {
+				markAs = false;
 				delete = true;
-			} else {
+			} else if (deltaX > 200){
+				markAs = true;
+				delete = false;
+			}else {
+				markAs = false;
 				delete = false;
 			}
 			break;
 		case MotionEvent.ACTION_UP:
 			if (delete && slideDeleteListener != null) {
 				slideDeleteListener.filpperDelete(myLastX, myLastY);
+			} else if (markAs && slideDeleteListener != null) {
+				if (MainActivity.curDel_btn != null || completedList.curDel_btn != null) {
+					slideDeleteListener.filpperDelete(myLastX, myLastY);
+				}else {
+				slideDeleteListener.filpperMarkAs(myLastX, myLastY);
+				}
 			} else {
 				slideDeleteListener.filpperOnclick(myLastX, myLastY);
 			}
@@ -63,6 +75,7 @@ public class SlideDelListview extends ListView {
 	
 	public interface SlideDeleteListener {
 		public void filpperDelete(float xPosition, float yPosition);
+		public void filpperMarkAs(float myLastX, float myLastY);
 		public void filpperOnclick(float xPosition, float yPosition);
 	}
 }

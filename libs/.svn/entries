@@ -2,31 +2,30 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   name=""
    repos="https://bolt.math.cmu.edu/svn/timecat"
-   revision="47"
+   name=""
+   revision="59"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/libs"
-   committed-rev="47"
+   committed-rev="59"
    kind="dir"
-   committed-date="2014-01-02T14:17:59.103000Z"/>
+   committed-date="2014-01-17T13:57:45.192000Z"/>
 <entry
    name="android-support-v13.jar"
-   revision="48"
    checksum="69defb0d35fca2c2ade481b7ea50b017"
    last-author="danni"
    text-time="2014-01-04T14:13:55.000000Z"
-   committed-rev="48"
+   committed-rev="59"
    kind="file"
-   committed-date="2014-01-04T17:30:52.258000Z"
-   prop-time="2014-01-04T17:28:10.000000Z"/>
+   committed-date="2014-01-17T13:57:45.192000Z"
+   prop-time="2014-01-17T13:57:31.000000Z"/>
 <entry
    name="android-support-v4.jar"
    checksum="ed257a47cae11af1a55614055b879947"
    last-author="danni"
-   text-time="2013-09-18T22:22:13.000000Z"
-   committed-rev="47"
+   text-time="2014-01-04T05:52:52.000000Z"
+   committed-rev="59"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"
-   prop-time="2014-01-02T14:12:59.000000Z"/>
+   committed-date="2014-01-17T13:57:45.192000Z"
+   prop-time="2014-01-17T13:57:30.000000Z"/>
 </wc-entries>

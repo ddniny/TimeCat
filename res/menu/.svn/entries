@@ -2,39 +2,38 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   name=""
    repos="https://bolt.math.cmu.edu/svn/timecat"
-   revision="47"
+   name=""
+   revision="59"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/res/menu"
-   committed-rev="47"
+   committed-rev="59"
    kind="dir"
-   committed-date="2014-01-02T14:17:59.103000Z"/>
+   committed-date="2014-01-17T13:57:45.192000Z"/>
 <entry
    name="main.xml"
-   revision="53"
    checksum="746d857c17c854c557a7f0e97752a2ec"
    last-author="danni"
+   committed-rev="59"
    text-time="2014-01-10T04:00:22.000000Z"
-   committed-rev="53"
    kind="file"
-   committed-date="2014-01-10T05:30:50.761000Z"/>
+   committed-date="2014-01-17T13:57:45.192000Z"/>
 <entry
    name="show_task.xml"
-   revision="52"
-   checksum="4350be319042c29f3818be5a0c65178f"
+   revision="60"
+   checksum="6186650e4695e6c028899f43b52adaef"
    last-author="danni"
-   committed-rev="52"
-   text-time="2014-01-09T07:31:02.000000Z"
+   committed-rev="60"
+   text-time="2014-01-22T02:34:39.000000Z"
    kind="file"
-   committed-date="2014-01-09T17:01:24.192000Z"/>
+   committed-date="2014-01-24T03:33:12.412000Z"/>
 <entry
    name="task_edit.xml"
-   revision="52"
-   checksum="671cd956985df0a7da0fd7b2f66569ed"
+   revision="60"
+   checksum="ed976189183ec906ca2f76be311150a4"
    last-author="danni"
-   committed-rev="52"
-   text-time="2014-01-09T07:22:30.000000Z"
+   committed-rev="60"
+   text-time="2014-01-22T02:34:50.000000Z"
    kind="file"
-   committed-date="2014-01-09T17:01:24.192000Z"/>
+   committed-date="2014-01-24T03:33:12.412000Z"/>
 </wc-entries>

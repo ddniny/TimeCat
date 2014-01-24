@@ -4,12 +4,12 @@
 <entry
    name=""
    repos="https://bolt.math.cmu.edu/svn/timecat"
-   revision="47"
+   revision="59"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/src/org/rushme"
-   committed-rev="47"
+   committed-rev="59"
    kind="dir"
-   committed-date="2014-01-02T14:17:59.103000Z"/>
+   committed-date="2014-01-17T13:57:45.192000Z"/>
 <entry
    name="timecat"
    kind="dir"/>

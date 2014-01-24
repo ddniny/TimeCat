@@ -2,22 +2,19 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   repos="https://bolt.math.cmu.edu/svn/timecat"
    name=""
-   revision="47"
+   repos="https://bolt.math.cmu.edu/svn/timecat"
+   revision="59"
    last-author="danni"
    url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/src/org/rushme/timecat"
-   committed-rev="47"
+   committed-rev="59"
    kind="dir"
-   committed-date="2014-01-02T14:17:59.103000Z"/>
+   committed-date="2014-01-17T13:57:45.192000Z"/>
 <entry
    name="data"
    kind="dir"/>
 <entry
    name="helper"
-   kind="dir"/>
-<entry
-   name="menu"
    kind="dir"/>
 <entry
    name="tasks"

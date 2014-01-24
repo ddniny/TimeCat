@@ -187,12 +187,10 @@ public class Main extends Activity {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
 		case R.id.action_refresh:
-			//openSearch();
 			MainActivity.activeTasks = MainActivity.getData();
 			MainActivity.activeListView.setAdapter(new SelfAdapter(Main.this, MainActivity.activeTasks, R.layout.item_active, MainActivity.mFrom, MainActivity.mTo));
 			return true;
 		case R.id.action_settings:
-			// openSettings();
 			System.out.println("settings!!!!!!!");
 			return true;
 		case R.id.action_timeChoose:
@@ -204,7 +202,6 @@ public class Main extends Activity {
 			startActivity(intent);
 			return true;
 		case R.id.action_accept:
-			//statistics s = new statistics();
 			
 			fragment2.chart();
 			return true;
@@ -225,7 +222,11 @@ public class Main extends Activity {
 	private void selectItem(int position) {
 		// update the main content by replacing fragments      
 		Bundle args = new Bundle();
-
+		MainActivity fragment = new MainActivity();
+		completedList fragment1 = new completedList();
+		statistics nfragment2 = new statistics();
+		settings fragment3 = new settings();
+		
 		FragmentManager fragmentManager = getFragmentManager();
 		switch(position)
 		{
@@ -252,12 +253,12 @@ public class Main extends Activity {
 				currentMenu.findItem(R.id.action_new).setVisible(true);
 				currentMenu.findItem(R.id.action_accept).setVisible(false);
 			}
-			//System.out.println(currentMenu + "currentMenu!!!!!!");
 			break;
 		case 2:
+			fragment2 = nfragment2;
 			args.putInt(statistics.ARG_MODE_NUMBER, position);
-			fragment2.setArguments(args);
-			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment2).commit();
+			nfragment2.setArguments(args);
+			fragmentManager.beginTransaction().replace(R.id.content_frame, nfragment2).commit();
 			currentMenu.findItem(R.id.action_refresh).setVisible(false);
 			currentMenu.findItem(R.id.action_timeChoose).setVisible(false);
 			currentMenu.findItem(R.id.action_settings).setVisible(true);

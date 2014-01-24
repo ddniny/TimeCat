@@ -66,8 +66,6 @@ import org.rushme.timecat.R;
 import org.rushme.timecat.R.id;
 import org.rushme.timecat.R.layout;
 import org.rushme.timecat.data.DBManager;
-import org.rushme.timecat.menu.menu_ActiveTask;
-import org.rushme.timecat.menu.menu_taskEdit;
 import org.rushme.timecat.tasks.SlideDelListview.SlideDeleteListener;
 
 
@@ -76,7 +74,6 @@ public class MainActivity extends Fragment{// implements View.OnClickListener{
 	
 	private TextView date;
 	private TextView time;
-	private Button now, menuBtn, backBtn;
 	static SlideDelListview activeListView;
 	static String[] mFrom;
 	static int[] mTo;
@@ -89,7 +86,7 @@ public class MainActivity extends Fragment{// implements View.OnClickListener{
 	private String[] mLocations;
 	private int pointX, pointY, endX,endY;
 	private int position,newpos;
-	private Button curDel_btn;
+	public static Button curDel_btn;
 	MyExit myExit;
 	public static final int priority_max = 2000;
 	public static boolean longClick = false;
@@ -102,39 +99,16 @@ public class MainActivity extends Fragment{// implements View.OnClickListener{
     } 
 	
 	@Override
-	//public void onCreate(Bundle icicle){
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_activelist, container, false);
 		int i = getArguments().getInt(ARG_MODE_NUMBER);
         String planet = getResources().getStringArray(R.array.Mode_array)[i];
         getActivity().setTitle(planet);
-		//super.onCreate(icicle);
 		longClick = false;
 		myExit = (MyExit) getActivity().getApplication();
 		myExit.setExit(false);
-		//setContentView(R.layout.activity_main); 
 		
-		
-
-//		menuBtn = (Button) rootView.findViewById(R.id.menu);
-//		menuBtn.setOnClickListener(getActivity());
-//
-//		backBtn = (Button)findViewById(R.id.back);
-//		backBtn.setOnClickListener(getActivity());
-//
-//		now = (Button)findViewById(R.id.now);
-//		now.setOnClickListener(getActivity());
-
-
-
-//		date = (TextView)findViewById(R.id.date);
-//		date.setText(sdfDate.format(d));
-//		date.setOnClickListener(getActivity());
-//
-//		time = (TextView)findViewById(R.id.time);
-//		time.setText(sdfTime.format(d));
-//		time.setOnClickListener(getActivity());
 
 		activeListView = (SlideDelListview)rootView.findViewById(android.R.id.list);
 		mFrom = new String[]{"details","Description","time"};
@@ -145,27 +119,7 @@ public class MainActivity extends Fragment{// implements View.OnClickListener{
 		mSelfAdapter = new SelfAdapter(getActivity(), getData(), R.layout.item_active, mFrom, mTo);
 
 		activeListView.setAdapter(mSelfAdapter);
-		//		activeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-		//			@Override
-		//			public void onItemClick(AdapterView<?> parent, View view, int position,
-		//					long id) {
-		//				//get the data included in the item pressed
-		//				@SuppressWarnings("unchecked")
-		//				HashMap<String,Object> map = (HashMap<String, Object>) parent.getItemAtPosition(position);
-		//				Intent intent = new Intent();
-		//				intent.setClass(MainActivity.this, showTask.class);
-		//				Bundle bundle=new Bundle();  
-		//				bundle.putString("id", map.get("id").toString()); 
-		//				if (map.get("table") != null){
-		//					bundle.putString("table", "completedTasktable");
-		//				}else{
-		//					bundle.putString("table", "tasktable");
-		//				}
-		//				intent.putExtras(bundle); 
-		//				startActivity(intent);
-		//			}
-		//		});
-
+	
 		activeListView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() { 
 			@Override
 			public void onCreateContextMenu(ContextMenu menu, View v, 
@@ -200,14 +154,32 @@ public class MainActivity extends Fragment{// implements View.OnClickListener{
 				}
 				task selectedTask = Main.mgr.queryById(selectedId, selectedTable);
 				Intent intent = new Intent();
-				intent.setClass(MainActivity.this.getActivity(), showTask.class);
+				intent.setClass(MainActivity.this.getActivity(), taskEdit.class);
 				Bundle bundle=new Bundle();  
 				bundle.putString("id", selectedId); 
 				bundle.putString("table", selectedTable);
 				intent.putExtras(bundle); 
 				startActivity(intent);
 			}
-
+			
+			public void filpperMarkAs(float xPosition, float yPosition) {
+				final int position = activeListView.pointToPosition((int) xPosition, (int) yPosition);
+				if (position == -1){
+					return;
+				}
+				final String selectedId = activeTasks.get(position).get("id").toString();
+				final String selectedTable;
+				if (!activeTasks.get(position).containsKey("table")){
+					selectedTable = "tasktable";
+				}else{
+					selectedTable = "completedTasktable";
+				}
+				task selectedTask = Main.mgr.queryById(selectedId, selectedTable);
+				markAsCompleted (selectedTask, selectedId, selectedTable);
+				activeListView.setAdapter(new SelfAdapter(MainActivity.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
+				//Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();
+			}
+			
 			public void filpperDelete(float xPosition, float yPosition) {
 				if (activeListView.getChildCount() == 0)
 					return;
@@ -229,15 +201,27 @@ public class MainActivity extends Fragment{// implements View.OnClickListener{
 
 						@Override
 						public void onClick(View v) {
-							final String selectedId = activeTasks.get(index).get("id").toString();
-							final String selectedTable;
-							if (!activeTasks.get(index).containsKey("table")){
-								selectedTable = "tasktable";
-							}else{
-								selectedTable = "completedTasktable";
-							}
-							Main.mgr.deleteOneTask(selectedId, selectedTable);
-							activeListView.setAdapter(new SelfAdapter(MainActivity.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
+							new AlertDialog.Builder(MainActivity.this.getActivity())
+							.setTitle("Delete a Task!")
+							.setMessage("Are you sure you want to delete this task?")
+							.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) { 
+									final String selectedId = activeTasks.get(index).get("id").toString();
+									final String selectedTable;
+									if (!activeTasks.get(index).containsKey("table")){
+										selectedTable = "tasktable";
+									}else{
+										selectedTable = "completedTasktable";
+									}
+									Main.mgr.deleteOneTask(selectedId, selectedTable);
+									activeListView.setAdapter(new SelfAdapter(MainActivity.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));								}
+							})
+							.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) { 
+
+								}
+							})
+							.show();
 
 						}
 
@@ -273,13 +257,7 @@ public class MainActivity extends Fragment{// implements View.OnClickListener{
 		switch (item.getItemId()) { 
 		case 0: 
 			// Mark as Completed
-			selectedTask.setState("COMPLETED");
-			if (selectedTable.toString().equals("tasktable")){	//mark the task to completed and move it to the completedTasktable from tasktable
-				Main.mgr.deleteOneTask(selectedId, selectedTable);
-				List<task> list = new ArrayList<task>();
-				list.add(selectedTask);
-				Main.mgr.add(list, "completedTasktable");
-			}
+			markAsCompleted (selectedTask, selectedId, selectedTable);
 			break; 
 
 		case 1: 
@@ -380,36 +358,6 @@ public class MainActivity extends Fragment{// implements View.OnClickListener{
 	}
 
 
-//	@Override
-//	public void onClick(View v) {
-//		switch(v.getId()){
-//		case R.id.menu:
-//			Intent intent = new Intent();
-//			intent.setClass(MainActivity.getActivity(), menu_ActiveTask.class);
-//			startActivity(intent);
-//			break;
-//		case R.id.now:
-//			d = new Date();
-//			date.setText(sdfDate.format(d));
-//			time.setText(sdfTime.format(d));
-//			activeListView.setAdapter(new SelfAdapter(MainActivity.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
-//			break;
-//		case R.id.back:
-//			finish();
-//			break;
-//		case R.id.date:
-//			showDialog(taskEdit.DATE_DIALOG);
-//
-//			break;
-//		case R.id.time:
-//			showDialog(taskEdit.TIME_DIALOG);
-//			break;
-//		default:
-//			break;
-//		}    
-//
-//	}
-
 
 	public static String getRemaining(task everyTask){
 		Date now = new Date();
@@ -429,116 +377,13 @@ public class MainActivity extends Fragment{// implements View.OnClickListener{
 		long hour=(l/(60*60*1000)-day*24);
 		long min=((l/(60*1000))-day*24*60-hour*60);
 		//long s=(l/1000-day*24*60*60-hour*60*60-min*60);
-		if (min<0){
-			return "0 Day 0 hour 0 min";
+		if (l<=0){
+			return "0 Day 0 Hour 0 Min";
 		}else{
-			return day + "day" + hour + "hour" + min + "min";
+			return day + " Day " + hour + " Hour " + min + " Min";
 		}
 	}
 
-//	protected Dialog onCreateDialog(int id){
-//		Calendar calendar = Calendar.getInstance();
-//		Dialog dialog = null;
-//		switch(id){
-//		case taskEdit.DATE_DIALOG:
-//			DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
-//
-//				@Override
-//				public void onDateSet(DatePicker view, int year, int monthOfYear,
-//						int dayOfMonth) {
-//					Map<String, Object> m = null;
-//					date.setText((monthOfYear+1) + "/" + dayOfMonth + "/" + year);
-//					activeTasks = getData();
-//					for (int i = 0; i < activeTasks.size(); i ++){   //only show the task that have deadline before the specific date and time
-//						m = activeTasks.get(i);
-//						try {
-//							if(sdf1.parse(MainActivity.mgr.queryById(m.get("id").toString(), "tasktable").addTime).getTime() > sdf.parse(date.getText().toString() + " " + time.getText().toString()).getTime()){	
-//								activeTasks.remove(m);
-//								i--;
-//							}
-//						} catch (ParseException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//					}
-//					List<task> tasks = MainActivity.mgr.queryCompleted();  //only query the informations of completed tasks
-//					for (task everyTask : tasks){
-//						Map<String,Object> m1 = new HashMap<String, Object>();
-//						try {
-//							if (sdf1.parse(everyTask.addTime).getTime() > sdf.parse(date.getText().toString() + " " + time.getText().toString()).getTime()){
-//								m1.put("id", everyTask.id);
-//								m1.put("details", everyTask.details);
-//								m1.put("Description", everyTask.description);
-//								m1.put("time", everyTask.startTime);
-//								m1.put("table", "completedTasktable");
-//								activeTasks.add(m1);
-//							}
-//						} catch (ParseException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//
-//					}
-//					activeListView.setAdapter(new SelfAdapter(MainActivity.this.getActivity(), activeTasks, R.layout.item_active, mFrom, mTo));
-//
-//				}
-//			};
-//			dialog = new DatePickerDialog(MainActivity.this.getActivity(), dateListener, calendar.get(Calendar.YEAR),
-//					calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-//			break;
-//		case taskEdit.TIME_DIALOG:
-//			TimePickerDialog.OnTimeSetListener timeListener = new TimePickerDialog.OnTimeSetListener() {
-//
-//				@Override
-//				public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//					Map<String, Object> m = null;
-//					time.setText(hourOfDay + ":" + minute);
-//					activeTasks = getData();
-//					for (int i = 0; i < activeTasks.size(); i ++){   //only show the task that have deadline before the specific date and time
-//						m = activeTasks.get(i);
-//						try {
-//							if(sdf1.parse(MainActivity.mgr.queryById(m.get("id").toString(), "tasktable").addTime).getTime() > sdf.parse(date.getText().toString() + " " + time.getText().toString()).getTime()){
-//								activeTasks.remove(m);
-//								i--;
-//							}
-//						} catch (ParseException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//					}
-//
-//					List<task> tasks = MainActivity.mgr.queryCompleted();  //only query the informations of completed tasks
-//					for (task everyTask : tasks){
-//						Map<String,Object> m1 = new HashMap<String, Object>();
-//						try {
-//							if (sdf1.parse(everyTask.addTime).getTime() > sdf.parse(date.getText().toString() + " " + time.getText().toString()).getTime()){
-//								m1.put("id", everyTask.id);
-//								m1.put("details", everyTask.details);
-//								m1.put("Description", everyTask.description);
-//								m1.put("time", everyTask.startTime);
-//								m1.put("table", "completedTasktable");
-//								activeTasks.add(m1);
-//							}
-//						} catch (ParseException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//
-//					}
-//					activeListView.setAdapter(new SelfAdapter(MainActivity.this.getActivity(), activeTasks, R.layout.item_active, mFrom, mTo));
-//
-//
-//				}
-//			};
-//			dialog = new TimePickerDialog(MainActivity.this.getActivity(), timeListener, 
-//					calendar.get(Calendar.HOUR_OF_DAY), 
-//					calendar.get(Calendar.MINUTE), true); //whether is twenty-four-hour clock
-//			break;
-//		default:
-//			break;
-//		}
-//		return dialog;
-//	}
 
 	public static float getScore(task task){
 		float score = task.priority;
@@ -564,6 +409,17 @@ public class MainActivity extends Fragment{// implements View.OnClickListener{
 			e.printStackTrace();
 		}
 		return score;
+	}
+	
+	public void markAsCompleted (task selectedTask, String selectedId, String selectedTable) {
+		if (selectedTask == null) return;
+		selectedTask.setState("COMPLETED");
+		if (selectedTable.toString().equals("tasktable")){	//mark the task to completed and move it to the completedTasktable from tasktable
+			Main.mgr.deleteOneTask(selectedId, selectedTable);
+			List<task> list = new ArrayList<task>();
+			list.add(selectedTask);
+			Main.mgr.add(list, "completedTasktable");
+		}
 	}
 
 }

@@ -5,8 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
-import org.rushme.timecat.menu.menu_taskEdit;
 import org.rushme.timecat.R;
 import org.rushme.timecat.R.id;
 import org.rushme.timecat.R.layout;
@@ -41,18 +41,16 @@ import android.widget.TimePicker;
 /*
  * can improve: time restriction; calendar, clock;
  */
-public class taskEdit extends ActionBarActivity implements View.OnClickListener{
-	Button save, back, menu;
+public class taskEdit extends Activity implements View.OnClickListener{
 	EditText wDescription, filename, dDate, dTime, sDate, sTime, rDate, rTime, wPriority, wTags;
 	RadioGroup stateGroup, importanceGroup;
 	RadioButton active, expired, completed, low, moderate, important, crucial;
-    SeekBar sb;
+	SeekBar sb;
 	private TextView sbResult;
 	String details, startTime, endTime, description, state, importance, tags;
 	float priority;
 	Date today = new Date();
 	Intent intent = new Intent();
-	private String table;
 	protected static final int DATE_DIALOG = 1;
 	protected static final int TIME_DIALOG = 2;
 	protected int dOrs = 0; //if 0, set deadline, if 1 set start date and time
@@ -63,30 +61,22 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 	Date now = null;
 	Date startDay = null;
 	Menu currentMenu;
+	private task checkedTask = null;
+	private String oldName, table, id;
 	//task(String details, String startTime, String endTime, String description, String state, String importance, int priority, String tags)
 
 	@Override
 	public void onCreate(Bundle icicle){
 		super.onCreate(icicle);
 		setContentView(R.layout.task_edit);
-		
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		Intent intent = getIntent();
 		float newScore = -1;
 		if (intent.getStringExtra("newScore") != null){
 			newScore = Float.parseFloat(intent.getStringExtra("newScore"));
 		}
-		menu = (Button)findViewById(R.id.menu);
-		menu.setOnClickListener(this);
 
-		save = (Button)findViewById(R.id.save);
-		save.setOnClickListener(this);
-
-		menu = (Button)findViewById(R.id.menu);
-		menu.setOnClickListener(this);
-
-		back = (Button)findViewById(R.id.back);
-		back.setOnClickListener(this);
 
 		wDescription = (EditText)findViewById(R.id.wDescription);
 		wDescription.requestFocus();
@@ -179,30 +169,89 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 			}
 
 		});
-		
-			sb.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-				
-				public void onStopTrackingTouch(SeekBar seekBar) {
-					// TODO Auto-generated method stub
-					//Toast.makeText(MainActivity.this, "滑动结束", Toast.LENGTH_LONG).show();
-				}
-				
-				public void onStartTrackingTouch(SeekBar seekBar) {
-					// TODO Auto-generated method stub
-					//Toast.makeText(MainActivity.this, "滑动开始", Toast.LENGTH_LONG).show();		
-				}
-				
-				public void onProgressChanged(SeekBar seekBar, int progress,
-						boolean fromUser) {
-					sbResult.setText(progress+"%");
-					// TODO Auto-generated method stub
-						
-				}
-			});
+
+		sb.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				//Toast.makeText(MainActivity.this, "滑动结束", Toast.LENGTH_LONG).show();
+			}
+
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				//Toast.makeText(MainActivity.this, "滑动开始", Toast.LENGTH_LONG).show();		
+			}
+
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				sbResult.setText(progress+"%");
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		/*
+		 * Show the information of an existing task.
+		 */
+		if (intent.getStringExtra("id") != null && intent.getStringExtra("table") != null){
+			id = intent.getStringExtra("id");
+			table = intent.getStringExtra("table");
+			checkedTask = Main.mgr.queryById(id, table);
+			wDescription.setText(checkedTask.description);
+			filename.setText(checkedTask.details);
+			String[] dateAndTime = checkedTask.endTime.split(" ");
+			dDate.setText(dateAndTime[0]);
+			dTime.setText(dateAndTime[1]);
+			dateAndTime = checkedTask.startTime.split(" ");
+			sDate.setText(dateAndTime[0]);
+			sTime.setText(dateAndTime[1]);
+			rDate.setText(MainActivity.ma.getRemaining(checkedTask));
+
+			/*
+			 * set the value of slider
+			 */
+			try {
+				now = df.parse(df.format(today));
+				dueDay = df.parse(dDate.getText().toString() + " " + dTime.getText().toString());
+				startDay = df.parse(sDate.getText().toString() + " " + sTime.getText().toString());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			float percentage = ((float)(now.getTime() - startDay.getTime())/ (float)(dueDay.getTime() - startDay.getTime())) * 100f;
+			sb.setProgress((int)percentage);
+
+			if (checkedTask.getState.toString().equalsIgnoreCase("COMPLETED")){
+				completed.setChecked(true);
+				sb.setProgress(100);
+			}else if (percentage >= 100){
+				expired.setChecked(true);
+				checkedTask.setState("EXPIRED"); 
+				Main.mgr.updateById(checkedTask, id, table);
+			}else if(checkedTask.getState.toString().equalsIgnoreCase("ACTIVE")){
+				active.setChecked(true);
+			}
+
+			if(checkedTask.getImportance.toString().equalsIgnoreCase("LOW")){
+				low.setChecked(true);
+			}else if (checkedTask.getImportance.toString().equalsIgnoreCase("MODERATE")){
+				moderate.setChecked(true);
+			}else if (checkedTask.getImportance.toString().equalsIgnoreCase("IMPORTANT")){
+				important.setChecked(true);
+			}else{
+				crucial.setChecked(true);
+			}
+
+			wPriority.setText(checkedTask.priority +"");
+
+			for(String s: checkedTask.tags){
+				wTags.append(s + " "); 
+			}
+		}
 
 
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -211,42 +260,47 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 		currentMenu = menu;
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	    // Respond to the action bar's Up/Home button
-	    case android.R.id.home:
-	    	
-				new AlertDialog.Builder(this)
-				.setTitle("Have not saved!")
-				.setMessage("Are you sure you want to leave without saving?")
-				.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) { 
-						// continue without save
-						//NavUtils.navigateUpFromSameTask(taskEdit.this);
-						finish();
-					}
-				})
-				.setNegativeButton("Save", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) { 
-						if (add()!=0){
-							if (!state.equals("COMPLETED")){
-								NavUtils.navigateUpFromSameTask(taskEdit.this);
-							}else{
-								Bundle bundle = new Bundle();
-								bundle.putString("table", "COMPLETED");
-								intent.putExtras(bundle);
-								intent.setClass(taskEdit.this, Main.class);
-								startActivity(intent);
-							}
+		switch (item.getItemId()) {
+		// Respond to the action bar's Up/Home button
+		case android.R.id.home:
+
+			new AlertDialog.Builder(this)
+			.setTitle("Have not saved!")
+			.setMessage("Are you sure you want to leave without saving?")
+			.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
+					// continue without save
+					//NavUtils.navigateUpFromSameTask(taskEdit.this);
+					finish();
+				}
+			})
+			.setNeutralButton("Stay", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+
+				}
+			})
+			.setNegativeButton("Save", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
+					if (add()!=0){
+						if (!state.equals("COMPLETED")){
+							NavUtils.navigateUpFromSameTask(taskEdit.this);
+						}else{
+							Bundle bundle = new Bundle();
+							bundle.putString("table", "COMPLETED");
+							intent.putExtras(bundle);
+							intent.setClass(taskEdit.this, Main.class);
+							startActivity(intent);
 						}
 					}
-				})
-				.show();
-			
-	    	return true;
-	    case R.id.action_save:
+				}
+			})
+			.show();
+
+			return true;
+		case R.id.action_save:
 			if (add()!=0){
 				if (!state.equals("COMPLETED")){
 					intent.setClass(this, Main.class);
@@ -259,12 +313,12 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 				startActivity(intent);
 			}
 			return true;
-	    default:
-	    	break;
-	    }
-	    return super.onOptionsItemSelected(item);
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
-	
+
 
 
 	protected Dialog onCreateDialog(int id){
@@ -321,54 +375,6 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
-		case R.id.back:
-			finish();
-			break;
-		case R.id.menu:
-			if(save.getText().equals("Save")){
-				new AlertDialog.Builder(this)
-				.setTitle("Have not saved!")
-				.setMessage("Are you sure you want to leave without saving?")
-				.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) { 
-						// continue without save
-						intent.setClass(taskEdit.this, Main.class);
-						startActivity(intent);
-
-					}
-				})
-				.setNegativeButton("Save", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) { 
-						if (add()!=0){
-							if (!state.equals("COMPLETED")){
-								intent.setClass(taskEdit.this, Main.class);
-							}else{
-								intent.setClass(taskEdit.this, Main.class);
-							}
-							startActivity(intent);
-						} 
-					}
-				})
-				.show();
-			}else{
-				intent.setClass(taskEdit.this, menu_taskEdit.class);
-				startActivity(intent);
-			}
-
-			break;
-		case R.id.save:
-			if (add()!=0){
-				if (!state.equals("COMPLETED")){
-					intent.setClass(this, Main.class);
-				}else{
-//					Bundle bundle = new Bundle();
-//					bundle.putString("table", "COMPLETED");
-//					intent.putExtras(bundle);
-					intent.setClass(this, Main.class);
-				}
-				startActivity(intent);
-			}
-			break;
 		case R.id.dDate:
 			dOrs = 0;
 			showDialog(DATE_DIALOG);
@@ -396,33 +402,8 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 	 */
 	public int add(){   
 		ArrayList<task> tasks = new ArrayList<task>();
-		//task(String details, String startTime, String endTime, String description, String state, String importance, int priority, String tags)
 		details = filename.getText().toString();
-//		task taskInActiveTable = MainActivity.mgr.queryByName(details, "tasktable");   //have to make sure that the task name is unique in the whole database including two tables.
-//		task taskInCompleteTable = MainActivity.mgr.queryByName(details, "completedTasktable");
-//		if (taskInActiveTable != null || taskInCompleteTable != null){     //Primary key constraint,  details should be unique.
-//			new AlertDialog.Builder(this)
-//			.setTitle("Duplicate file name！")
-//			.setMessage("Please change the file name.")
-//			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//				public void onClick(DialogInterface dialog, int which) { 
-//
-//				}
-//			})
-//			.show();
-//			return 0;
-//		}
 		if (details.equals("")){   //task name cannot be null
-//			new AlertDialog.Builder(this)
-//			.setTitle("Need task name.")
-//			.setMessage("Please enter the task name.")
-//			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//				public void onClick(DialogInterface dialog, int which) { 
-//
-//				}
-//			})
-//			.show();
-//			return 0;
 			details = null;
 		}
 		startTime = sDate.getText().toString() + " " + sTime.getText().toString();
@@ -468,17 +449,37 @@ public class taskEdit extends ActionBarActivity implements View.OnClickListener{
 
 
 		task task1 = new task(null, details, startTime, endTime, description, state, importance, priority, tags, null);
-		
-		tasks.add(task1);
-		if (state.equals("COMPLETED")){
-			Main.mgr.add(tasks, "completedTasktable");
-			table = "completedTasktable";
-		}else{
-			Main.mgr.add(tasks, "tasktable");
-			table = "tasktable";
+		if (checkedTask == null) {
+			tasks.add(task1);
+			if (state.equals("COMPLETED")){
+				Main.mgr.add(tasks, "completedTasktable");
+				table = "completedTasktable";
+			}else{
+				Main.mgr.add(tasks, "tasktable");
+				table = "tasktable";
+			}
+		}else {
+			if (table.toString().equals("tasktable")&&state.equals("COMPLETED")){
+				Main.mgr.deleteOneTask(id, table);
+				List<task> list = new ArrayList<task>();
+				list.add(task1);
+				Main.mgr.add(list, "completedTasktable");
+				table = "completedTasktable";
+			}else if (table.toString().equals("completedTasktable")&&(state.equals("ACTIVE")||state.equals("EXPIRED"))){
+				Main.mgr.deleteOneTask(id, table);
+				List<task> list = new ArrayList<task>();
+				list.add(task1);
+				Main.mgr.add(list, "tasktable");
+				table = "tasktable";
+			}
+			else {
+				Main.mgr.updateById(task1, id, table);
+			}
 		}
 		return 1;
 	}
+
+
 
 
 }
