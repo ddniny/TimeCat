@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -74,7 +75,19 @@ public class SelfAdapter extends BaseAdapter {
 			bindView(v, item, from[i]);
 		}
 		Button delBtn = (Button)convertView.findViewById(R.id.del);
+		CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
 		convertView.setTag(position);
+		checkBox.setOnClickListener(new OnClickListener() { 
+			@Override         
+			public void onClick(View v) {   
+				if(Main.isSelected.get(position)){ 
+					Main.isSelected.put(position, false);          
+				}else{           
+					Main.isSelected.put(position, true);          
+				}         
+				notifyDataSetChanged();        
+			}        
+		});
 
 		return convertView;
 	}
@@ -83,7 +96,7 @@ public class SelfAdapter extends BaseAdapter {
 		Object data = item.get(from);
 		if (view instanceof TextView){
 			((TextView) view).setText(data == null? "": data.toString());
-			if (item.get("time").toString().equalsIgnoreCase("0 Day 0 hour 0 min")) {
+			if (item.get("time").toString().contains("Expired")) {
 				((TextView) view).setTextColor(Color.GRAY);
 			}else {
 				((TextView) view).setTextColor(Color.BLACK);

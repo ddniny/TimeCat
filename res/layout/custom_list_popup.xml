@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/listName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="List Name: " />
+
+    <EditText
+        android:id="@+id/wListName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/listName"
+        android:layout_toRightOf="@+id/listName" />
+
+    <TextView
+        android:id="@+id/orderBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/listName"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:text="Order By: " />
+
+    <Spinner
+        android:id="@+id/orderBySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/orderBy"
+        android:layout_below="@+id/wListName"
+        android:layout_toRightOf="@+id/orderBy" />
+
+    <TextView
+        android:id="@+id/State"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/orderBy"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:text="State: " />
+
+    <Spinner
+        android:id="@+id/stateSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/State"
+        android:layout_below="@+id/orderBySpinner"
+        android:layout_toRightOf="@+id/State" />
+    
+    <!-- <TextView
+        android:id="@+id/State"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/orderBy"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:text="State: " />
+
+    <Spinner
+        android:id="@+id/stateSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/State"
+        android:layout_toRightOf="@+id/State" />
+ -->
+    <TextView
+        android:id="@+id/Importance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/State"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:text="Importance: " />
+
+    <Spinner
+        android:id="@+id/importanceSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Importance"
+        android:layout_below="@+id/orderBySpinner"
+        android:layout_toRightOf="@+id/Importance" />
+
+    <TextView
+        android:id="@+id/createdBetween"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/Importance"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:text="Created Between: " />
+
+    <EditText
+        android:id="@+id/csDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:focusable="false"
+        android:layout_alignBaseline="@+id/createdBetween"
+        android:layout_toRightOf="@+id/createdBetween"
+        android:hint="MM/DD/YYYY"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/createdBetweenAnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/createdBetween"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:text="And: " />
+
+    <EditText
+        android:id="@+id/ceDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:focusable="false"
+        android:layout_alignBaseline="@+id/createdBetweenAnd"
+        android:layout_toRightOf="@+id/createdBetweenAnd"
+        android:hint="MM/DD/YYYY"
+        android:inputType="text" />
+    
+    <TextView
+        android:id="@+id/deadlineBetween"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/createdBetweenAnd"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:text="Deadline Between: " />
+
+    <EditText
+        android:id="@+id/dsDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:focusable="false"
+        android:layout_alignBaseline="@+id/deadlineBetween"
+        android:layout_toRightOf="@+id/deadlineBetween"
+        android:hint="MM/DD/YYYY"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/deadlineBetweenAnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/deadlineBetween"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:text="And: " />
+
+    <EditText
+        android:id="@+id/deDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:focusable="false"
+        android:layout_alignBaseline="@+id/deadlineBetweenAnd"
+        android:layout_toRightOf="@+id/deadlineBetweenAnd"
+        android:hint="MM/DD/YYYY"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/Tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/deadlineBetweenAnd"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:text="Tags: " />
+
+    <EditText
+        android:id="@+id/wTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/Tags"
+        android:layout_below="@+id/importanceSpinner"
+        android:layout_toRightOf="@+id/Tags"
+        android:focusable="false"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Commit" />
+
+</RelativeLayout>

@@ -2,54 +2,55 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   repos="https://bolt.math.cmu.edu/svn/timecat"
+   repos="https://www.timecat.info/svn/timecat"
    name=""
-   revision="59"
+   revision="75"
    last-author="danni"
-   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/bin"
-   committed-rev="59"
+   url="https://www.timecat.info/svn/timecat/trunk/TimeCat/bin"
+   committed-rev="75"
    kind="dir"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
 <entry
    name="AndroidManifest.xml"
-   revision="60"
-   checksum="156f34e802d216c69f46af56a5aa10fc"
+   revision="85"
+   checksum="bb84ec5dda4bed9c7d0e89651c324a83"
    last-author="danni"
-   committed-rev="60"
-   text-time="2014-01-24T03:21:35.000000Z"
+   committed-rev="85"
+   text-time="2014-04-15T16:31:30.000000Z"
    kind="file"
-   committed-date="2014-01-24T03:33:12.412000Z"/>
+   committed-date="2014-04-15T20:01:00.621000Z"/>
 <entry
    name="R.txt"
-   checksum="655c3d4287a04127871c51882d7d72dc"
+   revision="86"
+   checksum="08d6eb060b3fc1b73259f2e321750b95"
    last-author="danni"
-   committed-rev="59"
-   text-time="2014-01-17T13:56:21.000000Z"
+   committed-rev="86"
+   text-time="2014-04-15T20:16:08.000000Z"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-04-15T20:52:17.316000Z"/>
 <entry
    name="TimeCat.apk"
-   revision="60"
-   checksum="aa4c653002b205734717565ae13ce3b3"
+   revision="86"
+   checksum="300b3a0990124c9d4d1bc28888e73521"
    last-author="danni"
-   committed-rev="60"
-   text-time="2014-01-24T03:21:41.000000Z"
+   committed-rev="86"
+   text-time="2014-04-15T20:50:35.000000Z"
    kind="file"
-   committed-date="2014-01-24T03:33:12.412000Z"
-   prop-time="2014-01-17T13:57:31.000000Z"/>
+   committed-date="2014-04-15T20:52:17.316000Z"
+   prop-time="2014-03-15T16:47:31.000000Z"/>
 <entry
    name="classes"
    kind="dir"/>
 <entry
    name="classes.dex"
-   revision="60"
-   checksum="12c4ad9025e5b19b0a321598216d7645"
+   revision="86"
+   checksum="8c22efac5a4c50cf5f15b3fc29001ba1"
    last-author="danni"
-   committed-rev="60"
-   text-time="2014-01-24T03:21:40.000000Z"
+   committed-rev="86"
+   text-time="2014-04-15T20:45:38.000000Z"
    kind="file"
-   committed-date="2014-01-24T03:33:12.412000Z"
-   prop-time="2014-01-17T13:57:32.000000Z"/>
+   committed-date="2014-04-15T20:52:17.316000Z"
+   prop-time="2014-03-15T16:47:24.000000Z"/>
 <entry
    name="dexedLibs"
    kind="dir"/>
@@ -57,21 +58,21 @@
    name="jarlist.cache"
    checksum="c1fcac184b2bd90d3425b34752469a18"
    last-author="danni"
-   committed-rev="59"
-   text-time="2014-01-17T13:56:15.000000Z"
+   committed-rev="75"
+   text-time="2014-03-15T14:54:55.000000Z"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
 <entry
    name="res"
    kind="dir"/>
 <entry
    name="resources.ap_"
-   revision="60"
-   checksum="1e10a8a4db444620f066fadb698ead77"
+   revision="86"
+   checksum="6872d45ccb6fbd75e9bdd90692e33c00"
    last-author="danni"
-   committed-rev="60"
-   text-time="2014-01-24T03:21:40.000000Z"
+   committed-rev="86"
+   text-time="2014-04-15T20:50:35.000000Z"
    kind="file"
-   committed-date="2014-01-24T03:33:12.412000Z"
-   prop-time="2014-01-17T13:57:27.000000Z"/>
+   committed-date="2014-04-15T20:52:17.316000Z"
+   prop-time="2014-03-15T16:47:26.000000Z"/>
 </wc-entries>

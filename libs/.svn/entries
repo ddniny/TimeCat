@@ -2,30 +2,40 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   repos="https://bolt.math.cmu.edu/svn/timecat"
+   repos="https://www.timecat.info/svn/timecat"
    name=""
-   revision="59"
+   revision="75"
    last-author="danni"
-   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/libs"
-   committed-rev="59"
+   url="https://www.timecat.info/svn/timecat/trunk/TimeCat/libs"
+   committed-rev="75"
    kind="dir"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
+<entry
+   name="achartengine-1.1.0.jar"
+   revision="85"
+   checksum="fe8acbb245942eca4a71ed57d72d3e09"
+   last-author="danni"
+   text-time="2014-04-15T02:58:48.000000Z"
+   committed-rev="85"
+   kind="file"
+   committed-date="2014-04-15T20:01:00.621000Z"
+   prop-time="2014-04-15T20:00:58.000000Z"/>
 <entry
    name="android-support-v13.jar"
    checksum="69defb0d35fca2c2ade481b7ea50b017"
    last-author="danni"
    text-time="2014-01-04T14:13:55.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:31.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:27.000000Z"/>
 <entry
    name="android-support-v4.jar"
    checksum="ed257a47cae11af1a55614055b879947"
    last-author="danni"
    text-time="2014-01-04T05:52:52.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:30.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:20.000000Z"/>
 </wc-entries>

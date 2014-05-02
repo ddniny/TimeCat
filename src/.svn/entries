@@ -3,13 +3,13 @@
    xmlns="svn:">
 <entry
    name=""
-   repos="https://bolt.math.cmu.edu/svn/timecat"
-   revision="59"
+   repos="https://www.timecat.info/svn/timecat"
+   revision="75"
    last-author="danni"
-   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/src"
-   committed-rev="59"
+   url="https://www.timecat.info/svn/timecat/trunk/TimeCat/src"
+   committed-rev="75"
    kind="dir"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
 <entry
    name="org"
    kind="dir"/>

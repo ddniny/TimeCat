@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-
+         
     <ScrollView
         android:id="@+id/editTask"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true">
+        >
 
         <TableLayout
             android:id="@+id/tableLayout1"
@@ -32,13 +32,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="text" >
+                    android:inputType="text" 
+                    android:focusable="false">
 
                     <requestFocus />
                 </EditText>
             </TableRow>
 
-            <TableRow
+          <TableRow
                 android:id="@+id/tableRow2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
@@ -54,22 +55,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:focusable="false"
                     android:hint="MM/DD/YYYY"
-                    android:inputType="text" >
+                    android:inputType="text" 
+                    />
+                    
+ 
+                
 
-                    <requestFocus />
-                </EditText>
-
-                <EditText
+              <!--  <EditText
                     android:id="@+id/sTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:focusable="false"
                     android:hint="HH:MM:SS"
                     android:inputType="text" >
 
-                    <requestFocus />
-                </EditText>
+                    <requestFocus /> 
+                </EditText> -->
             </TableRow>
 
             <TableRow
@@ -87,6 +91,7 @@
                     android:id="@+id/eDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:focusable="false"
                     android:ems="10"
                     android:hint="MM/DD/YYYY"
                     android:inputType="text" >
@@ -94,16 +99,18 @@
                     <requestFocus />
                 </EditText>
 
-                <EditText
+              
+                <!--  <EditText
                     android:id="@+id/eTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:focusable="false"
                     android:ems="10"
                     android:hint="HH:MM:SS"
                     android:inputType="text" >
 
-                    <requestFocus />
-                </EditText>
+                    <requestFocus /> 
+                </EditText> -->
             </TableRow>
 
             <TextView
@@ -112,5 +119,45 @@
                 android:layout_height="wrap_content" />
         </TableLayout>
     </ScrollView>
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true" >
+
+        <LinearLayout
+            android:id="@+id/selectBy"
+            style="?buttonBarStyle"
+            android:background="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:visibility="gone"
+            android:orientation="horizontal"
+             >
+
+            <Button
+                android:id="@+id/byState"
+                style="?buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ByState" />
+            <Button
+                android:id="@+id/byImportance"
+                style="?buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ByImportance" />
+            <Button
+                android:id="@+id/byTag"
+                style="?buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ByTag" />
+        </LinearLayout>
+    </FrameLayout>
 
 </RelativeLayout>

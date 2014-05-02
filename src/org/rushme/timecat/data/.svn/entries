@@ -2,28 +2,48 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   repos="https://bolt.math.cmu.edu/svn/timecat"
+   repos="https://www.timecat.info/svn/timecat"
    name=""
-   revision="59"
+   revision="75"
    last-author="danni"
-   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/src/org/rushme/timecat/data"
-   committed-rev="59"
+   url="https://www.timecat.info/svn/timecat/trunk/TimeCat/src/org/rushme/timecat/data"
+   committed-rev="75"
    kind="dir"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
+<entry
+   name="CustomListDAO.java"
+   revision="84"
+   checksum="d4f7dcb8001db5e6b6e7a6098e8290e9"
+   last-author="danni"
+   committed-rev="84"
+   text-time="2014-04-08T04:09:30.000000Z"
+   kind="file"
+   committed-date="2014-04-08T05:37:54.309000Z"/>
 <entry
    name="DBHelper.java"
-   checksum="762497e62c01eb9e668a6cc92398c201"
+   revision="84"
+   checksum="70c74c3b1b6563babb9ee3f5c09b7779"
    last-author="danni"
-   text-time="2013-12-26T13:32:20.000000Z"
-   committed-rev="59"
+   text-time="2014-04-08T02:33:03.000000Z"
+   committed-rev="84"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-04-08T05:37:54.309000Z"/>
 <entry
    name="DBManager.java"
-   checksum="832d948fdf23ba1c363a33133d451668"
+   revision="85"
+   checksum="100b78e1246e77e6f4f280cba2297dae"
    last-author="danni"
-   text-time="2013-12-31T03:52:01.000000Z"
-   committed-rev="59"
+   text-time="2014-04-15T02:22:39.000000Z"
+   committed-rev="85"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-04-15T20:01:00.621000Z"/>
+<entry
+   name="allTaskDAO.java"
+   revision="84"
+   checksum="993810ee1ef45f592940c746c675111c"
+   last-author="danni"
+   committed-rev="84"
+   text-time="2014-04-08T05:15:45.000000Z"
+   kind="file"
+   committed-date="2014-04-08T05:37:54.309000Z"/>
 </wc-entries>

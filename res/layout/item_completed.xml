@@ -49,6 +49,17 @@
         android:checked="false"
         android:focusable="false" /> -->
         
+        <CheckBox     
+            android:id="@+id/checkBox"    
+            android:layout_width="wrap_content"     
+            android:layout_height="wrap_content"    
+            android:layout_alignParentRight="true"    
+            android:visibility="gone"    
+            android:focusable="false"  
+            android:focusableInTouchMode="false"  
+            android:clickable="false"    
+           />
+        
         <Button  
         android:id="@+id/del"  
         android:layout_width="wrap_content"  

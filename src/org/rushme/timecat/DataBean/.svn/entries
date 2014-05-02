@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   repos="https://www.timecat.info/svn/timecat"
+   name=""
+   revision="79"
+   last-author="danni"
+   url="https://www.timecat.info/svn/timecat/trunk/TimeCat/src/org/rushme/timecat/DataBean"
+   committed-rev="79"
+   kind="dir"
+   committed-date="2014-03-28T16:44:21.708000Z"/>
+<entry
+   name="CustomListBean.java"
+   revision="84"
+   checksum="f9a7956d45dd8558726425cc34a63251"
+   last-author="danni"
+   committed-rev="84"
+   text-time="2014-04-07T23:56:11.000000Z"
+   kind="file"
+   committed-date="2014-04-08T05:37:54.309000Z"/>
+</wc-entries>

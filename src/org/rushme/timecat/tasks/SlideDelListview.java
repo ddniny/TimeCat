@@ -3,6 +3,7 @@ package org.rushme.timecat.tasks;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ListView;
 
 public class SlideDelListview extends ListView {
@@ -23,6 +24,8 @@ public class SlideDelListview extends ListView {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
+		//TODO
+	
 		switch (ev.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			// get the touch down coordinates
@@ -53,7 +56,7 @@ public class SlideDelListview extends ListView {
 				}else {
 				slideDeleteListener.filpperMarkAs(myLastX, myLastY);
 				}
-			} else {
+			} else {		
 				slideDeleteListener.filpperOnclick(myLastX, myLastY);
 			}
 			reset();

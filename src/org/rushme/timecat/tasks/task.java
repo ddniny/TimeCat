@@ -41,10 +41,12 @@ public class task {
 
 		this.priority = priority;
 
-		this.tags = tags.split(" ");
+		if (tags != null && !tags.equals("")) {
+		this.tags = tags.trim().split(" ");
 		for(String s: this.tags){
-			System.out.println(s);
+			System.out.println(s + "addtags!!!!");
 		}
+		}else this.tags = null;
 	}
 
 	public void setState(String state){

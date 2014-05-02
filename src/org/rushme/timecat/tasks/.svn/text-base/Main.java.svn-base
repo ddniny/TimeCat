@@ -1,6 +1,10 @@
 package org.rushme.timecat.tasks;
+
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,31 +12,52 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ExpandableListView.OnGroupCollapseListener;
+import android.widget.ExpandableListView.OnGroupExpandListener;
 
 import org.rushme.timecat.R;
 import org.rushme.timecat.R.array;
@@ -40,7 +65,13 @@ import org.rushme.timecat.R.drawable;
 import org.rushme.timecat.R.id;
 import org.rushme.timecat.R.layout;
 import org.rushme.timecat.R.style;
+import org.rushme.timecat.DataBean.CustomListBean;
+import org.rushme.timecat.data.CustomListDAO;
 import org.rushme.timecat.data.DBManager;
+import org.rushme.timecat.data.allTaskDAO;
+
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget
@@ -69,19 +100,24 @@ import org.rushme.timecat.data.DBManager;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class Main extends Activity {
-	private DrawerLayout mDrawerLayout;
-	private ListView mDrawerList;
+public class Main extends Activity{
+	private static Main main;
+	DrawerLayout mDrawerLayout;
+	ExpandableListAdapter listAdapter;
+	ExpandableListView expListView;
+	List<String> listDataHeader;
+	HashMap<String, List<String>> listDataChild;
+	//private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 	private String[] mModeTitles;
 
-	MainActivity fragment = new MainActivity();
-	completedList fragment1 = new completedList();
-	statistics fragment2 = new statistics();
-	settings fragment3 = new settings();
+	MainActivity fragment = null;
+	completedList fragment1 = null;
+	statistics fragment2 = null;
+	settings fragment3 = null;//new settings();
 	private SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	private SimpleDateFormat sdfDate = new SimpleDateFormat("MM/dd/yyyy");
 	private SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
@@ -89,9 +125,27 @@ public class Main extends Activity {
 	private String date = null, time = null;
 	private Menu currentMenu = null;
 	public static DBManager mgr;
+	public static CustomListDAO customListDAO;
+	public List<String> CustomList = new ArrayList<String>();
+	public int where, preWhere=0;
 
+	public static HashMap<Integer,Boolean> isSelected;
+
+	private allTaskDAO taskDAO = null;
+	private CustomListBean currentBean = null;
+	private EditText csDate;
+	private EditText ceDate;
+	private EditText dsDate;
+	private EditText deDate;
+
+	private long exitTime;
 	MyExit myExit;
 
+
+	public static Main getInstance(){
+		if (main == null) main = new Main();
+		return main;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,21 +154,43 @@ public class Main extends Activity {
 
 		myExit = (MyExit)getApplication();
 		myExit.setExit(false);
-		
+
 		mgr = new DBManager(this);				//initialize the database
+		customListDAO = new CustomListDAO();
+		isSelected = new HashMap<Integer,Boolean>(); //used to control the checkBox
+
+
+		fragment = new MainActivity();
+		fragment1 = new completedList();
+		fragment2 = statistics.getStatistics();
+		fragment3 = settings.getSettings();//new settings();
+
+		taskDAO = new allTaskDAO();
 
 		mTitle = mDrawerTitle = getTitle();
 		mModeTitles = getResources().getStringArray(R.array.Mode_array);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		//mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		expListView = (ExpandableListView) findViewById(R.id.left_drawer);
 
 		// set a custom shadow that overlays the main content when the drawer opens
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 		// set up the drawer's list view with items and click listener
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-				R.layout.drawer_list_item, mModeTitles));
-		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		//		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+		//				R.layout.drawer_list_item, mModeTitles));
+		//		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
+
+		// preparing list data
+
+		listDataHeader = Arrays.asList(mModeTitles);
+		prepareListData();
+		listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+		// setting list adapter
+		expListView.setAdapter(listAdapter);
+
+		setExpListView();
 
 		// enable ActionBar app icon to behave as action to toggle nav drawer
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -152,6 +228,276 @@ public class Main extends Activity {
 		}
 	}
 
+	private void setExpListView(){
+		// Listview Group click listener
+
+		expListView.setOnGroupClickListener( new DrawerItemClickListener());
+
+		// Listview Group expanded listener
+		expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
+
+			@Override
+			public void onGroupExpand(int groupPosition) {
+				preWhere = where;
+				where = groupPosition;
+				prepareListData();
+				Toast.makeText(getApplicationContext(),
+						listDataHeader.get(groupPosition) + " Expanded",
+						Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		// Listview Group collasped listener
+		expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
+
+			@Override
+			public void onGroupCollapse(int groupPosition) {
+				Toast.makeText(getApplicationContext(),
+						listDataHeader.get(groupPosition) + " Collapsed",
+						Toast.LENGTH_SHORT).show();
+
+			}
+		});
+
+		// Listview on child click listener
+		expListView.setOnChildClickListener(new OnChildClickListener() {
+
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				// TODO Auto-generated method stub
+				preWhere = where;
+				where = groupPosition;
+				Toast.makeText(
+						getApplicationContext(),
+						listDataHeader.get(groupPosition)
+						+ " : "
+						+ listDataChild.get(
+								listDataHeader.get(groupPosition)).get(
+										childPosition), Toast.LENGTH_SHORT)
+										.show();
+				if (childPosition == CustomList.indexOf("New Search")) { 
+					createCustomeList(Main.this, v);
+				} else {
+					CustomListBean bean = customListDAO.queryByName(CustomList.get(childPosition));
+					System.out.println(bean.getCreatedBetween() + "testestestsetstsetes");
+					Bundle args = new Bundle();
+					args.putInt(ShowCustomList.ARG_MODE_NUMBER, childPosition);
+					args.putSerializable("customListBean", bean);
+					args.putString("title", CustomList.get(childPosition));
+					//ShowCustomList showCustomList = new ShowCustomList();
+					MainActivity fragment = new MainActivity();
+					if (!fragment.isAdded()) {
+						fragment.setArguments(args);
+					}
+					//preWhere = where;
+					FragmentManager fragmentManager = getFragmentManager();
+					fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, "customList").commit();
+
+					expListView.setItemChecked(groupPosition, true);
+					setTitle(CustomList.get(childPosition));
+					mDrawerLayout.closeDrawer(expListView);
+					return true;
+				}
+				return false;
+			}
+		});
+	}
+
+
+
+	private void createCustomeList(Context context, View parent)
+	{        
+		final View customListPopup = getLayoutInflater().inflate(R.layout.custom_list_popup,
+				null,false);                                   
+		customListPopup.setBackgroundColor(Color.WHITE);       		
+		Spinner spinner = (Spinner) customListPopup.findViewById(R.id.orderBySpinner);
+		csDate = (EditText) customListPopup.findViewById(R.id.csDate);
+		ceDate = (EditText) customListPopup.findViewById(R.id.ceDate);
+		dsDate = (EditText) customListPopup.findViewById(R.id.dsDate);
+		deDate = (EditText) customListPopup.findViewById(R.id.deDate);
+
+		csDate.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				statistics.dOrs = 2;
+				showDialog(taskEdit.DATE_DIALOG);
+			}
+
+		});
+
+		ceDate.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				statistics.dOrs = 3;
+				showDialog(taskEdit.DATE_DIALOG);
+			}
+
+		});
+
+		dsDate.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				statistics.dOrs = 4;
+				showDialog(taskEdit.DATE_DIALOG);
+			}
+
+		});
+
+		deDate.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				statistics.dOrs = 5;
+				showDialog(taskEdit.DATE_DIALOG);
+			}
+
+		});
+
+		// Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(customListPopup.getContext(),
+				R.array.orderBy, android.R.layout.simple_spinner_item);
+		// Specify the layout to use when the list of choices appears
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		// Apply the adapter to the spinner
+		spinner.setAdapter(adapter);
+		Spinner stateSpinner = (Spinner) customListPopup.findViewById(R.id.stateSpinner);
+		ArrayAdapter<CharSequence> stateAdapter = ArrayAdapter.createFromResource(customListPopup.getContext(), R.array.State, android.R.layout.simple_dropdown_item_1line);
+		stateSpinner.setAdapter(stateAdapter);
+
+		Spinner importanceSpinner = (Spinner) customListPopup.findViewById(R.id.importanceSpinner);
+		ArrayAdapter<CharSequence> priorityAdapter = ArrayAdapter.createFromResource(customListPopup.getContext(), R.array.Importance, android.R.layout.simple_dropdown_item_1line);
+		importanceSpinner.setAdapter(priorityAdapter);
+
+		TextView tags = (TextView)customListPopup.findViewById(R.id.wTag);	
+		tags.setOnClickListener(new OnClickListener(){
+			ListView areaCheckListView;
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				AlertDialog ad = new AlertDialog.Builder(v.getContext())
+				.setTitle("Choose tags")
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setMultiChoiceItems(taskEdit.getAllTags(), null, null)
+				.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						StringBuilder s = new StringBuilder();
+						for (int i = 0; i < areaCheckListView.getCount(); i++){  
+							if (areaCheckListView.getCheckedItemPositions().get(i)){  
+								s.append(areaCheckListView.getAdapter().getItem(i)+ "  ");  
+							}else{  
+								areaCheckListView.getCheckedItemPositions().get(i,false);  
+							}  
+						}  
+						TextView tags = (TextView)customListPopup.findViewById(R.id.wTag);
+						tags.setText(s);
+						dialog.dismiss();  
+					}
+
+				})
+				.setNegativeButton("Cancel", null)
+				.show();
+				areaCheckListView = ad.getListView();
+			}
+
+		});
+
+		final Dialog dialog = new AlertDialog.Builder(Main.this).create();
+		Button getList = (Button)customListPopup.findViewById(R.id.commit);
+		getList.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				CustomListBean clBean = new CustomListBean();
+				EditText listName = (EditText)customListPopup.findViewById(R.id.wListName);
+				Spinner spinner = (Spinner) customListPopup.findViewById(R.id.orderBySpinner);
+				Spinner stateSpinner = (Spinner) customListPopup.findViewById(R.id.stateSpinner);
+				Spinner importancePriority = (Spinner) customListPopup.findViewById(R.id.importanceSpinner);
+				EditText cs = (EditText)customListPopup.findViewById(R.id.csDate);
+				EditText ce = (EditText)customListPopup.findViewById(R.id.ceDate);
+				EditText ds = (EditText)customListPopup.findViewById(R.id.dsDate);
+				EditText de = (EditText)customListPopup.findViewById(R.id.deDate);
+				TextView tags = (TextView)customListPopup.findViewById(R.id.wTag);
+				clBean.setListName(listName.getText().toString());
+				clBean.setOrderBy(spinner.getSelectedItem().toString());
+				clBean.setState(stateSpinner.getSelectedItem().toString());
+				clBean.setImportance(importancePriority.getSelectedItem().toString());
+				clBean.setTags(tags.getText().toString());
+				String csstring, cestring, dsstring, destring;
+				csstring = cs.getText().toString();
+				cestring = ce.getText().toString();
+				dsstring = ds.getText().toString();
+				destring = de.getText().toString();
+				String cse = null;
+				String dse = null;
+				if (csstring.length() != 0) {
+					cse = csstring;
+				}
+				if (cestring.length() != 0) {
+					
+						cse = cse + " " + cestring;
+					
+				}
+				clBean.setCreatedBetween(cse);
+				if (dsstring.length() != 0) {
+					dse = dsstring;
+				}
+				if (destring.length() != 0) {
+					
+						dse = dse + " " + destring;
+					
+				}
+				clBean.setDeadlineBetween(dse);
+
+				if (customListDAO.getCount() >= 3) {
+					customListDAO.deleteOneList(); //delete the older list
+				}
+				System.out.println("!!!!!!!!!!!!!!!!clbean:" + clBean.getCreatedBetween());
+				customListDAO.insert(clBean);
+				prepareListData();
+				listAdapter.notifyDataSetChanged();
+				dialog.dismiss();
+				// TODO Auto-generated method stub
+
+			}	
+		});
+		dialog.show();
+		dialog.getWindow().setContentView(customListPopup);
+		dialog.getWindow().setLayout(600, 900);
+		dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
+	}
+
+	/*
+	 * Preparing the list data
+	 */
+	private void prepareListData() {
+		listDataChild = new HashMap<String, List<String>>();
+
+		// Adding child data
+
+		ArrayList<CustomListBean> beans = customListDAO.query();
+		CustomList.clear();
+		for (int i = 0; i < beans.size() && i < 3; i++) {
+			CustomList.add(beans.get(i).getListName());
+		}
+		CustomList.add("New Search");
+
+		List<String> nothing = new ArrayList<String>();
+
+		for (String header : listDataHeader) {
+			if (header.equals("Custom Lists")) {
+				listDataChild.put(header, CustomList);
+			} else {
+				listDataChild.put(header, nothing);
+			}
+		}
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -164,11 +510,12 @@ public class Main extends Activity {
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// If the nav drawer is open, hide action items related to the content view
-		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+		//boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+		boolean drawerOpen = mDrawerLayout.isDrawerOpen(expListView);
 		if (drawerOpen){
 			menu.findItem(R.id.action_refresh).setVisible(!drawerOpen);
 			menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
-			menu.findItem(R.id.action_timeChoose).setVisible(!drawerOpen);
+			menu.findItem(R.id.action_group).setVisible(!drawerOpen);
 			menu.findItem(R.id.action_new).setVisible(!drawerOpen);
 			menu.findItem(R.id.action_accept).setVisible(!drawerOpen);
 		}
@@ -187,23 +534,30 @@ public class Main extends Activity {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
 		case R.id.action_refresh:
-			MainActivity.activeTasks = MainActivity.getData();
+			MainActivity.activeTasks = MainActivity.getData(taskDAO.getProperList(currentBean));
 			MainActivity.activeListView.setAdapter(new SelfAdapter(Main.this, MainActivity.activeTasks, R.layout.item_active, MainActivity.mFrom, MainActivity.mTo));
 			return true;
 		case R.id.action_settings:
 			System.out.println("settings!!!!!!!");
 			return true;
-		case R.id.action_timeChoose:
-			showDialog(taskEdit.TIME_DIALOG);
-			showDialog(taskEdit.DATE_DIALOG);
-			return true;
+//		case R.id.action_timeChoose:
+//			showDialog(taskEdit.TIME_DIALOG);
+//			showDialog(taskEdit.DATE_DIALOG);
+//			return true;
 		case R.id.action_new:
 			intent.setClass(this, taskEdit.class);
 			startActivity(intent);
 			return true;
 		case R.id.action_accept:
-			
+
 			fragment2.chart();
+			return true;
+		case R.id.action_group:
+			//if (where == 0) {
+				fragment.batchProcessing();
+//			} else if (where == 1) {
+//				fragment.batchProcessing();
+//			}
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -211,71 +565,128 @@ public class Main extends Activity {
 	}
 
 
+
+
+
 	/* The click listner for ListView in the navigation drawer */
-	private class DrawerItemClickListener implements ListView.OnItemClickListener {
+	private class DrawerItemClickListener implements ExpandableListView.OnGroupClickListener {  
 		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			selectItem(position);
+		public boolean onGroupClick(ExpandableListView parent, View v,
+				int groupPosition, long id) {
+			// TODO Auto-generated method stub
+			if(listDataChild.get(mModeTitles[groupPosition]).isEmpty()){
+				selectItem(groupPosition);
+				return true;
+			}
+
+			return false;
 		}
 	}
 
-	private void selectItem(int position) {
-		// update the main content by replacing fragments      
+	public void selectItem(int position) {
+		// update the main content by replacing fragments 
+		where = position;
 		Bundle args = new Bundle();
 		MainActivity fragment = new MainActivity();
 		completedList fragment1 = new completedList();
-		statistics nfragment2 = new statistics();
-		settings fragment3 = new settings();
-		
+		//statistics nfragment2 = statistics.getStatistics();//new statistics();
+		settings fragment3 = settings.getSettings();//new settings();
+		Help fragment4 = new Help();
+		About fragment5 = new About();
+
 		FragmentManager fragmentManager = getFragmentManager();
 		switch(position)
 		{
 		case 0:
+			CustomListBean clBean = new CustomListBean();
+			clBean.setImportance("Any");
+			clBean.setListName("Active and Expired");
+			clBean.setOrderBy("Priority");
+			clBean.setState("ACTIVE EXPIRED");
+			clBean.setTags("");
+			currentBean = clBean;
 			args.putInt(MainActivity.ARG_MODE_NUMBER, position);
-			fragment.setArguments(args);
+			args.putSerializable("customListBean", clBean);
+			if (!fragment.isAdded()) {
+				fragment.setArguments(args);
+			}			
+			preWhere = where;
 			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-			if (currentMenu != null){
-				currentMenu.findItem(R.id.action_refresh).setVisible(true);
-				currentMenu.findItem(R.id.action_timeChoose).setVisible(true);
-				currentMenu.findItem(R.id.action_settings).setVisible(true);
-				currentMenu.findItem(R.id.action_new).setVisible(true);
-				currentMenu.findItem(R.id.action_accept).setVisible(false);
-			}
 			break;
 		case 1:
-			args.putInt(completedList.ARG_MODE_NUMBER, position);
-			fragment1.setArguments(args);
-			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment1).commit();
-			if (currentMenu != null){
-				currentMenu.findItem(R.id.action_refresh).setVisible(false);
-				currentMenu.findItem(R.id.action_timeChoose).setVisible(false);
-				currentMenu.findItem(R.id.action_settings).setVisible(true);
-				currentMenu.findItem(R.id.action_new).setVisible(true);
-				currentMenu.findItem(R.id.action_accept).setVisible(false);
+			CustomListBean completeBean = new CustomListBean();
+			completeBean.setImportance("Any");
+			completeBean.setListName("Completed");
+			//TODO add according to add time!
+			completeBean.setOrderBy("Add time");
+			completeBean.setState("COMPLETED");
+			completeBean.setTags("");
+			currentBean = completeBean;
+			args.putInt(MainActivity.ARG_MODE_NUMBER, position);
+			args.putSerializable("customListBean", completeBean);
+			if (!fragment.isAdded()) {
+				fragmentManager.beginTransaction().detach(fragment);
+				fragment.setArguments(args);
+			} else {
+				fragment.setArguments(args);
 			}
+			//args.putInt(completedList.ARG_MODE_NUMBER, position);
+			//fragment1.setArguments(args);
+			preWhere = where;
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 			break;
 		case 2:
-			fragment2 = nfragment2;
-			args.putInt(statistics.ARG_MODE_NUMBER, position);
-			nfragment2.setArguments(args);
-			fragmentManager.beginTransaction().replace(R.id.content_frame, nfragment2).commit();
-			currentMenu.findItem(R.id.action_refresh).setVisible(false);
-			currentMenu.findItem(R.id.action_timeChoose).setVisible(false);
-			currentMenu.findItem(R.id.action_settings).setVisible(true);
-			currentMenu.findItem(R.id.action_new).setVisible(true);
-			currentMenu.findItem(R.id.action_accept).setVisible(true);
+			//			CustomListBean bean = customListDAO.queryByName(CustomList.get(position));
+			//			args.putInt(ShowCustomList.ARG_MODE_NUMBER, position);
+			//			args.putSerializable("customListBean", bean);
+			//			ShowCustomList showCustomList = new ShowCustomList();
+			//			if (!showCustomList.isAdded()) {
+			//				showCustomList.setArguments(args);
+			//			}
+			//			//preWhere = where;
+			//			fragmentManager.beginTransaction().replace(R.id.content_frame, showCustomList).commit();
+			//			System.out.println(CustomList.get(position) + bean + "aaaaaaaaaaaaaaaaaaaaaaaa");
+			//			break;
+
+			args.putInt(MainActivity.ARG_MODE_NUMBER, position);
+			fragment.setArguments(args);
+			preWhere = where;
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 			break;
 		case 3:
+			if (!statistics.saveData) {
+				statistics.setStatistics();
+			}
+			fragment2 = statistics.getStatistics();
+			args.putInt(statistics.ARG_MODE_NUMBER, position);
+			if (!fragment2.isAdded()) {
+				fragment2.setArguments(args);
+			}
+			preWhere = where;
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment2).commit();	
+			break;
+		case 4:
 			args.putInt(settings.ARG_MODE_NUMBER, position);
-			fragment3.setArguments(args);
+			if (!fragment3.isAdded()) {
+				fragment3.setArguments(args);
+			}
+			preWhere = where;
 			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment3).commit();
-			currentMenu.findItem(R.id.action_refresh).setVisible(false);
-			currentMenu.findItem(R.id.action_timeChoose).setVisible(false);
-			currentMenu.findItem(R.id.action_settings).setVisible(true);
-			currentMenu.findItem(R.id.action_new).setVisible(true);
-			currentMenu.findItem(R.id.action_accept).setVisible(false);
-			break;    
-		case 5: //exit
+			break;  
+		case 5:
+			args.putInt(settings.ARG_MODE_NUMBER, position);
+			args.putInt("preWhere", preWhere);
+			preWhere = where;
+			fragment4.setArguments(args);
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment4).commit();
+			break;  
+		case 6:
+			args.putInt(settings.ARG_MODE_NUMBER, position);
+			fragment5.setArguments(args);
+			preWhere = where;
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment5).commit();
+			break;
+		case 7: //exit
 			myExit.setExit(true);
 			finish();
 			break;
@@ -286,9 +697,11 @@ public class Main extends Activity {
 
 
 		// update selected item and title, then close the drawer
-		mDrawerList.setItemChecked(position, true);
+		expListView.setItemChecked(position, true);
 		setTitle(mModeTitles[position]);
-		mDrawerLayout.closeDrawer(mDrawerList);
+		if (position != 2) {
+			mDrawerLayout.closeDrawer(expListView);
+		}
 	}
 
 	@Override
@@ -342,41 +755,56 @@ public class Main extends Activity {
 				@Override
 				public void onDateSet(DatePicker view, int year, int monthOfYear,
 						int dayOfMonth) {
-					Map<String, Object> m = null;
-					date = monthOfYear+1 + "/" + dayOfMonth + "/" + year;
-					//date.setText((monthOfYear+1) + "/" + dayOfMonth + "/" + year);
-					MainActivity.activeTasks = MainActivity.getData();
-					for (int i = 0; i < MainActivity.activeTasks.size(); i ++){   //only show the task that have deadline before the specific date and time
-						m = MainActivity.activeTasks.get(i);
-						try {
-							if(sdf1.parse(Main.mgr.queryById(m.get("id").toString(), "tasktable").addTime).getTime() > sdfDate.parse(date).getTime()){	
-								MainActivity.activeTasks.remove(m);
-								i--;
+					if (statistics.dOrs == -1) {
+						Map<String, Object> m = null;
+						date = monthOfYear+1 + "/" + dayOfMonth + "/" + year;
+						MainActivity.activeTasks = MainActivity.getData(taskDAO.getProperList(currentBean));
+						for (int i = 0; i < MainActivity.activeTasks.size(); i ++){   //only show the task that have deadline before the specific date and time
+							m = MainActivity.activeTasks.get(i);
+							try {
+								if(sdf1.parse(Main.mgr.queryById(m.get("id").toString(), "tasktable").addTime).getTime() > sdfDate.parse(date).getTime()){	
+									MainActivity.activeTasks.remove(m);
+									i--;
+								}
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
 							}
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
 						}
-					}
-					List<task> tasks = Main.mgr.queryCompleted();  //only query the informations of completed tasks
-					for (task everyTask : tasks){
-						Map<String,Object> m1 = new HashMap<String, Object>();
-						try {
-							if ((sdf1.parse(everyTask.addTime).getTime() > sdfDate.parse(date).getTime()) && (MainActivity.sdf.parse(everyTask.startTime).getTime() < sdfDate.parse(date).getTime())){
-								m1.put("id", everyTask.id);
-								m1.put("details", everyTask.details);
-								m1.put("Description", everyTask.description);
-								m1.put("time", everyTask.startTime);
-								m1.put("table", "completedTasktable");
-								MainActivity.activeTasks.add(m1);
+						List<task> tasks = Main.mgr.queryCompleted();  //only query the informations of completed tasks
+						for (task everyTask : tasks){
+							Map<String,Object> m1 = new HashMap<String, Object>();
+							try {
+								if ((sdf1.parse(everyTask.addTime).getTime() > sdfDate.parse(date).getTime()) && (MainActivity.sdf.parse(everyTask.startTime).getTime() < sdfDate.parse(date).getTime())){
+									m1.put("id", everyTask.id);
+									m1.put("details", everyTask.details);
+									m1.put("Description", everyTask.description);
+									m1.put("time", everyTask.startTime);
+									m1.put("table", "completedTasktable");
+									MainActivity.activeTasks.add(m1);
+								}
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
 							}
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
 
+						}
+						MainActivity.activeListView.setAdapter(new SelfAdapter(Main.this, MainActivity.activeTasks, R.layout.item_active, MainActivity.mFrom, MainActivity.mTo));
+					} else if (statistics.dOrs == 0){
+						statistics.eDate.setText((monthOfYear+1) + "/" + dayOfMonth + "/" + year);
+						statistics.dOrs = -1;
+					}else if (statistics.dOrs == 1){
+						statistics.sDate.setText((monthOfYear+1) + "/" + dayOfMonth + "/" + year);
+						statistics.dOrs = -1;
+					}else if (statistics.dOrs == 2) {
+						csDate.setText((monthOfYear+1) + "/" + dayOfMonth + "/" + year);
+					}else if (statistics.dOrs == 3) {
+						ceDate.setText((monthOfYear+1) + "/" + dayOfMonth + "/" + year);
+					}else if (statistics.dOrs == 4) {
+						dsDate.setText((monthOfYear+1) + "/" + dayOfMonth + "/" + year);
+					}else if (statistics.dOrs == 5) {
+						deDate.setText((monthOfYear+1) + "/" + dayOfMonth + "/" + year);
 					}
-					MainActivity.activeListView.setAdapter(new SelfAdapter(Main.this, MainActivity.activeTasks, R.layout.item_active, MainActivity.mFrom, MainActivity.mTo));
 
 				}
 			};
@@ -395,7 +823,7 @@ public class Main extends Activity {
 						Date today = new Date();
 						date = sdfDate.format(today);
 					}
-					MainActivity.activeTasks = MainActivity.getData();
+					MainActivity.activeTasks = MainActivity.getData(taskDAO.getProperList(currentBean));
 					for (int i = 0; i < MainActivity.activeTasks.size(); i ++){   //only show the task that have deadline before the specific date and time
 						m = MainActivity.activeTasks.get(i);
 						try {
@@ -442,5 +870,36 @@ public class Main extends Activity {
 		return dialog;
 	}
 
+	public void onBackPressed() {
+		if (where == 1 || where == 2 || where == 4 || where == 5 || where == 3) {
+			selectItem(0);
+		} else {
+
+			if((System.currentTimeMillis()-exitTime) > 2000){  
+				Toast.makeText(getApplicationContext(),
+						"Press back button again to exit",
+						Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			}  
+			else{  
+				finish();  
+				System.exit(0);  
+			}
+
+		}
+	}
+
+	public void isStatisticsSave(View view) {
+		// Is the toggle on?
+		boolean on = ((ToggleButton) view).isChecked();
+
+		if (on) {
+			// Enable vibrate
+			statistics.saveData = true;
+		} else {
+			// Disable vibrate
+			statistics.saveData = false;
+		}
+	}
 
 }

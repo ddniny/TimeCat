@@ -11,12 +11,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DBManager {
-	private DBHelper helper;
+	private static DBHelper helper = null;
 	private SQLiteDatabase db;
 
 	public DBManager(Context context){   //??context
 		helper = new DBHelper(context);
 		db = helper.getWritableDatabase();
+	}
+	
+	public static DBHelper getDBHelper(){
+		return helper;
 	}
 
 	/**
@@ -27,9 +31,12 @@ public class DBManager {
 		db.beginTransaction(); //begin
 		try{
 			for (task everyTask : tasks){   //convert tags from String[] to String
+				if (everyTask.tags != null) {
 				for(String s:everyTask.tags){
-					tagBuilder.append(" " + s + " ");
+					tagBuilder.append(" " + s);
 				}
+				tagBuilder.append(" ");
+				}else tagBuilder.append("");
 				//db.execSQL("INSERT INTO " + table + " VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[]{everyTask.details, everyTask.startTime, everyTask.endTime, everyTask.description, everyTask.getState, everyTask.getImportance, everyTask.priority, tagBuilder.toString()});
 				ContentValues values = new ContentValues();
 				values.put("details", everyTask.details);
@@ -63,10 +70,12 @@ public class DBManager {
 		cv.put("state", everyTask.getState.toString());
 		cv.put("importance", everyTask.getImportance.toString());
 		cv.put("priority", everyTask.priority);
+		if (everyTask.tags != null) {
 		for(String s:everyTask.tags){
 			tagBuilder.append(s + " ");
 		}
-		cv.put("tags", tagBuilder.toString());
+		}else tagBuilder.append("");
+		cv.put("tags", tagBuilder.toString().trim());
 
 		db.update(table, cv, "_id = ?", new String[]{id});
 	}
@@ -88,7 +97,7 @@ public class DBManager {
 		String details, startTime, endTime, description, state, importance, tags, id, addTime;
 		int priority;
 		Cursor c = queryTheCursor(table);
-		System.out.println(c.moveToNext() + "ccccccccccccccccursor");
+		
 		while(c.moveToNext()){
 			id = c.getString(c.getColumnIndex("_id"));
 			details = c.getString(c.getColumnIndex("details"));
@@ -100,6 +109,7 @@ public class DBManager {
 			priority = c.getInt(c.getColumnIndex("priority"));
 			tags = c.getString(c.getColumnIndex("tags"));
 			addTime = c.getString(c.getColumnIndex("addTime"));
+			System.out.println(id + details + description);
 			//task(String details, String startTime, String endTime, String description, String state, String importance, int priority, String tags)
 			task everyTask = new task(id, details, startTime, endTime, description, state, importance, priority, tags, addTime);
 			tasks.add(everyTask);
@@ -178,7 +188,7 @@ public class DBManager {
 		/*
 		 * public Cursor query(String table,String[] columns,String selection,String[] selectionArgs,String groupBy,String having,String orderBy,String limit);
 		 */
-		Cursor c = db.query("completedTasktable", null, "state=?", new String[]{"COMPLETED"}, null, null, "deadline desc");    //order by不太对可能。。？？？？？？
+		Cursor c = db.query("tasktable", null, "state=?", new String[]{"COMPLETED"}, null, null, "deadline desc");    //order by不太对可能。。？？？？？？
 		while(c.moveToNext()){  
 			id = c.getString(c.getColumnIndex("_id"));
 			details = c.getString(c.getColumnIndex("details"));
@@ -271,10 +281,14 @@ public class DBManager {
 		/*
 		 * public Cursor query(String table,String[] columns,String selection,String[] selectionArgs,String groupBy,String having,String orderBy,String limit);
 		 */
-		tag = wantTags.split(" ");
+		tag = wantTags.trim().split(" ");
 		for(String s: tag){
-			s = " " + s + " ";
-			Cursor c = db.query(table, null, colum + " LIKE ? ", new String[]{"%" + s +"%"}, null, null, null);    //order by不太对可能。。？？？？？？
+			if (s.equals("")) continue;
+			//s = " " + s + " ";
+			System.out.println("wanttedTage~~~~~~~~~~~~~" + s + "aaaaaaaaaaaaa");
+//			Cursor c = db.query(table, null, colum + " LIKE ? ", new String[]{"%" + s +"%"}, null, null, null);    //order by不太对可能。。？？？？？？
+			Cursor c = db.query(table, null, colum + " LIKE '%" + s + "%'", null, null, null, null); 
+			System.out.println(c.getCount());
 			while(c.moveToNext()){  
 				id = c.getString(c.getColumnIndex("_id"));
 				details = c.getString(c.getColumnIndex("details"));
@@ -283,13 +297,14 @@ public class DBManager {
 				description = c.getString(c.getColumnIndex("description"));
 				state = c.getString(c.getColumnIndex("state"));
 				importance = c.getString(c.getColumnIndex("importance"));
+				System.out.println(description);//////////////////
 				priority = c.getInt(c.getColumnIndex("priority"));
 				tags = c.getString(c.getColumnIndex("tags"));
 				addTime = c.getString(c.getColumnIndex("addTime"));
 				//task(String details, String startTime, String endTime, String description, String state, String importance, int priority, String tags)
 				task everyTask = new task(id, details, startTime, endTime, description, state, importance, priority, tags, addTime);
 				for(task t : tasks){	//if the task have already in the tasks list, then don't add it again.
-					if (everyTask.details.equals(t.details))
+					if (everyTask.id.equals(t.id))
 						have = 1;
 				}
 				if (have == 0){

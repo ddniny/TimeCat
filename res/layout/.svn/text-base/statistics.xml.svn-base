@@ -3,13 +3,52 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+    <Button  
+        android:id="@+id/byState"  
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"          
+        android:layout_alignParentLeft="true"        
+        android:textColor="#ffffff"    
+        android:text="byState"  
+        android:layout_margin="8dip"  
+        android:visibility="gone"
+        android:background="@drawable/my_button"
+        android:focusable="true"
+         />
+     
+      
+    <Button  
+        android:id="@+id/byImportance"  
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"        
+        android:textColor="#ffffff"    
+        android:text="byImportance"  
+        android:layout_margin="8dip"  
+        android:visibility="gone"
+        android:layout_toRightOf="@+id/byState"
+        android:background="@drawable/my_button"
+         />
+     
+      <Button  
+        android:id="@+id/byTag"  
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"          
+        android:layout_alignParentRight="true"        
+        android:textColor="#ffffff"    
+        android:text="byTag"  
+        android:layout_margin="8dip"  
+        android:visibility="gone"
+        android:layout_toRightOf="@+id/byImportance"
+        android:background="@drawable/my_button"
+         /> 
+         
     <ScrollView
         android:id="@+id/editTask"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true">
+        android:layout_below="@+id/byState">
 
         <TableLayout
             android:id="@+id/tableLayout1"
@@ -32,7 +71,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="text" >
+                    android:inputType="text" 
+                    android:focusable="false">
 
                     <requestFocus />
                 </EditText>
@@ -54,22 +94,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:focusable="false"
                     android:hint="MM/DD/YYYY"
                     android:inputType="text" >
 
                     <requestFocus />
                 </EditText>
 
-                <EditText
+              <!--  <EditText
                     android:id="@+id/sTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:focusable="false"
                     android:hint="HH:MM:SS"
                     android:inputType="text" >
 
-                    <requestFocus />
-                </EditText>
+                    <requestFocus /> 
+                </EditText> -->
             </TableRow>
 
             <TableRow
@@ -87,6 +129,7 @@
                     android:id="@+id/eDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:focusable="false"
                     android:ems="10"
                     android:hint="MM/DD/YYYY"
                     android:inputType="text" >
@@ -94,16 +137,17 @@
                     <requestFocus />
                 </EditText>
 
-                <EditText
+                <!--  <EditText
                     android:id="@+id/eTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:focusable="false"
                     android:ems="10"
                     android:hint="HH:MM:SS"
                     android:inputType="text" >
 
-                    <requestFocus />
-                </EditText>
+                    <requestFocus /> 
+                </EditText> -->
             </TableRow>
 
             <TextView

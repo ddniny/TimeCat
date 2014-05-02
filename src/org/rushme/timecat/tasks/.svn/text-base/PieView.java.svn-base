@@ -18,6 +18,11 @@ public class PieView extends ViewBase {
 	int shade_colors[];
 	float percent[];
 	private int thickness=20;
+	
+	private float centerX;
+	private float centerY;
+	private Paint legendPaint; 
+	private Paint paint;
 
 	public PieView(Context context,int[] colors,int[] shade_colors,float[] percent) {
 		super(context);
@@ -37,7 +42,13 @@ public class PieView extends ViewBase {
 		super.onDraw(canvas);
 		areaWidth=width-2;
 		areaHight=height-2;
-		Paint paint = new Paint();
+		
+		String[] info = {"1", "2", "3", "4"};
+		legendPaint = new Paint();
+		legendPaint.setColor(Color.BLACK);
+		legendPaint.setStrokeWidth(1f);
+		
+		paint = new Paint();
 		paint.setColor(Color.RED);
 		paint.setStyle(Style.FILL);
 		paint.setAntiAlias(true);
@@ -56,6 +67,31 @@ public class PieView extends ViewBase {
 					tempAngle+=percent[j];
 				}
 			}
+			
+			if(i  == thickness ){
+				
+				RectF rectF = new RectF(areaX, areaY- thickness, areaX + areaWidth, areaHight- thickness);
+				centerX = rectF.centerX();
+				centerY = rectF.centerY();
+
+				int temp = areaHight + 20/* height-320*/;				
+				
+	            for(int j=0;j<percent.length;j++){
+					
+					
+					paint.setColor(colors[j]);
+					canvas.drawArc(rectF , tempAngle,percent[j], true, paint);
+					tempAngle+=percent[j];
+					
+					
+					RectF rect = new RectF(areaX, temp, areaX+40, temp-10);
+					canvas.drawText(info[j], areaX+60, temp, legendPaint);
+					canvas.drawRect(rect, paint);
+					temp += 25;
+				}
+			}
 		}
+		
+		
 	}
 }

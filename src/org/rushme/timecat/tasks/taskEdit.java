@@ -3,38 +3,55 @@ package org.rushme.timecat.tasks;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.rushme.timecat.R;
 import org.rushme.timecat.R.id;
 import org.rushme.timecat.R.layout;
+import org.rushme.timecat.helper.ChipsMultiAutoCompleteTextview;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Surface;
 import android.view.View;
+import android.view.View.OnAttachStateChangeListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -42,7 +59,7 @@ import android.widget.TimePicker;
  * can improve: time restriction; calendar, clock;
  */
 public class taskEdit extends Activity implements View.OnClickListener{
-	EditText wDescription, filename, dDate, dTime, sDate, sTime, rDate, rTime, wPriority, wTags;
+	EditText wDescription, filename, dDate, dTime, sDate, sTime, rDate, rTime, wPriority;
 	RadioGroup stateGroup, importanceGroup;
 	RadioButton active, expired, completed, low, moderate, important, crucial;
 	SeekBar sb;
@@ -63,6 +80,11 @@ public class taskEdit extends Activity implements View.OnClickListener{
 	Menu currentMenu;
 	private task checkedTask = null;
 	private String oldName, table, id;
+	public static boolean textChanged = false;
+	public static HashMap<String, ArrayList<task>> tagToTask;
+	private TableRow tagRow = null;
+	ChipsMultiAutoCompleteTextview wTag;
+	private boolean importanceChangeFlag = false;
 	//task(String details, String startTime, String endTime, String description, String state, String importance, int priority, String tags)
 
 	@Override
@@ -76,7 +98,24 @@ public class taskEdit extends Activity implements View.OnClickListener{
 		if (intent.getStringExtra("newScore") != null){
 			newScore = Float.parseFloat(intent.getStringExtra("newScore"));
 		}
+		TextWatcher mTextWatcher = new TextWatcher() {
+			@Override  
+			public void onTextChanged(CharSequence s, int start, int before, int count) {  
+				// TODO Auto-generated method stub  
+			}  
 
+			@Override  
+			public void beforeTextChanged(CharSequence s, int start, int count,  
+					int after) {  
+				// TODO Auto-generated method stub  
+			}  
+
+			@Override  
+			public void afterTextChanged(Editable s) {  
+				// TODO Auto-generated method stub  
+				taskEdit.textChanged = true;   
+			}  
+		}; 
 
 		wDescription = (EditText)findViewById(R.id.wDescription);
 		wDescription.requestFocus();
@@ -84,7 +123,9 @@ public class taskEdit extends Activity implements View.OnClickListener{
 		dDate = (EditText)findViewById(R.id.dDate);
 		dTime = (EditText)findViewById(R.id.dTime);
 		sDate = (EditText)findViewById(R.id.sDate);
+		sDate.setText(sdf_date.format(today));
 		sTime = (EditText)findViewById(R.id.sTime);
+		sTime.setText(sdf_time.format(today));
 		rDate = (EditText)findViewById(R.id.rDate);
 		rTime = (EditText)findViewById(R.id.rTime);
 		wPriority = (EditText)findViewById(R.id.wPriority);
@@ -92,7 +133,10 @@ public class taskEdit extends Activity implements View.OnClickListener{
 			System.out.println(newScore + "newScore!!!!!!!!!!!!!!!");
 			wPriority.setText(String.valueOf(newScore));
 		}
-		wTags = (EditText)findViewById(R.id.wTags);
+		//wTags[0] = (AutoCompleteTextView)findViewById(R.id.wTags);//找到相应的控件
+		wTag = (ChipsMultiAutoCompleteTextview) findViewById(R.id.multiAutoCompleteTextView1);
+		wTag.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
 		sb =(SeekBar)findViewById(R.id.sb);
 		sbResult=(TextView)findViewById(R.id.sbresult);
 
@@ -105,70 +149,106 @@ public class taskEdit extends Activity implements View.OnClickListener{
 		moderate = (RadioButton)findViewById(R.id.moderate);
 		important = (RadioButton)findViewById(R.id.important);
 		crucial = (RadioButton)findViewById(R.id.crucial);
+		//tagRow = (TableRow) findViewById(R.id.tableRow10);
+
+
+		//set autoprompting when enderring the tags
+		String[] allTags = getAllTags();
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.taglist_item, allTags);//配置Adaptor
+		wTag.setAdapter(adapter);
 
 		dDate.setOnClickListener(this);
 		dTime.setOnClickListener(this);
 		sDate.setOnClickListener(this);
 		sTime.setOnClickListener(this);
 
-		dDate.setOnFocusChangeListener(new OnFocusChangeListener(){
+
+		dDate.addTextChangedListener(new TextWatcher(){
+
 			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
+			public void afterTextChanged(Editable s) {
 				// TODO Auto-generated method stub
-				if (!hasFocus){
-					if (dDate.getText().toString().equals("")) return;
 
-					int remainingDays = 0; 	  
-					Calendar beginCalendar = Calendar.getInstance();  
-					Calendar endCalendar = Calendar.getInstance();  
-					beginCalendar.setTime(today);  
-					try {
-						endCalendar.setTime(sdf_date.parse(dDate.getText().toString()));
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}  
-					//calculate the remaining days. 
-					while(beginCalendar.before(endCalendar)){  
-						remainingDays++;  
-						beginCalendar.add(Calendar.DAY_OF_MONTH, 1);  
-					}  
-					rDate.setText(Integer.toString(remainingDays) + "Days");
-
-				}
 			}
 
-		} );
-
-		dTime.setOnFocusChangeListener(new OnFocusChangeListener(){
 			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if(!hasFocus){
-					if (dDate.getText().toString().equals("")||dTime.getText().toString().equals("")) return;
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
 
-					try {
-						now = df.parse(df.format(today));
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-					try {
-						dueDay = df.parse(dDate.getText().toString() + " " + dTime.getText().toString());
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-					long l=dueDay.getTime() - now.getTime();
-					long day=l/(24*60*60*1000);
-					long hour=(l/(60*60*1000)-day*24);
-					long min=((l/(60*1000))-day*24*60-hour*60);
-					//long s=(l/1000-day*24*60*60-hour*60*60-min*60);
-					if(min > 0){
-						rTime.setText(hour + "hour" + min + "min");
-					}else{
-						rTime.setText("0 hour 0 min"); 
-					}
-				}
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				if (dDate.getText().toString().equals("")) return;
+
+				int remainingDays = 0; 	  
+				Calendar beginCalendar = Calendar.getInstance();  
+				Calendar endCalendar = Calendar.getInstance();  
+				beginCalendar.setTime(today);  
+				try {
+					endCalendar.setTime(sdf_date.parse(dDate.getText().toString()));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}  
+				//calculate the remaining days. 
+				while(beginCalendar.before(endCalendar)){  
+					remainingDays++;  
+					beginCalendar.add(Calendar.DAY_OF_MONTH, 1);  
+				}  
+				rDate.setText(Integer.toString(remainingDays) + "Days");
 			}
 
 		});
+
+		dTime.addTextChangedListener(new TextWatcher(){
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				if (dDate.getText().toString().equals("")||dTime.getText().toString().equals("")) return;
+
+				try {
+					now = df.parse(df.format(today));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				try {
+					dueDay = df.parse(dDate.getText().toString() + " " + dTime.getText().toString());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				long l=dueDay.getTime() - now.getTime();
+				long day=l/(24*60*60*1000);
+				long hour=(l/(60*60*1000)-day*24);
+				long min=((l/(60*1000))-day*24*60-hour*60);
+				//long s=(l/1000-day*24*60*60-hour*60*60-min*60);
+				if(min > 0){
+					rTime.setText(hour + " Hours " + min + " Mins");
+				}else{
+					rTime.setText("0 Hour 0 Min"); 
+				}
+
+			}
+
+		});
+
 
 		sb.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
@@ -205,7 +285,7 @@ public class taskEdit extends Activity implements View.OnClickListener{
 			dateAndTime = checkedTask.startTime.split(" ");
 			sDate.setText(dateAndTime[0]);
 			sTime.setText(dateAndTime[1]);
-			rDate.setText(MainActivity.ma.getRemaining(checkedTask));
+			rDate.setText(MainActivity.ma.getRemaining(checkedTask).split(" ")[0] + " Days");
 
 			/*
 			 * set the value of slider
@@ -244,10 +324,57 @@ public class taskEdit extends Activity implements View.OnClickListener{
 
 			wPriority.setText(checkedTask.priority +"");
 
-			for(String s: checkedTask.tags){
-				wTags.append(s + " "); 
+			if(checkedTask.tags != null) {
+				for(String s: checkedTask.tags){
+					wTag.append(s + " "); 
+					wTag.setChips();
+				}
 			}
+
 		}
+
+		wDescription.addTextChangedListener(mTextWatcher); 	
+		filename.addTextChangedListener(mTextWatcher); 
+		dDate.addTextChangedListener(mTextWatcher); 
+		dTime.addTextChangedListener(mTextWatcher);
+		sDate.addTextChangedListener(mTextWatcher);
+		sTime.addTextChangedListener(mTextWatcher);
+		rDate.addTextChangedListener(mTextWatcher);
+		rTime.addTextChangedListener(mTextWatcher);
+		wPriority.addTextChangedListener(mTextWatcher);
+		wTag.addTextChangedListener(mTextWatcher);
+
+		OnCheckedChangeListener radioListener = new OnCheckedChangeListener(){
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				// TODO Auto-generated method stub
+				int priority = 0;
+				if (buttonView.getText().equals("LOW")) {
+					priority = 0;
+				} else if (buttonView.getText().equals("MODERATE")) {
+					priority = 1000;
+				} else if (buttonView.getText().equals("IMPORTANT")) {
+					priority = 5000;
+				} else {
+					priority = 8000;
+				}
+				if (isChecked) {
+					String pri = wPriority.getText().toString();
+					if (pri.equals("0") || pri.equals("1000") || pri.equals("5000") || pri.equals("8000")) {
+						wPriority.setText(String.valueOf(priority));
+					}
+				}
+			}
+
+
+		};
+
+		moderate.setOnCheckedChangeListener(radioListener);
+		low.setOnCheckedChangeListener(radioListener);
+		important.setOnCheckedChangeListener(radioListener);
+		crucial.setOnCheckedChangeListener(radioListener);
 
 
 	}
@@ -266,38 +393,7 @@ public class taskEdit extends Activity implements View.OnClickListener{
 		switch (item.getItemId()) {
 		// Respond to the action bar's Up/Home button
 		case android.R.id.home:
-
-			new AlertDialog.Builder(this)
-			.setTitle("Have not saved!")
-			.setMessage("Are you sure you want to leave without saving?")
-			.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) { 
-					// continue without save
-					//NavUtils.navigateUpFromSameTask(taskEdit.this);
-					finish();
-				}
-			})
-			.setNeutralButton("Stay", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-
-				}
-			})
-			.setNegativeButton("Save", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) { 
-					if (add()!=0){
-						if (!state.equals("COMPLETED")){
-							NavUtils.navigateUpFromSameTask(taskEdit.this);
-						}else{
-							Bundle bundle = new Bundle();
-							bundle.putString("table", "COMPLETED");
-							intent.putExtras(bundle);
-							intent.setClass(taskEdit.this, Main.class);
-							startActivity(intent);
-						}
-					}
-				}
-			})
-			.show();
+			back();
 
 			return true;
 		case R.id.action_save:
@@ -319,7 +415,51 @@ public class taskEdit extends Activity implements View.OnClickListener{
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void onBackPressed() {
+		back();
+	}
 
+	public void back() {
+		if (!textChanged) {
+			finish();
+		}else{
+			new AlertDialog.Builder(this)
+			.setTitle("Have not saved!")
+			.setMessage("Are you sure you want to leave without saving?")
+			.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
+					// continue without save
+					//NavUtils.navigateUpFromSameTask(taskEdit.this);
+					textChanged = false;
+					finish();
+				}
+			})
+			.setNeutralButton("Stay", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+
+				}
+			})
+			.setNegativeButton("Save", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) { 
+					textChanged = false;
+					if (add()!=0){
+						if (!state.equals("COMPLETED")){
+							NavUtils.navigateUpFromSameTask(taskEdit.this);
+						}else{
+							Bundle bundle = new Bundle();
+							bundle.putString("table", "COMPLETED");
+							intent.putExtras(bundle);
+							intent.setClass(taskEdit.this, Main.class);
+							startActivity(intent);
+							finish();
+
+						}
+					}
+				}
+			})
+			.show();
+		}
+	}
 
 	protected Dialog onCreateDialog(int id){
 		Calendar calendar = Calendar.getInstance();
@@ -340,25 +480,49 @@ public class taskEdit extends Activity implements View.OnClickListener{
 			};
 			dialog = new DatePickerDialog(this, dateListener, calendar.get(Calendar.YEAR),
 					calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-			break;
-		case TIME_DIALOG:
-			TimePickerDialog.OnTimeSetListener timeListener = new TimePickerDialog.OnTimeSetListener() {
+			((AlertDialog) dialog).setButton(DialogInterface.BUTTON_NEGATIVE, "Clear",
+					new DialogInterface.OnClickListener() {
 
 				@Override
-				public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+				public void onClick(DialogInterface dialog, int which) {
 					if (dOrs == 0){
-						dTime.setText(hourOfDay + ":" + minute);
+						dDate.setText("");
 					}else{
-						sTime.setText(hourOfDay + ":" + minute);
+						sDate.setText("");
 					}
 				}
-			};
-			dialog = new TimePickerDialog(this, timeListener, 
-					calendar.get(Calendar.HOUR_OF_DAY), 
-					calendar.get(Calendar.MINUTE), true); //whether is twenty-four-hour clock
+			});
 			break;
-		default:
-			break;
+			case TIME_DIALOG:
+				TimePickerDialog.OnTimeSetListener timeListener = new TimePickerDialog.OnTimeSetListener() {
+
+					@Override
+					public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+						if (dOrs == 0){
+							dTime.setText(hourOfDay + ":" + minute);
+						}else{
+							sTime.setText(hourOfDay + ":" + minute);
+						}
+					}
+				};
+				dialog = new TimePickerDialog(this, timeListener, 
+						calendar.get(Calendar.HOUR_OF_DAY), 
+						calendar.get(Calendar.MINUTE), true); //whether is twenty-four-hour clock
+				((AlertDialog) dialog).setButton(DialogInterface.BUTTON_NEGATIVE, "Clear",
+						new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						if (dOrs == 0){
+							dTime.setText("");
+						}else{
+							sTime.setText("");
+						}
+					}
+				});
+				break;
+			default:
+				break;
 		}
 		return dialog;
 	}
@@ -411,7 +575,7 @@ public class taskEdit extends Activity implements View.OnClickListener{
 			startTime = df.format(today);
 		}else if (sDate.getText().toString().equals("")) {
 			startTime = sdf_date.format(today) + " " + sTime.getText().toString();
-		}else{
+		}else if (sTime.getText().toString().equals("")){
 			startTime = sDate.getText().toString() + " " + sdf_time.format(today);
 		}
 
@@ -420,8 +584,24 @@ public class taskEdit extends Activity implements View.OnClickListener{
 			endTime = df.format(today);
 		}else if (dDate.getText().toString().equals("")) {
 			endTime = sdf_date.format(today) + " " + dTime.getText().toString();
-		}else{
+		}else if (dTime.getText().toString().equals("")){
 			endTime = dDate.getText().toString() + " " + sdf_time.format(today);
+		}
+
+		try {
+			if(df.parse(startTime).after(df.parse(endTime))) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setMessage("Wrong time: Start time should not after the deadline!")
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						return;
+					}
+				}).show();
+				return 0;
+			}
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 
 		try {   //check whether the state and the relationship between deadline and current is corresponding with each other
@@ -445,41 +625,75 @@ public class taskEdit extends Activity implements View.OnClickListener{
 		}else{
 			priority = Float.parseFloat(priority_string);
 		}
-		tags = wTags.getText().toString();
 
+
+		tags = wTag.getText().toString();
+		if (tags == null || tags.equals("")) {
+			tags = null;
+		} else {
+			if (tags.contains(",")) {
+				tags = tags.replace(",", " ");
+			}
+		}
 
 		task task1 = new task(null, details, startTime, endTime, description, state, importance, priority, tags, null);
 		if (checkedTask == null) {
 			tasks.add(task1);
-			if (state.equals("COMPLETED")){
-				Main.mgr.add(tasks, "completedTasktable");
-				table = "completedTasktable";
-			}else{
-				Main.mgr.add(tasks, "tasktable");
-				table = "tasktable";
-			}
+			//			if (state.equals("COMPLETED")){
+			//				Main.mgr.add(tasks, "completedTasktable");
+			//				table = "completedTasktable";
+			//			}else{
+			Main.mgr.add(tasks, "tasktable");
+			table = "tasktable";
+			//}
 		}else {
-			if (table.toString().equals("tasktable")&&state.equals("COMPLETED")){
-				Main.mgr.deleteOneTask(id, table);
-				List<task> list = new ArrayList<task>();
-				list.add(task1);
-				Main.mgr.add(list, "completedTasktable");
-				table = "completedTasktable";
-			}else if (table.toString().equals("completedTasktable")&&(state.equals("ACTIVE")||state.equals("EXPIRED"))){
-				Main.mgr.deleteOneTask(id, table);
-				List<task> list = new ArrayList<task>();
-				list.add(task1);
-				Main.mgr.add(list, "tasktable");
-				table = "tasktable";
-			}
-			else {
-				Main.mgr.updateById(task1, id, table);
-			}
+			//			if (table.toString().equals("tasktable")&&state.equals("COMPLETED")){
+			//				Main.mgr.deleteOneTask(id, table);
+			//				List<task> list = new ArrayList<task>();
+			//				list.add(task1);
+			//				Main.mgr.add(list, "completedTasktable");
+			//				table = "completedTasktable";
+			//			}else if (table.toString().equals("completedTasktable")&&(state.equals("ACTIVE")||state.equals("EXPIRED"))){
+			//				Main.mgr.deleteOneTask(id, table);
+			//				List<task> list = new ArrayList<task>();
+			//				list.add(task1);
+			//				Main.mgr.add(list, "tasktable");
+			//				table = "tasktable";
+			//			}
+			//			else {
+			Main.mgr.updateById(task1, id, table);
+			//	}
 		}
 		return 1;
 	}
 
-
-
+	public static String[] getAllTags(){
+		tagToTask = new HashMap<String, ArrayList<task>>();
+		List<task> allTasks = new ArrayList<task>();
+		ArrayList<String> allTags = new ArrayList<String>();
+		allTasks.addAll(Main.mgr.query("tasktable"));
+		//allTasks.addAll(Main.mgr.query("completedTasktable"));
+		if (allTasks == null) return null;
+		for (task t : allTasks) {
+			if (t.tags != null) {
+				List<String> temp = Arrays.asList(t.tags);
+				for (String s : temp) {
+					if (!s.equals(" ") && !s.equals("")) {
+						if (!allTags.contains(s)) {
+							allTags.add(s);
+							//push to the <tag, tasksid> hashmap
+							ArrayList<task> tagTasks = new ArrayList<task>();
+							tagTasks.add(t);
+							tagToTask.put(s, tagTasks);
+						} else {
+							tagToTask.get(s).add(t);
+						}
+					}
+				}
+			}
+		}
+		System.out.println((String[]) allTags.toArray(new String[allTags.size()]));
+		return (String[]) allTags.toArray(new String[allTags.size()]);
+	}
 
 }

@@ -3,11 +3,49 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+    <Button  
+        android:id="@+id/delMulti"  
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"          
+        android:layout_alignParentLeft="true"        
+        android:textColor="#ffffff"    
+        android:text="Delete"  
+        android:layout_margin="8dip"  
+        android:visibility="gone"
+         />
+     
+      
+    <Button  
+        android:id="@+id/cancel"  
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"        
+        android:textColor="#ffffff"    
+        android:text="Cancel"  
+        android:layout_margin="8dip"  
+        android:visibility="gone"
+        android:layout_toRightOf="@+id/delMulti"
+         />
+     
+      <Button  
+        android:id="@+id/setComplete"  
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"          
+        android:layout_alignParentRight="true"        
+        android:textColor="#ffffff"    
+        android:text="Set to Completed task"    
+        android:layout_margin="8dip"  
+        android:visibility="gone"
+        android:layout_toRightOf="@+id/cancel"
+         /> 
+    
     <org.rushme.timecat.tasks.SlideDelListview
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/delMulti"/>
+    
+  
 
 </RelativeLayout>

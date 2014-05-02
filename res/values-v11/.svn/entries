@@ -3,19 +3,19 @@
    xmlns="svn:">
 <entry
    name=""
-   repos="https://bolt.math.cmu.edu/svn/timecat"
-   revision="59"
+   repos="https://www.timecat.info/svn/timecat"
+   revision="75"
    last-author="danni"
-   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/res/values-v11"
-   committed-rev="59"
+   url="https://www.timecat.info/svn/timecat/trunk/TimeCat/res/values-v11"
+   committed-rev="75"
    kind="dir"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
 <entry
    name="styles.xml"
    checksum="adf6dd3dcafb5b937df00dd575582cd5"
    last-author="danni"
    text-time="2013-09-18T22:22:13.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
 </wc-entries>

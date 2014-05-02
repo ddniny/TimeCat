@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/org/rushme/timecat/tasks/About.java=UTF-8
 encoding//src/org/rushme/timecat/tasks/MainActivity.java=UTF-8
+encoding//src/org/rushme/timecat/tasks/PieChartBuilder.java=UTF-8
 encoding//src/org/rushme/timecat/tasks/SlideDelListview.java=UTF-8
 encoding//src/org/rushme/timecat/tasks/completedList.java=UTF-8

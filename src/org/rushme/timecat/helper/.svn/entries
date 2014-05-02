@@ -2,20 +2,28 @@
 <wc-entries
    xmlns="svn:">
 <entry
+   repos="https://www.timecat.info/svn/timecat"
    name=""
-   repos="https://bolt.math.cmu.edu/svn/timecat"
-   revision="59"
+   revision="75"
    last-author="danni"
-   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/src/org/rushme/timecat/helper"
-   committed-rev="59"
+   url="https://www.timecat.info/svn/timecat/trunk/TimeCat/src/org/rushme/timecat/helper"
+   committed-rev="75"
    kind="dir"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
+<entry
+   name="ChipsMultiAutoCompleteTextview.java"
+   checksum="260204cbe17c31d67ff9b77960781791"
+   last-author="danni"
+   text-time="2014-02-14T16:54:27.000000Z"
+   committed-rev="75"
+   kind="file"
+   committed-date="2014-03-15T16:47:41.602000Z"/>
 <entry
    name="ViewBase.java"
    checksum="5a4368f17fad957c9dc5d1f7a06ac4f1"
    last-author="danni"
    text-time="2014-01-17T12:52:28.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
 </wc-entries>

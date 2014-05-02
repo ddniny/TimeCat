@@ -1,18 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent" 
+    android:shrinkColumns="1,2,3,4">
+
 
     <TableRow
         android:id="@+id/tableRow1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <ToggleButton
+            android:id="@+id/togglebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="isStatisticsSave"
+            android:textOff="Remember Statistics Off"
+            android:textOn="Remember Statistics On" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/maxNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Settings" />
+            android:text="The max number of pieView: " />
+
+        <SeekBar
+            android:id="@+id/wmaxNum"
+            android:layout_width="245dip"
+            android:layout_height="wrap_content"
+            android:layout_span="1"
+            android:max="5"
+            android:progress="5" />
+
+        <TextView
+            android:id="@+id/sbValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5" />
     </TableRow>
 
 </TableLayout>

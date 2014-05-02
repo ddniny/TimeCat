@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
 
+     <RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="#FFFFE0">
 
 
     <ScrollView
@@ -11,13 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_below="@+id/save" >
+        android:layout_alignParentTop="true" >
 
         <TableLayout
             android:id="@+id/tableLayout1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="1,2,3,4" >
 
             <TableRow
                 android:id="@+id/tableRow1"
@@ -161,6 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:focusable="false"
                     android:hint="MM/DD/YYYY"
                     android:inputType="text" >
 
@@ -172,7 +175,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="HH:MM:SS"
+                    android:focusable="false"
+                    android:hint="HH:MM"
                     android:inputType="text" >
 
                     <requestFocus />
@@ -195,6 +199,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:focusable="false"
                     android:hint="MM/DD/YYYY"
                     android:inputType="text" >
 
@@ -206,7 +211,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="HH:MM:SS"
+                    android:focusable="false"
+                    android:hint="HH:MM"
                     android:inputType="text" >
 
                     <requestFocus />
@@ -301,35 +307,32 @@
                     android:id="@+id/wPriority"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="10"
+                    android:maxLength = "4"
+                    android:text = '1000'
                     android:inputType="number" >
 
                     <requestFocus />
                 </EditText>
             </TableRow>
 
-            <TableRow
-                android:id="@+id/tableRow10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+            <TableRow android:id="@+id/tableRow10" >
 
                 <TextView
                     android:id="@+id/tags"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:text="Tags" />
 
-                <EditText
-                    android:id="@+id/wTags"
+                <org.rushme.timecat.helper.ChipsMultiAutoCompleteTextview
+                    android:id="@+id/multiAutoCompleteTextView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="text" >
-
-                    <requestFocus />
-                </EditText>
+                    android:layout_span="2"
+                    android:completionThreshold="1"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                    android:ems="10" />
             </TableRow>
         </TableLayout>
     </ScrollView>
 
-</RelativeLayout>
+  </RelativeLayout>

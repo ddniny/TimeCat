@@ -2,30 +2,47 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   repos="https://bolt.math.cmu.edu/svn/timecat"
    name=""
-   revision="59"
+   repos="https://www.timecat.info/svn/timecat"
+   revision="75"
    last-author="danni"
-   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/res/drawable"
-   committed-rev="59"
+   url="https://www.timecat.info/svn/timecat/trunk/TimeCat/res/drawable"
+   committed-rev="75"
    kind="dir"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
 <entry
    name="bg_striped.xml"
    checksum="9cd3f298695f5c71d9e64f59e54fd8ca"
    last-author="danni"
    text-time="2013-07-29T14:09:06.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:28.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:25.000000Z"/>
 <entry
    name="bg_striped_split.xml"
    checksum="2428c704d13eecb1345e056127f7166a"
    last-author="danni"
    text-time="2013-07-29T14:09:06.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:27.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:32.000000Z"/>
+<entry
+   name="chips_edittext_gb.xml"
+   checksum="b850e28a88aa0d7d898b5c577d2bf6dc"
+   last-author="danni"
+   text-time="2014-02-13T15:43:40.000000Z"
+   committed-rev="75"
+   kind="file"
+   committed-date="2014-03-15T16:47:41.602000Z"/>
+<entry
+   name="my_button.xml"
+   revision="78"
+   checksum="78952eb1fa4d524a3c281e9da0872606"
+   last-author="danni"
+   text-time="2014-03-18T15:07:53.000000Z"
+   committed-rev="78"
+   kind="file"
+   committed-date="2014-03-18T15:11:06.595000Z"/>
 </wc-entries>

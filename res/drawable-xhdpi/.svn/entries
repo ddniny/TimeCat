@@ -2,138 +2,184 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   repos="https://bolt.math.cmu.edu/svn/timecat"
+   repos="https://www.timecat.info/svn/timecat"
    name=""
-   revision="59"
+   revision="75"
    last-author="danni"
-   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/res/drawable-xhdpi"
-   committed-rev="59"
+   url="https://www.timecat.info/svn/timecat/trunk/TimeCat/res/drawable-xhdpi"
+   committed-rev="75"
    kind="dir"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
 <entry
    name="bg_striped_img.png"
    checksum="2efb6c044c168dbf0166bcf1830c2c1f"
    last-author="danni"
    text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:35.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:26.000000Z"/>
 <entry
    name="bg_striped_split_img.png"
    checksum="bd4a47d750bfc84a925b51651db781a4"
    last-author="danni"
    text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:34.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:31.000000Z"/>
 <entry
    name="drawer_shadow.9.png"
    checksum="383fd73b38e3b7e3e16c45c0c05f4cc0"
    last-author="danni"
    text-time="2013-05-10T07:32:22.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:27.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:23.000000Z"/>
 <entry
    name="ic_action_accept.png"
    checksum="8de2a31b91fa14ec8ed9fe13a5600221"
    last-author="danni"
    text-time="2014-01-10T03:41:24.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:27.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:22.000000Z"/>
+<entry
+   name="ic_action_accept_w.png"
+   checksum="7a8bf30141f2a4142a638cb531d17553"
+   last-author="danni"
+   text-time="2014-01-31T23:12:50.000000Z"
+   committed-rev="75"
+   kind="file"
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:24.000000Z"/>
 <entry
    name="ic_action_edit.png"
    checksum="e5dda9d9b366263369ceae3018417b32"
    last-author="danni"
    text-time="2014-01-09T03:53:58.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:34.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:34.000000Z"/>
+<entry
+   name="ic_action_group_w.png"
+   revision="86"
+   checksum="4015da372d501abaa60b594fa6d93ff7"
+   last-author="danni"
+   text-time="2014-04-15T20:50:32.000000Z"
+   committed-rev="86"
+   kind="file"
+   committed-date="2014-04-15T20:52:17.316000Z"
+   prop-time="2014-04-15T20:52:16.000000Z"/>
 <entry
    name="ic_action_new.png"
    checksum="314f931ddb1a5d9c0301fba7f30922b3"
    last-author="danni"
    text-time="2014-01-09T03:35:36.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:32.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:22.000000Z"/>
+<entry
+   name="ic_action_new_w.png"
+   checksum="e1dbd1c89cd6c5aeae4bbb00075dc981"
+   last-author="danni"
+   text-time="2014-01-31T23:11:28.000000Z"
+   committed-rev="75"
+   kind="file"
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:25.000000Z"/>
 <entry
    name="ic_action_overflow.png"
    checksum="18286ac89c8442c740717acb40e4b9ef"
    last-author="danni"
    text-time="2014-01-04T08:47:38.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:33.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:32.000000Z"/>
+<entry
+   name="ic_action_overflow_w.png"
+   checksum="4b565a7102cb390b7dde4dfe9dc86a20"
+   last-author="danni"
+   text-time="2014-01-31T23:08:18.000000Z"
+   committed-rev="75"
+   kind="file"
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:19.000000Z"/>
 <entry
    name="ic_action_refresh.png"
    checksum="5b4d12da0b12f58139214a582a572f81"
    last-author="danni"
    text-time="2014-01-04T08:51:56.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:27.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:29.000000Z"/>
+<entry
+   name="ic_action_refresh_w.png"
+   checksum="cdde9858bb4defac582ee413e7383a03"
+   last-author="danni"
+   text-time="2014-01-31T23:09:53.000000Z"
+   committed-rev="75"
+   kind="file"
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:27.000000Z"/>
 <entry
    name="ic_action_save.png"
    checksum="57aa5c00075b6d2f8aef3b96dc021de9"
    last-author="danni"
    text-time="2014-01-09T03:56:44.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:31.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:20.000000Z"/>
 <entry
    name="ic_drawer.png"
    checksum="bf854ee99532ff2c579793fc04057ebf"
    last-author="danni"
    text-time="2013-05-10T07:32:22.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:31.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:28.000000Z"/>
 <entry
    name="ic_launcher.png"
    checksum="d480d3bbd7252c5d845e1bd11dd9a9a5"
    last-author="danni"
    text-time="2013-12-13T18:13:14.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:33.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:24.000000Z"/>
 <entry
    name="ic_launcher_settings.png"
    checksum="f6f563af42540e7d270299a916361220"
    last-author="danni"
    text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:25.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:22.000000Z"/>
 <entry
    name="ic_menu_today_no_date_holo_light.png"
    checksum="e29e2d421384241da035727f0ba9eece"
    last-author="danni"
    text-time="2014-01-08T04:21:53.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:32.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:29.000000Z"/>
 <entry
    name="icon.png"
    checksum="67eb7de5ad28f765a9b3b0fda0499198"
    last-author="danni"
    text-time="2013-11-19T23:57:02.000000Z"
-   committed-rev="59"
+   committed-rev="75"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"
-   prop-time="2014-01-17T13:57:34.000000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"
+   prop-time="2014-03-15T16:47:34.000000Z"/>
 </wc-entries>

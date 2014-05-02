@@ -2,111 +2,153 @@
 <wc-entries
    xmlns="svn:">
 <entry
-   repos="https://bolt.math.cmu.edu/svn/timecat"
+   repos="https://www.timecat.info/svn/timecat"
    name=""
-   revision="59"
+   revision="75"
    last-author="danni"
-   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/src/org/rushme/timecat/tasks"
-   committed-rev="59"
+   url="https://www.timecat.info/svn/timecat/trunk/TimeCat/src/org/rushme/timecat/tasks"
+   committed-rev="75"
    kind="dir"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
+<entry
+   name="About.java"
+   revision="86"
+   checksum="357982e2280319c1eb480df58c582921"
+   last-author="danni"
+   committed-rev="86"
+   text-time="2014-04-15T20:12:32.000000Z"
+   kind="file"
+   committed-date="2014-04-15T20:52:17.316000Z"/>
+<entry
+   name="ExpandableListAdapter.java"
+   revision="79"
+   checksum="bd4ae62b5da56c3de155722f1b616f6d"
+   last-author="danni"
+   committed-rev="79"
+   text-time="2014-03-27T02:46:38.000000Z"
+   kind="file"
+   committed-date="2014-03-28T16:44:21.708000Z"
+   prop-time="2014-03-28T16:44:19.000000Z"/>
+<entry
+   name="Help.java"
+   revision="86"
+   checksum="a9aead399aab8c8121b056cb041a3d6f"
+   last-author="danni"
+   committed-rev="86"
+   text-time="2014-04-15T20:12:38.000000Z"
+   kind="file"
+   committed-date="2014-04-15T20:52:17.316000Z"/>
 <entry
    name="Main.java"
-   revision="60"
-   checksum="ae99fc509b1f004e38a9bfa05010c7ed"
+   revision="86"
+   checksum="e3d9c3247d879c391972f432df448ad9"
    last-author="danni"
-   text-time="2014-01-17T21:00:05.000000Z"
-   committed-rev="60"
+   committed-rev="86"
+   text-time="2014-04-15T20:45:31.000000Z"
    kind="file"
-   committed-date="2014-01-24T03:33:12.412000Z"/>
+   committed-date="2014-04-15T20:52:17.316000Z"/>
 <entry
    name="MainActivity.java"
-   revision="60"
-   checksum="1a0a8629959fa0423c0a132613393490"
+   revision="86"
+   checksum="6129500673785225779b6b892332367f"
    last-author="danni"
-   text-time="2014-01-24T03:04:40.000000Z"
-   committed-rev="60"
+   committed-rev="86"
+   text-time="2014-04-15T20:12:06.000000Z"
    kind="file"
-   committed-date="2014-01-24T03:33:12.412000Z"/>
+   committed-date="2014-04-15T20:52:17.316000Z"/>
 <entry
    name="MyExit.java"
    checksum="8e547846f245ed423833f7bc10360471"
    last-author="danni"
+   committed-rev="75"
    text-time="2013-12-15T21:45:19.000000Z"
-   committed-rev="59"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
+<entry
+   name="PieChartBuilder.java"
+   revision="85"
+   checksum="85ac622445c39e14462bb589153271e6"
+   last-author="danni"
+   committed-rev="85"
+   text-time="2014-04-15T16:07:13.000000Z"
+   kind="file"
+   committed-date="2014-04-15T20:01:00.621000Z"/>
 <entry
    name="PieView.java"
-   checksum="8eb33c2b7552711f4a9404e7a9b8d215"
+   revision="85"
+   checksum="a0869eeadffecfd4f285305627e2d57d"
    last-author="danni"
-   text-time="2013-12-15T21:45:42.000000Z"
-   committed-rev="59"
+   committed-rev="85"
+   text-time="2014-04-15T02:47:48.000000Z"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-04-15T20:01:00.621000Z"/>
 <entry
    name="SelfAdapter.java"
-   revision="60"
-   checksum="3c9c30ac925abbc1f63a891d3906fcc0"
+   checksum="cce08f6787b7583fd5122738a1987093"
    last-author="danni"
-   text-time="2014-01-23T03:44:39.000000Z"
-   committed-rev="60"
+   committed-rev="75"
+   text-time="2014-02-28T20:01:19.000000Z"
    kind="file"
-   committed-date="2014-01-24T03:33:12.412000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
+<entry
+   name="ShowCustomList.java"
+   revision="80"
+   checksum="877c792c16252b91ba5b7f79631393bd"
+   last-author="danni"
+   committed-rev="80"
+   text-time="2014-03-28T19:31:35.000000Z"
+   kind="file"
+   committed-date="2014-03-28T19:43:17.571000Z"/>
 <entry
    name="SlideDelListview.java"
-   revision="60"
-   checksum="7a7d96fc25f1a8b6382cfc61d89da144"
+   checksum="367e0b4c2a24360401135c6f25aab9ff"
    last-author="danni"
-   text-time="2014-01-23T02:40:04.000000Z"
-   committed-rev="60"
+   committed-rev="75"
+   text-time="2014-03-15T16:24:20.000000Z"
    kind="file"
-   committed-date="2014-01-24T03:33:12.412000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
 <entry
    name="completedList.java"
-   revision="60"
-   checksum="01e68fddf05473683d4ca8e2b847625f"
+   revision="83"
+   checksum="bb7a0f0d0eaa83e0aab93d0c059472f8"
    last-author="danni"
-   text-time="2014-01-24T03:07:38.000000Z"
-   committed-rev="60"
+   committed-rev="83"
+   text-time="2014-04-02T19:44:11.000000Z"
    kind="file"
-   committed-date="2014-01-24T03:33:12.412000Z"/>
+   committed-date="2014-04-02T20:11:44.499000Z"/>
 <entry
    name="settings.java"
-   checksum="3b0fca05882eefcf09440f1da868d39a"
+   revision="86"
+   checksum="d8bef369bd0ca372179f0798450ea1a4"
    last-author="danni"
-   text-time="2014-01-17T12:24:37.000000Z"
-   committed-rev="59"
+   committed-rev="86"
+   text-time="2014-04-15T20:12:14.000000Z"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
-<entry
-   name="showTask.java"
-   revision="60"
-   kind="file"
-   deleted="true"/>
+   committed-date="2014-04-15T20:52:17.316000Z"/>
 <entry
    name="statistics.java"
-   checksum="e1294a7388c8d92019cbd3da3a70a5d2"
+   revision="86"
+   checksum="8f8aaa1389e7cfeb12ece16c677d996c"
    last-author="danni"
-   text-time="2014-01-17T12:34:41.000000Z"
-   committed-rev="59"
+   committed-rev="86"
+   text-time="2014-04-15T20:12:25.000000Z"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-04-15T20:52:17.316000Z"/>
 <entry
    name="task.java"
-   checksum="62e786542295dd27f523684bdb0bc2b6"
+   checksum="f556f683be8ed773416f23876b18f705"
    last-author="danni"
-   text-time="2013-12-31T05:02:10.000000Z"
-   committed-rev="59"
+   committed-rev="75"
+   text-time="2014-02-07T17:38:03.000000Z"
    kind="file"
-   committed-date="2014-01-17T13:57:45.192000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
 <entry
    name="taskEdit.java"
-   revision="60"
-   checksum="cdd8571b3a13c60b56f649d82fc2b3d2"
+   revision="85"
+   checksum="cf8e987dd1c7c369c0ab4235da4df31c"
    last-author="danni"
-   text-time="2014-01-24T03:18:23.000000Z"
-   committed-rev="60"
+   committed-rev="85"
+   text-time="2014-04-15T02:40:36.000000Z"
    kind="file"
-   committed-date="2014-01-24T03:33:12.412000Z"/>
+   committed-date="2014-04-15T20:01:00.621000Z"/>
 </wc-entries>

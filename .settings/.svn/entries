@@ -2,20 +2,21 @@
 <wc-entries
    xmlns="svn:">
 <entry
+   repos="https://www.timecat.info/svn/timecat"
    name=""
-   repos="https://bolt.math.cmu.edu/svn/timecat"
-   revision="47"
+   revision="75"
    last-author="danni"
-   url="https://bolt.math.cmu.edu/svn/timecat/trunk/TimeCat/.settings"
-   committed-rev="47"
+   url="https://www.timecat.info/svn/timecat/trunk/TimeCat/.settings"
+   committed-rev="75"
    kind="dir"
-   committed-date="2014-01-02T14:17:59.103000Z"/>
+   committed-date="2014-03-15T16:47:41.602000Z"/>
 <entry
    name="org.eclipse.core.resources.prefs"
-   checksum="493aadf11f66e348cfa48a45c1314f4a"
+   revision="85"
+   checksum="7e5cbc51a9924cd004dee84af8ed0c23"
    last-author="danni"
-   text-time="2014-01-02T13:24:35.000000Z"
-   committed-rev="47"
+   committed-rev="85"
+   text-time="2014-04-15T03:11:35.000000Z"
    kind="file"
-   committed-date="2014-01-02T14:17:59.103000Z"/>
+   committed-date="2014-04-15T20:01:00.621000Z"/>
 </wc-entries>

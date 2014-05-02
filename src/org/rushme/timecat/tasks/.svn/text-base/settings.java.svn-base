@@ -9,12 +9,28 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
 public class settings extends Fragment{ //extends Activity implements View.OnClickListener{
 	public static final String ARG_MODE_NUMBER = "mode_number";
+	private static settings settings = null;
+	private SeekBar maxNumSb = null;
+	private static final int sbMax = 5;
+	private TextView sbValue;
+	
+	public static settings getSettings(){
+		if (settings == null) {
+			settings = new settings();
+		}
+		return settings;
+	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -22,8 +38,55 @@ public class settings extends Fragment{ //extends Activity implements View.OnCli
 		int i = getArguments().getInt(ARG_MODE_NUMBER);
         String planet = getResources().getStringArray(R.array.Mode_array)[i];
         getActivity().setTitle(planet);
+        
+        setHasOptionsMenu(true);
 
+        sbValue = (TextView)rootView.findViewById(R.id.sbValue);
+        maxNumSb = (SeekBar)rootView.findViewById(R.id.wmaxNum);
+        maxNumSb.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				//Toast.makeText(MainActivity.this, "滑动结束", Toast.LENGTH_LONG).show();
+			}
+
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				//Toast.makeText(MainActivity.this, "滑动开始", Toast.LENGTH_LONG).show();		
+			}
+
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				sbValue.setText(progress + "");
+				statistics.getStatistics().maxNum = progress;
+			}
+		});
 		return rootView;
+	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getActivity().getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		//currentMenu = menu;
+		return super.getActivity().onCreateOptionsMenu(menu);
+	}
+	
+	/* Called whenever we call invalidateOptionsMenu() */
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		// If the nav drawer is open, hide action items related to the content view
+		//boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+		//boolean drawerOpen = Main.getInstance().mDrawerLayout.isDrawerOpen(Main.getInstance().expListView);
+		//if (drawerOpen){
+			menu.findItem(R.id.action_refresh).setVisible(!true);
+			menu.findItem(R.id.action_settings).setVisible(!true);
+			menu.findItem(R.id.action_group).setVisible(!true);
+			menu.findItem(R.id.action_new).setVisible(!true);
+			menu.findItem(R.id.action_accept).setVisible(!true);
+		//}
+	}
+	
+	public int getSeekBarValue(){
+		if(maxNumSb != null) return maxNumSb.getProgress();
+		else return sbMax;
 	}
 
 }

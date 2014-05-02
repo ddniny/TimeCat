@@ -1,6 +1,11 @@
 package org.rushme.timecat.tasks;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +29,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,11 +39,12 @@ import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class completedList extends Fragment{ //extends ActionBarActivity implements View.OnClickListener{
-	Button back, menu;
+	Button back, menu, delMulti, cancel, setComplete;
 	private String[] mLocations;
 	MyExit myExit;
 	public static SlideDelListview activeListView;
@@ -49,6 +54,9 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 	public static Button curDel_btn;
 	private List<Map<String,Object>> activeTasks;
 	public static final String ARG_MODE_NUMBER = "mode_number";
+	static SelfAdapter mSelfAdapter;
+	private static View rootView;
+
 
 	public completedList() {
 		// Empty constructor required for fragment subclasses
@@ -57,28 +65,65 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 	//	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.completed_list, container, false);
+		rootView = inflater.inflate(R.layout.completed_list, container, false);
 		int i = getArguments().getInt(ARG_MODE_NUMBER);
 		String planet = getResources().getStringArray(R.array.Mode_array)[i];
 		getActivity().setTitle(planet);
 
 		myExit = (MyExit) getActivity().getApplication();
 		myExit.setExit(false);
-		
+
+		delMulti = (Button)rootView.findViewById(R.id.delMulti);
+
+		delMulti.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				deletMulti();
+			}
+
+		});
+
+		cancel = (Button)rootView.findViewById(R.id.cancel);
+		cancel.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				batchProcessing();
+			}
+
+		});
+
+		setComplete = (Button)rootView.findViewById(R.id.setComplete);
+		setComplete.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setMulti();
+			}
+
+		});
+
 		activeListView = (SlideDelListview) rootView.findViewById(android.R.id.list);
 		mFrom = new String[]{"details","Description","time"};
 		mTo = new int[]{R.id.details,R.id.description,R.id.time};
-		activeTasks = getData();
+
+		activeTasks = new ArrayList<Map<String, Object>>();
+		activeTasks.clear();
+		activeTasks.addAll(getData());
 		//own-defined Adapter
-		final SelfAdapter mSelfAdapter = new SelfAdapter(getActivity(), getData(), R.layout.item_completed, mFrom, mTo);
+		mSelfAdapter = new SelfAdapter(getActivity(), activeTasks, R.layout.item_completed, mFrom, mTo);
 		activeListView.setAdapter(mSelfAdapter);
-		
+
 		activeListView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() { 
 			@Override
 			public void onCreateContextMenu(ContextMenu menu, View v, 
 					ContextMenuInfo menuInfo) { 
 				longClick = true;
-				menu.add(0, 0, 0, "Mark as Uncompleted"); 
+				menu.add(0, 0, 0, "Mark as Completed/ Uncompleted"); 
 				menu.add(0, 1, 0, "Duplicate"); 
 				menu.add(0, 2, 0, "Delete"); 
 
@@ -88,6 +133,9 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 		activeListView.setFlipperDeleteListener(new SlideDeleteListener() {
 
 			public void filpperOnclick(float xPosition, float yPosition) {
+				if (curDel_btn != null) { //delete button disappear when press other place
+					curDel_btn.setVisibility(View.GONE);
+				}
 				if (longClick) {
 					longClick = false;
 					return;
@@ -116,7 +164,7 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 				intent.putExtras(bundle); 
 				startActivity(intent);
 			}
-			
+
 			public void filpperMarkAs(float xPosition, float yPosition) {
 				final int position = activeListView.pointToPosition((int) xPosition, (int) yPosition);
 				if (position == -1){
@@ -124,13 +172,15 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 				}
 				final String selectedId = activeTasks.get(position).get("id").toString();
 				final String selectedTable;
-					selectedTable = "completedTasktable";
-				
+				selectedTable = "completedTasktable";
+
 				task selectedTask = Main.mgr.queryById(selectedId, selectedTable);
 				markAsUncompleted (selectedTask, selectedId, selectedTable);
-				activeListView.setAdapter(new SelfAdapter(completedList.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
+				activeTasks.clear();
+				activeTasks.addAll(getData());
+				mSelfAdapter.notifyDataSetChanged();
 
-				//Toast.makeText(getApplicationContext(), "msg msg", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "Mark as uncompleted.", Toast.LENGTH_LONG).show();
 			}
 
 			public void filpperDelete(float xPosition, float yPosition) {
@@ -164,7 +214,11 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 									final String selectedTable;
 									selectedTable = "completedTasktable";
 									Main.mgr.deleteOneTask(selectedId, selectedTable);
-									activeListView.setAdapter(new SelfAdapter(completedList.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));								}
+									activeTasks.clear();
+									activeTasks.addAll(getData());
+									mSelfAdapter.notifyDataSetChanged();
+									curDel_btn.setVisibility(View.GONE);
+								}
 							})
 							.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) { 
@@ -172,7 +226,7 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 								}
 							})
 							.show();
-							
+
 
 						}
 
@@ -197,6 +251,9 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 		case 0: 
 			// Mark as Completed
 			markAsUncompleted (selectedTask, selectedId, selectedTable);
+			activeTasks.clear();
+			activeTasks.addAll(getData());
+			mSelfAdapter.notifyDataSetChanged();
 			break; 
 
 		case 1: 
@@ -213,7 +270,9 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 			.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) { 
 					Main.mgr.deleteOneTask(selectedId, selectedTable);
-					activeListView.setAdapter(new SelfAdapter(completedList.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
+					activeTasks.clear();
+					activeTasks.addAll(getData());
+					mSelfAdapter.notifyDataSetChanged();
 				}
 			})
 			.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -227,7 +286,6 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 		default: 
 			break; 		
 		} 
-		activeListView.setAdapter(new SelfAdapter(completedList.this.getActivity(), getData(), R.layout.item_active, mFrom, mTo));
 
 
 		return super.onContextItemSelected(item);
@@ -242,12 +300,35 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 		List<Map<String,Object>> mList = new ArrayList<Map<String,Object>>();
 		Map<String,Object> mMap = null;
 		List<task> tasks = Main.mgr.queryCompleted();  //only query the informations of completed tasks
+		Collections.sort(tasks, new Comparator<task>(){
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			@Override
+			public int compare(task t1, task t2) {
+				// TODO Auto-generated method stub
+				try {
+					Date d1 = sdf.parse(t1.addTime);
+					Date d2 = sdf.parse(t2.addTime);
+					if (d1.before(d2)) {
+						return 1;
+					} if (d1.after(d2)) {
+						return -1;
+					} else return 0;
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				return 0;
+			}
+			
+		});
+		
 		for (task everyTask : tasks){
 			mMap = new HashMap<String, Object>();
 			mMap.put("id", everyTask.id);
 			mMap.put("details", everyTask.details);
 			mMap.put("Description", everyTask.description);
-			mMap.put("time", everyTask.startTime);
+			mMap.put("time", "Completed at " + everyTask.addTime);//everyTask.startTime);
 			mList.add(mMap);
 		}
 		return mList;
@@ -255,13 +336,114 @@ public class completedList extends Fragment{ //extends ActionBarActivity impleme
 
 	public void markAsUncompleted (task selectedTask, String selectedId, String selectedTable){
 		if (selectedTask == null) return;
-	selectedTask.setState("ACTIVE");
-	if (selectedTable.toString().equals("completedTasktable")){	//mark the task to completed and move it to the completedTasktable from tasktable
-		Main.mgr.deleteOneTask(selectedId, selectedTable);
-		List<task> list = new ArrayList<task>();
-		list.add(selectedTask);
-		Main.mgr.add(list, "tasktable");
+		selectedTask.setState("ACTIVE");
+		if (selectedTable.toString().equals("completedTasktable")){	//mark the task to completed and move it to the completedTasktable from tasktable
+			Main.mgr.deleteOneTask(selectedId, selectedTable);
+			List<task> list = new ArrayList<task>();
+			list.add(selectedTask);
+			Main.mgr.add(list, "tasktable");
+		}
 	}
+
+	public void batchProcessing () {
+		if (curDel_btn != null) curDel_btn.setVisibility(View.GONE);
+		activeListView.setScrollBarStyle(1);
+		for(int i = 0; i < activeListView.getChildCount(); i++) {
+			int firstVisiblePosition = activeListView.getFirstVisiblePosition();
+			View view = activeListView.getChildAt(i-firstVisiblePosition);
+			CheckBox cb = (CheckBox) view.findViewById(R.id.checkBox);
+			if (cb.getVisibility() != View.VISIBLE) {
+				cb.setVisibility(View.VISIBLE);
+			} else {
+				cb.setVisibility(View.GONE);
+			}
+			Main.isSelected.clear();
+			for(int j = 0; j<activeListView.getChildCount(); j++){
+				Main.isSelected.put(j, false);
+			}
+		}
+		delMulti = (Button)rootView.findViewById(R.id.delMulti);
+		if (delMulti.getVisibility() != View.VISIBLE) {
+			delMulti.setVisibility(View.VISIBLE);
+		} else {
+			delMulti.setVisibility(View.GONE);
+		}
+		cancel = (Button)rootView.findViewById(R.id.cancel);
+		if (cancel.getVisibility() != View.VISIBLE) {
+			cancel.setVisibility(View.VISIBLE);
+		} else {
+			cancel.setVisibility(View.GONE);
+		}		
+		setComplete = (Button)rootView.findViewById(R.id.setComplete);
+		if (setComplete.getVisibility() != View.VISIBLE) {
+			setComplete.setVisibility(View.VISIBLE);
+		} else {
+			setComplete.setVisibility(View.GONE);
+		}
+	}
+
+	public void deletMulti(){
+		new AlertDialog.Builder(this.getActivity())
+		.setTitle("Delete Task!")
+		.setMessage("Are you sure you want to delete these tasks?")
+		.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) { 
+				for (int index=0; index < Main.isSelected.size(); index++) {
+					if (Main.isSelected.get(index)) {
+						final String selectedId = activeTasks.get(index).get("id").toString();
+						final String selectedTable;
+						selectedTable = "completedTasktable";
+						Main.mgr.deleteOneTask(selectedId, selectedTable);
+					}
+				}
+
+				activeTasks.clear();
+				activeTasks.addAll(getData());
+				mSelfAdapter.notifyDataSetChanged();
+
+				Main.isSelected.clear();
+				for(int j = 0; j<activeListView.getChildCount(); j++){
+					int firstVisiblePosition = activeListView.getFirstVisiblePosition();
+					View view = activeListView.getChildAt(j-firstVisiblePosition);
+					CheckBox cb = (CheckBox) view.findViewById(R.id.checkBox);
+					cb.setChecked(false);
+					Main.isSelected.put(j, false);
+				}
+			}
+		})
+		.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) { 
+
+			}
+		})
+		.show();
+
+	}
+
+	public void setMulti(){
+		for (int index=0; index < Main.isSelected.size(); index++) {
+			if (Main.isSelected.get(index)) {
+				final String selectedId = activeTasks.get(index).get("id").toString();
+				final String selectedTable;
+				selectedTable = "completedTasktable";
+				task selectedTask = Main.mgr.queryById(selectedId, selectedTable);
+				markAsUncompleted (selectedTask, selectedId, selectedTable);
+			}
+		}
+		activeTasks.clear();
+		activeTasks.addAll(getData());
+		mSelfAdapter.notifyDataSetChanged();
+
+		Main.isSelected.clear();
+		for(int j = 0; j<activeListView.getChildCount(); j++){
+			int firstVisiblePosition = activeListView.getFirstVisiblePosition();
+			View view = activeListView.getChildAt(j-firstVisiblePosition);
+			CheckBox cb = (CheckBox) view.findViewById(R.id.checkBox);
+			cb.setChecked(false);
+			Main.isSelected.put(j, false);
+		}
+
 	}
 
 }
+

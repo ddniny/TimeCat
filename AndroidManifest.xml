@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="15"
         android:targetSdkVersion="17" />
 
     <application
@@ -13,10 +13,11 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light" >
+        android:theme="@style/Theme.Base.AppCompat.Light">
         <activity
             android:name="org.rushme.timecat.tasks.Main"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,14 +26,16 @@
         </activity>
         <activity
             android:name="org.rushme.timecat.tasks.taskEdit"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:parentActivityName="org.rushme.timecat.tasks.Main" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.rushme.timecat.tasks.Main" />
         </activity>
-       
+       <activity
+        android:name="org.achartengine.GraphicalActivity" />
      
-        
         
     </application>
 
